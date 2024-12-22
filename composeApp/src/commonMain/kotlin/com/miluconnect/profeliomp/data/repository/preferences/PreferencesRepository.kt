@@ -6,5 +6,3 @@ interface PreferencesRepository {
     fun getUserName(): Flow<String?>
     suspend fun saveUserName(userName: String)
 }
-
-expect class PreferencesRepositoryImpl : PreferencesRepository
