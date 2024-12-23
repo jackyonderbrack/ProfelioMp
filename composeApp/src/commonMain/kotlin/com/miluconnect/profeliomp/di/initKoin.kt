@@ -7,6 +7,6 @@ import org.koin.dsl.KoinAppDeclaration
 fun initKoin(appDeclaration: KoinAppDeclaration = {}, platformModule: Module) {
     startKoin {
         appDeclaration()
-        modules(platformModule)
+        modules(listOf(platformModule, sharedModule))
     }
 }
