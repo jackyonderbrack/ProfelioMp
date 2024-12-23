@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -38,10 +39,10 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
-
         TextField(
             value = state.password,
             onValueChange = { viewModel.handleIntent(LoginIntent.UpdatePassword(it)) },
+            visualTransformation = PasswordVisualTransformation(),
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth()
         )

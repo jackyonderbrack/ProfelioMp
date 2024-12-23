@@ -12,11 +12,11 @@ class LoginViewModel : ViewModel() {
 
     fun handleIntent(intent: LoginIntent) {
         when (intent) {
-            is LoginIntent.UpdatePassword -> {
-                _state.value = _state.value.copy(username = intent.password)
-            }
             is LoginIntent.UpdateUsername -> {
                 _state.value = _state.value.copy(username = intent.username)
+            }
+            is LoginIntent.UpdatePassword -> {
+                _state.value = _state.value.copy(password = intent.password)
             }
             LoginIntent.Login -> {
                 viewModelScope.launch {
