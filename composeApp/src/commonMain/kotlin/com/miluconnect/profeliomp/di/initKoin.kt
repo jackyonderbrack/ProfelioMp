@@ -5,7 +5,7 @@ import org.koin.core.module.Module
 
 private var isKoinStarted = false
 
-fun initCommonKoin(vararg platformModules: Module) {
+fun initKoin(vararg platformModules: Module) {
     if (!isKoinStarted) {
         println("KOIN !isKoinStarted()")
         startKoin {

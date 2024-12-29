@@ -2,19 +2,24 @@ package com.miluconnect.profeliomp.presentation.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miluconnect.profeliomp.domain.repository.UserRepository
+import com.miluconnect.profeliomp.domain.core.onError
+import com.miluconnect.profeliomp.domain.core.onSuccess
+import com.miluconnect.profeliomp.domain.models.login.LoginPayload
+import com.miluconnect.profeliomp.data.repository.login.LoginRepository
+import com.miluconnect.profeliomp.presentation.core.toUiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-// Presentation -> Domain <- Data
 class LoginViewModel(
-    private val dataSource: UserRepository
+    private val loginRepository: LoginRepository
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> get() = _state
 
-    fun handleIntent(intent: LoginIntent) {
+    fun onIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.UpdateUsername -> {
                 _state.value = _state.value.copy(username = intent.username)
@@ -22,11 +27,29 @@ class LoginViewModel(
             is LoginIntent.UpdatePassword -> {
                 _state.value = _state.value.copy(password = intent.password)
             }
-            LoginIntent.Login -> {
+            is LoginIntent.Login -> {
                 viewModelScope.launch {
-                    _state.value = _state.value.copy(isLoading = true)
-                    // request
-                    _state.value = _state.value.copy(isLoading = false)
+                    _state.update { it.copy(isLoading = true) }
+                        loginRepository
+                            .login(loginPayload = LoginPayload(_state.value.username, _state.value.password))
+                            .onSuccess { response ->
+                                _state.update { it.copy(
+                                    isLoading = false,
+                                    errorMessage = null,
+                                    responseMessage = response.message,
+                                    token = response.token,
+                                    refreshToken = response.refreshToken
+                                ) }
+                            }
+                            .onError { response ->
+                                _state.update { it.copy(
+                                    isLoading = false,
+                                    errorMessage = response.toUiText().toString(),
+                                    responseMessage = "Error",
+                                    token = "Brak",
+                                    refreshToken = "Brak",
+                                ) }
+                            }
                 }
             }
         }

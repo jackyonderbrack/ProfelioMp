@@ -19,13 +19,36 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.domain.models.login.LoginPayload
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel()
+fun LoginScreenRoot(
+    viewModel: LoginViewModel = koinViewModel(),
+    onLoginClick: (LoginPayload) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsState()
+    LoginScreen(
+        state = state,
+        onAction = { intent ->
+            when (intent) {
+                is LoginIntent.UpdateUsername -> viewModel.onIntent(intent)
+                is LoginIntent.UpdatePassword -> viewModel.onIntent(intent)
+                is LoginIntent.Login -> {
+                    viewModel.onIntent(intent)
+                    onLoginClick(intent.loginPayload)
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun LoginScreen(
+    state: LoginState,
+    onAction: (LoginIntent) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -34,23 +57,32 @@ fun LoginScreen(
     ) {
         TextField(
             value = state.username,
-            onValueChange = { viewModel.handleIntent(LoginIntent.UpdateUsername(it)) },
+            onValueChange = { text ->
+                onAction(LoginIntent.UpdateUsername(text))
+            },
             label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
             value = state.password,
-            onValueChange = { viewModel.handleIntent(LoginIntent.UpdatePassword(it)) },
+            onValueChange = { text ->
+                onAction(LoginIntent.UpdatePassword(text))
+            },
             visualTransformation = PasswordVisualTransformation(),
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(
-            onClick = { viewModel.handleIntent(LoginIntent.Login)},
+            onClick = { onAction(LoginIntent.Login(
+                LoginPayload(
+                username = state.username,
+                password = state.password
+            )
+            )) },
             modifier = Modifier.fillMaxWidth(),
-            enabled = !state.isLoading,
+            enabled = !state.isLoading
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.size(24.dp))
@@ -58,7 +90,7 @@ fun LoginScreen(
                 Text("Login")
             }
         }
-        state.error?.let {
+        state.errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
             Text(it, color = MaterialTheme.colorScheme.error)
         }

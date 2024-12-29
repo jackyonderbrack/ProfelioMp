@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- General -->
+    <string name="search_result_empty">Oops! No results found.</string>
+    <string name="favorites_empty">No favorites yet. Try add some</string>
+    <string name="go_back">Go back</string>
+    <!-- Remote Errors -->
+    <string name="error_request_timeout">Oops, it took too long to get a response. Please try again!</string>
+    <string name="error_too_many_requests">Whoa, slow down! Too many requests at once.</string>
+    <string name="error_not_found">Oops, we couldn’t find what you’re looking for!</string>
+    <string name="error_no_internet">It seems you’re offline. Check your connection and try again!</string>
+    <string name="error_unauthorized">You’re not authorized to do this. Please log in!</string>
+    <string name="error_server_error">Our server had a hiccup. Please try again later!</string>
+    <string name="error_not_implemented">Oops, this feature isn’t ready yet!</string>
+    <string name="error_bad_gateway">There’s a problem with the gateway. Hang tight, we’re on it!</string>
+    <string name="error_service_unavailable">The service is currently unavailable. Please check back soon!</string>
+    <string name="error_gateway_timeout">The request took too long. Please give it another shot!</string>
+    <string name="error_serialization">Something went wrong with the data. We’re working on it!</string>
+    <string name="error_unknown_remote">Something unexpected happened. Please try again later!</string>
+    <!-- Local Errors -->
+    <string name="error_disk_full">Your device is out of storage. Please free up some space!</string>
+    <string name="error_unknown_local">An unknown issue occurred. Let’s try restarting the app!</string>
+
+</resources>
