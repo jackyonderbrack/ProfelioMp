@@ -19,7 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.miluconnect.profeliomp.domain.models.login.LoginPayload
+import com.miluconnect.profeliomp.domain.models.LoginPayload
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

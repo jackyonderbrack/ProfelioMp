@@ -1,12 +1,12 @@
-package com.miluconnect.profeliomp.data.repository.login
+package com.miluconnect.profeliomp.data.repository
 
 import com.miluconnect.profeliomp.data.mappers.toLoginResponse
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.core.map
-import com.miluconnect.profeliomp.domain.models.login.LoginPayload
-import com.miluconnect.profeliomp.domain.models.login.LoginResponse
+import com.miluconnect.profeliomp.domain.models.LoginPayload
+import com.miluconnect.profeliomp.domain.models.LoginResponse
 
 interface LoginRepository {
     suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote>

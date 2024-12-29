@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.domain.models.login
+package com.miluconnect.profeliomp.domain.models
 
 data class LoginPayload(
     val username: String,

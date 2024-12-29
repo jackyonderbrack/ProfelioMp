@@ -1,6 +1,6 @@
 package com.miluconnect.profeliomp.presentation.screens.login
 
-import com.miluconnect.profeliomp.domain.models.login.LoginPayload
+import com.miluconnect.profeliomp.domain.models.LoginPayload
 
 sealed class LoginIntent {
     data class UpdateUsername(val username: String) : LoginIntent()
