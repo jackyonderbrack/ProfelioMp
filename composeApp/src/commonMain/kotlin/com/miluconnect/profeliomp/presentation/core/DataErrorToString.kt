@@ -17,7 +17,7 @@ import profeliomp.composeapp.generated.resources.error_unauthorized
 import profeliomp.composeapp.generated.resources.error_unknown_local
 import profeliomp.composeapp.generated.resources.error_unknown_remote
 
-fun DataError.toUiText(): Text {
+fun DataError.toUiText(): UiText {
     val stringRes = when (this) {
         DataError.Local.DISK_FULL -> Res.string.error_disk_full
         DataError.Local.UNKNOWN -> Res.string.error_unknown_local
@@ -35,5 +35,5 @@ fun DataError.toUiText(): Text {
         DataError.Remote.UNKNOWN -> Res.string.error_unknown_remote
     }
 
-    return Text.StringResourceId(stringRes)
+    return UiText.StringResourceId(stringRes)
 }

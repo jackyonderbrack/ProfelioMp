@@ -36,7 +36,7 @@ fun LoginScreenRoot(
             when (intent) {
                 is LoginIntent.UpdateUsername -> viewModel.onIntent(intent)
                 is LoginIntent.UpdatePassword -> viewModel.onIntent(intent)
-                is LoginIntent.Login -> {
+                is LoginIntent.LoginToApp -> {
                     viewModel.onIntent(intent)
                     onLoginClick(intent.loginPayload)
                 }
@@ -76,7 +76,7 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(
-            onClick = { onAction(LoginIntent.Login(
+            onClick = { onAction(LoginIntent.LoginToApp(
                 LoginPayload(
                 username = state.username,
                 password = state.password
@@ -93,7 +93,7 @@ fun LoginScreen(
         }
         state.errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
-            Text(it, color = MaterialTheme.colorScheme.error)
+            Text(it.toString(), color = MaterialTheme.colorScheme.error)
         }
     }
 }

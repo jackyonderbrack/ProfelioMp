@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-sealed interface Text {
-    data class DynamicString(val value: String): Text
+sealed interface UiText {
+    data class DynamicString(val value: String): UiText
     class StringResourceId(
         val id: StringResource,
         val args: Array<Any> = arrayOf()
-    ): Text
+    ): UiText
 
     @Composable
     fun asString(): String {

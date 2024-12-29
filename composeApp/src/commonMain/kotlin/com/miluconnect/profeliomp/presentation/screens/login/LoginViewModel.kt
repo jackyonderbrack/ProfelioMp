@@ -27,7 +27,7 @@ class LoginViewModel(
             is LoginIntent.UpdatePassword -> {
                 _state.value = _state.value.copy(password = intent.password)
             }
-            is LoginIntent.Login -> {
+            is LoginIntent.LoginToApp -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                         loginRepository
@@ -44,7 +44,7 @@ class LoginViewModel(
                             .onError { response ->
                                 _state.update { it.copy(
                                     isLoading = false,
-                                    errorMessage = response.toUiText().toString(),
+                                    errorMessage = response.toUiText(),
                                     responseMessage = "Error",
                                     token = "Brak",
                                     refreshToken = "Brak",
