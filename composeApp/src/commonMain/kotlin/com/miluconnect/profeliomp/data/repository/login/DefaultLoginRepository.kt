@@ -1,7 +1,7 @@
 package com.miluconnect.profeliomp.data.repository.login
 
-import com.miluconnect.profeliomp.data.mappers.login.toLoginResponse
-import com.miluconnect.profeliomp.data.network.login.RemoteLoginDataSource
+import com.miluconnect.profeliomp.data.mappers.toLoginResponse
+import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.core.map

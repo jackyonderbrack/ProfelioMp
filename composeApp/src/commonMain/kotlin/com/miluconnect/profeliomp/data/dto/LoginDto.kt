@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.data.dto.login
+package com.miluconnect.profeliomp.data.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -24,10 +24,11 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreenRoot(
-    viewModel: LoginViewModel = koinViewModel(),
+    viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
     onLoginClick: (LoginPayload) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     val state by viewModel.state.collectAsState()
     LoginScreen(
         state = state,

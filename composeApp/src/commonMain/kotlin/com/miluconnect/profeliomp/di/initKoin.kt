@@ -7,9 +7,9 @@ private var isKoinStarted = false
 
 fun initKoin(vararg platformModules: Module) {
     if (!isKoinStarted) {
-        println("KOIN !isKoinStarted()")
+        println("KOIN !isKoinStarted() $platformModules")
         startKoin {
-            modules(sharedModule, *platformModules)
+            modules(sharedModule, platformModule, *platformModules)
             println("KOIN modules(sharedModule, *extraModules)")
         }
         isKoinStarted = true

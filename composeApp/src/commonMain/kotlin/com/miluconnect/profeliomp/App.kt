@@ -15,11 +15,9 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 @Preview
 fun App() {
-    val viewModel = koinViewModel<LoginViewModel>()
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             LoginScreenRoot(
-                viewModel = viewModel,
                 onLoginClick = {}
             )
         }

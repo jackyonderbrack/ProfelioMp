@@ -1,7 +1,7 @@
-package com.miluconnect.profeliomp.data.network.login
+package com.miluconnect.profeliomp.data.network
 
 import com.miluconnect.profeliomp.data.core.endpointCall
-import com.miluconnect.profeliomp.data.dto.login.LoginDto
+import com.miluconnect.profeliomp.data.dto.LoginDto
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import io.ktor.client.HttpClient

@@ -1,8 +1,8 @@
 package com.miluconnect.profeliomp.di
 
 import com.miluconnect.profeliomp.data.core.HttpClientFactory
-import com.miluconnect.profeliomp.data.network.login.RemoteLoginDataSource
-import com.miluconnect.profeliomp.data.network.login.RemoteLoginDataSourceImpl
+import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
+import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
@@ -19,3 +19,5 @@ val sharedModule: Module = module {
 
     viewModelOf(::LoginViewModel)
 }
+
+expect val platformModule: Module
