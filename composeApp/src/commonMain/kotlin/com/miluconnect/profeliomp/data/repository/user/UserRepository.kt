@@ -1,7 +1,10 @@
-package com.miluconnect.profeliomp.data.repository
+package com.miluconnect.profeliomp.data.repository.user
 
+import com.miluconnect.profeliomp.data.mappers.toUserModel
+import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
+import com.miluconnect.profeliomp.domain.core.map
 import com.miluconnect.profeliomp.domain.models.User
 
 interface UserRepository {
@@ -9,10 +12,12 @@ interface UserRepository {
 }
 
 class UserRepositoryImpl(
-
+    private val remoteDataSoruce: RemoteUserDataSource
 ): UserRepository {
     override suspend fun getCurrentUser(): Result<User, DataError.Remote> {
-        TODO("Not yet implemented")
+        return remoteDataSoruce
+            .getCurrentUser()
+            .map { it.toUserModel() }
     }
 
 }

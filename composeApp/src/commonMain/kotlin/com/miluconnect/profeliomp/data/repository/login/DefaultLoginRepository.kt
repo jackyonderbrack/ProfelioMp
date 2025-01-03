@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.data.repository
+package com.miluconnect.profeliomp.data.repository.login
 
 import com.miluconnect.profeliomp.data.mappers.toLoginResponse
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
@@ -9,10 +9,10 @@ import com.miluconnect.profeliomp.domain.models.LoginPayload
 import com.miluconnect.profeliomp.domain.models.LoginResponse
 
 class DefaultLoginRepository(
-    private val remoteLoginDataSource: RemoteLoginDataSource
+    private val dataSource: RemoteLoginDataSource
 ) : LoginRepository {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote> {
-        return remoteLoginDataSource
+        return dataSource
             .login()
             .map { it.toLoginResponse() }
     }

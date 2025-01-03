@@ -3,12 +3,12 @@ package com.miluconnect.profeliomp.di
 import com.miluconnect.profeliomp.data.core.HttpClientFactory
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
-import com.miluconnect.profeliomp.data.network.RemoteUserDataSoruce
-import com.miluconnect.profeliomp.data.network.RemoteUserDataSoruceImpl
-import com.miluconnect.profeliomp.data.repository.LoginRepository
-import com.miluconnect.profeliomp.data.repository.LoginRepositoryImpl
-import com.miluconnect.profeliomp.data.repository.UserRepository
-import com.miluconnect.profeliomp.data.repository.UserRepositoryImpl
+import com.miluconnect.profeliomp.data.network.RemoteUserDataSourceImpl
+import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
+import com.miluconnect.profeliomp.data.repository.login.LoginRepository
+import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
+import com.miluconnect.profeliomp.data.repository.user.UserRepository
+import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
 import org.koin.core.module.Module
@@ -21,7 +21,7 @@ val sharedModule: Module = module {
     single { HttpClientFactory.create(get()) }
     singleOf(::RemoteLoginDataSourceImpl).bind<RemoteLoginDataSource>()
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
-    singleOf(::RemoteUserDataSoruceImpl).bind<RemoteUserDataSoruce>()
+    singleOf(::RemoteUserDataSourceImpl).bind<RemoteUserDataSource>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
 
     viewModelOf(::LoginViewModel)
