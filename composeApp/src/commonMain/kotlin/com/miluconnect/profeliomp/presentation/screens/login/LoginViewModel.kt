@@ -17,61 +17,73 @@ class LoginViewModel(
 ) : ViewModel() {
 
     /**
-     * This ViewModel changes [state] and share observable to [LoginScreenRoot]
-     * */
+     * This ViewModel manages the [state] and shares an observable state to [LoginScreenRoot].
+     */
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> get() = _state
 
     /**
-     * public function *onIntent(*intent) is used in [LoginScreen] to change sealed intents of [LoginIntent].
-     * Invocation with *intent passed inside changes [state] of viewModel.
+     * Handles intents sent from the [LoginScreen]:
+     * - This function updates the state of the ViewModel based on the received [LoginIntent].
+     * - Each intent corresponds to specific changes in the state or triggers an action.
      */
     fun onIntent(intent: LoginIntent) {
         when (intent) {
             /**
-             * This passed *intent of [LoginIntent] updates username field [state]
-             * */
+             * Handles [LoginIntent.UpdateUsername]:
+             * - Updates the `username` field in the current [state].
+             */
             is LoginIntent.UpdateUsername -> {
                 _state.value = _state.value.copy(username = intent.username)
             }
 
             /**
-             * This passed *intent of [LoginIntent] updates password field [state]
-             * */
+             * Handles [LoginIntent.UpdatePassword]:
+             * - Updates the `password` field in the current [state].
+             */
             is LoginIntent.UpdatePassword -> {
                 _state.value = _state.value.copy(password = intent.password)
             }
 
             /**
-             * This passed *intent of [LoginIntent] handles:
-             * 1. launches a viewModelScope coroutine,
-             * 2. updates [state] of isLoading,
-             * 3. in scope runs [LoginRepository] with login() impl passed [LoginPayload] inside,
-             * 4. waits till coroutine ends with result and updates [state] with these results.
-             * */
+             * Handles [LoginIntent.LoginToApp]:
+             * - Launches a coroutine within the `viewModelScope` to handle login.
+             * - Updates the `isLoading` field to `true` while login is in progress.
+             * - Interacts with the [LoginRepository] to authenticate the user.
+             * - Updates the state based on the success or failure of the login process.
+             */
             is LoginIntent.LoginToApp -> {
                 viewModelScope.launch {
+                    // Set loading state to true
                     _state.update { it.copy(isLoading = true) }
-                        loginRepository
-                            .login(loginPayload = LoginPayload(_state.value.username, _state.value.password))
-                            .onSuccess { response ->
-                                _state.update { it.copy(
+
+                    // Attempt to login via the repository
+                    loginRepository
+                        .login(loginPayload = LoginPayload(_state.value.username, _state.value.password))
+                        .onSuccess { response ->
+                            // Update state with success data
+                            _state.update {
+                                it.copy(
                                     isLoading = false,
                                     errorMessage = null,
                                     responseMessage = response.message,
                                     token = response.token,
                                     refreshToken = response.refreshToken
-                                ) }
+                                )
                             }
-                            .onError { response ->
-                                _state.update { it.copy(
+                        }
+                        .onError { error ->
+                            // Update state with error information
+                            _state.update {
+                                it.copy(
                                     isLoading = false,
-                                    errorMessage = response.toUiText(),
+                                    errorMessage = error.toUiText(),
                                     responseMessage = "Error",
                                     token = "Brak",
-                                    refreshToken = "Brak",
-                                ) }
+                                    refreshToken = "Brak"
+                                )
                             }
+                        }
                 }
             }
         }
