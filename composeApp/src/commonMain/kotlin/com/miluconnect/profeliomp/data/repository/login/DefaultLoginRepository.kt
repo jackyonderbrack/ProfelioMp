@@ -13,7 +13,7 @@ class DefaultLoginRepository(
 ) : LoginRepository {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote> {
         return dataSource
-            .login()
+            .login(loginPayload)
             .map { it.toLoginResponse() }
     }
 }

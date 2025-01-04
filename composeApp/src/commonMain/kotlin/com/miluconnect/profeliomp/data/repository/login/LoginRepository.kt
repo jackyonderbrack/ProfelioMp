@@ -17,7 +17,7 @@ class LoginRepositoryImpl (
 ): LoginRepository {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote> {
         return remoteDataSoruce
-            .login()
+            .login(loginPayload)
             .map { it.toLoginResponse() }
     }
 }
