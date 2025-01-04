@@ -26,7 +26,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun LoginScreenRoot(
     viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
     onLoginClick: (LoginPayload) -> Unit,
-    modifier: Modifier = Modifier
 ) {
 
     val state by viewModel.state.collectAsState()
