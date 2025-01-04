@@ -16,17 +16,39 @@ class LoginViewModel(
     private val loginRepository: LoginRepository
 ) : ViewModel() {
 
+    /**
+     * This ViewModel changes [state] and share observable to [LoginScreenRoot]
+     * */
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> get() = _state
 
+    /**
+     * public function *onIntent(*intent) is used in [LoginScreen] to change sealed intents of [LoginIntent].
+     * Invocation with *intent passed inside changes [state] of viewModel.
+     */
     fun onIntent(intent: LoginIntent) {
         when (intent) {
+            /**
+             * This passed *intent of [LoginIntent] updates username field [state]
+             * */
             is LoginIntent.UpdateUsername -> {
                 _state.value = _state.value.copy(username = intent.username)
             }
+
+            /**
+             * This passed *intent of [LoginIntent] updates password field [state]
+             * */
             is LoginIntent.UpdatePassword -> {
                 _state.value = _state.value.copy(password = intent.password)
             }
+
+            /**
+             * This passed *intent of [LoginIntent] handles:
+             * 1. launches a viewModelScope coroutine,
+             * 2. updates [state] of isLoading,
+             * 3. in scope runs [LoginRepository] with login() impl passed [LoginPayload] inside,
+             * 4. waits till coroutine ends with result and updates [state] with these results.
+             * */
             is LoginIntent.LoginToApp -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }

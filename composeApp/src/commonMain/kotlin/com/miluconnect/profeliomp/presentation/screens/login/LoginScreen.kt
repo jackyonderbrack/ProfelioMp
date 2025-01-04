@@ -20,21 +20,52 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.domain.models.LoginPayload
+import com.miluconnect.profeliomp.presentation.app.Route
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * Composable root for the [LoginScreen]:
+ * - Responsible for initializing the [LoginScreen] view and passing the ViewModel state and actions
+ *   for handling user interactions.
+ * - Uses [koinViewModel] to get the ViewModel instance.
+ * - The [onLoginClick] function handles external actions, such as navigation after successful login.
+ */
 @Composable
 fun LoginScreenRoot(
     viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
     onLoginClick: (LoginPayload) -> Unit,
 ) {
-
+    /**
+     * Retrieves the current state of the ViewModel as an observable object.
+     * - Uses [collectAsState] to automatically update the UI when the state changes.
+     */
     val state by viewModel.state.collectAsState()
+
+    /**
+     * Render the [LoginScreen]:
+     * - Passes the current state and actions based on user intents.
+     */
     LoginScreen(
         state = state,
         onAction = { intent ->
             when (intent) {
+                /**
+                 * Handle username update:
+                 * - Passes the intent of username field change to the ViewModel.
+                 */
                 is LoginIntent.UpdateUsername -> viewModel.onIntent(intent)
+
+                /**
+                 * Handle password update:
+                 * - Passes the intent of password field change to the ViewModel.
+                 */
                 is LoginIntent.UpdatePassword -> viewModel.onIntent(intent)
+
+                /**
+                 * Handle login action:
+                 * - Passes the intent of button usage to the ViewModel.
+                 * - Calls the [onLoginClick] function with login credentials.
+                 */
                 is LoginIntent.LoginToApp -> {
                     viewModel.onIntent(intent)
                     onLoginClick(intent.loginPayload)
@@ -44,6 +75,11 @@ fun LoginScreenRoot(
     )
 }
 
+/**
+ * Composable login screen:
+ * - Renders the UI for user login inputs.
+ * - Handles text fields for username and password, login button, and error messages.
+ */
 @Composable
 fun LoginScreen(
     state: LoginState,
@@ -55,6 +91,10 @@ fun LoginScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        /**
+         * Text field for username input:
+         * - Updates the value of the field based on user input.
+         */
         TextField(
             value = state.username,
             onValueChange = { text ->
@@ -63,7 +103,14 @@ fun LoginScreen(
             label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.height(8.dp))
+
+        /**
+         * Text field for password input:
+         * - User input is hidden using [PasswordVisualTransformation].
+         * - Updates the value of the field based on user input.
+         */
         TextField(
             value = state.password,
             onValueChange = { text ->
@@ -73,14 +120,25 @@ fun LoginScreen(
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.height(8.dp))
+
+        /**
+         * Login button:
+         * - Triggers the login intent on click.
+         * - Displays a loader when *isLoading is true.
+         */
         Button(
-            onClick = { onAction(LoginIntent.LoginToApp(
-                LoginPayload(
-                username = state.username,
-                password = state.password
-            )
-            )) },
+            onClick = {
+                onAction(
+                    LoginIntent.LoginToApp(
+                        LoginPayload(
+                            username = state.username,
+                            password = state.password
+                        )
+                    )
+                )
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = !state.isLoading
         ) {
@@ -90,6 +148,10 @@ fun LoginScreen(
                 Text("Login")
             }
         }
+
+        /**
+         * Displays an error message if it exists.
+         */
         state.errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
             Text(it.toString(), color = MaterialTheme.colorScheme.error)
