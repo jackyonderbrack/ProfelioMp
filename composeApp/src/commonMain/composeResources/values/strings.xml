@@ -16,6 +16,7 @@
     <string name="error_service_unavailable">The service is currently unavailable. Please check back soon!</string>
     <string name="error_gateway_timeout">The request took too long. Please give it another shot!</string>
     <string name="error_serialization">Something went wrong with the data. We’re working on it!</string>
+    <string name="error_temporary_redirect">Temporary source redirection, try again or later!</string>
     <string name="error_unknown_remote">Something unexpected happened. Please try again later!</string>
     <!-- Local Errors -->
     <string name="error_disk_full">Your device is out of storage. Please free up some space!</string>

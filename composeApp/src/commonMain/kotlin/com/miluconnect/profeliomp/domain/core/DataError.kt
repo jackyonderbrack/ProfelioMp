@@ -13,6 +13,7 @@ sealed interface DataError: Error {
         SERVICE_UNAVAILABLE,
         GATEWAY_TIMEOUT,
         SERIALIZATION,
+        TEMPORARY_REDIRECT,
         UNKNOWN
     }
 

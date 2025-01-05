@@ -154,7 +154,7 @@ fun LoginScreen(
          */
         state.errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
-            Text(it.toString(), color = MaterialTheme.colorScheme.error)
+            Text(it.asString(), color = MaterialTheme.colorScheme.error)
         }
     }
 }

@@ -16,6 +16,7 @@ import profeliomp.composeapp.generated.resources.error_too_many_requests
 import profeliomp.composeapp.generated.resources.error_unauthorized
 import profeliomp.composeapp.generated.resources.error_unknown_local
 import profeliomp.composeapp.generated.resources.error_unknown_remote
+import profeliomp.composeapp.generated.resources.error_temporary_redirect
 
 fun DataError.toUiText(): UiText {
     val stringRes = when (this) {
@@ -32,6 +33,7 @@ fun DataError.toUiText(): UiText {
         DataError.Remote.SERVICE_UNAVAILABLE -> Res.string.error_service_unavailable
         DataError.Remote.GATEWAY_TIMEOUT -> Res.string.error_gateway_timeout
         DataError.Remote.SERIALIZATION -> Res.string.error_serialization
+        DataError.Remote.TEMPORARY_REDIRECT -> Res.string.error_temporary_redirect
         DataError.Remote.UNKNOWN -> Res.string.error_unknown_remote
     }
 
