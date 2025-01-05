@@ -2,15 +2,18 @@ package com.miluconnect.profeliomp.di
 
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
+import org.koin.dsl.KoinAppDeclaration
 
 private var isKoinStarted = false
 
-fun initKoin(vararg platformModules: Module) {
+fun initKoin(
+    vararg platformModules: Module,
+    appDeclaration: KoinAppDeclaration = {}
+) {
     if (!isKoinStarted) {
-        println("KOIN !isKoinStarted() $platformModules")
         startKoin {
+            appDeclaration()
             modules(sharedModule, platformModule, *platformModules)
-            println("KOIN modules(sharedModule, *extraModules)")
         }
         isKoinStarted = true
     }

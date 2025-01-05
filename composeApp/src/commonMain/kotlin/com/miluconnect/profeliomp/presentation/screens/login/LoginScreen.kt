@@ -158,7 +158,15 @@ fun LoginScreen(
         }
         state.responseMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
-            Text(it, color = MaterialTheme.colorScheme.error)
+            Text(it, color = MaterialTheme.colorScheme.onPrimaryContainer)
+        }
+        state.token?.let {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(it, color = MaterialTheme.colorScheme.onPrimaryContainer)
+        }
+        state.refreshToken?.let {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(it, color = MaterialTheme.colorScheme.onPrimaryContainer)
         }
     }
 }

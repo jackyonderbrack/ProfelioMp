@@ -7,6 +7,8 @@ import com.miluconnect.profeliomp.data.network.RemoteUserDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
+import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
+import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
@@ -18,14 +20,21 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val sharedModule: Module = module {
+    // HttpClient
     single { HttpClientFactory.create(get()) }
+
+    // Data sources
     singleOf(::RemoteLoginDataSourceImpl).bind<RemoteLoginDataSource>()
-    singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::RemoteUserDataSourceImpl).bind<RemoteUserDataSource>()
+
+    // Repositories
+    singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
 
+    // ViewModels
     viewModelOf(::LoginViewModel)
     viewModelOf(::AccountViewModel)
 }
+
 
 expect val platformModule: Module
