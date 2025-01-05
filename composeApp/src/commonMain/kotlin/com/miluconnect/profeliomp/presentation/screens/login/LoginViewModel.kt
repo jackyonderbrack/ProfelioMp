@@ -78,7 +78,7 @@ class LoginViewModel(
                                 it.copy(
                                     isLoading = false,
                                     errorMessage = error.toUiText(),
-                                    responseMessage = "Error",
+                                    responseMessage = null,
                                     token = "No token provided",
                                     refreshToken = "No refresh token provided"
                                 )

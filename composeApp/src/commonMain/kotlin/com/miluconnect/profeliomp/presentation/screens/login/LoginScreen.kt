@@ -133,7 +133,7 @@ fun LoginScreen(
                 onAction(
                     LoginIntent.LoginToApp(
                         LoginPayload(
-                            username = state.username,
+                            email = state.username,
                             password = state.password
                         )
                     )
@@ -155,6 +155,10 @@ fun LoginScreen(
         state.errorMessage?.let {
             Spacer(modifier = Modifier.height(8.dp))
             Text(it.asString(), color = MaterialTheme.colorScheme.error)
+        }
+        state.responseMessage?.let {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(it, color = MaterialTheme.colorScheme.error)
         }
     }
 }
