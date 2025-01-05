@@ -24,7 +24,7 @@ class RemoteLoginDataSourceImpl (
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponseDto, DataError.Remote> {
         return endpointCall {
             httpClient.post(
-                urlString = "$BASE_URL/login",
+                urlString = "$BASE_URL/login/",
             ) {
                 contentType(ContentType.Application.Json)
                 setBody(loginPayload)

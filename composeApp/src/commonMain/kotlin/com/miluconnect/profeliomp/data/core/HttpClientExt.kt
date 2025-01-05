@@ -16,6 +16,9 @@ suspend inline fun <reified T> endpointCall(
 ): Result<T, DataError.Remote> {
     val response = try {
         execute()
+    } catch(e: Exception) {
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
     } catch(e: SocketTimeoutException) {
         e.printStackTrace()
         return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
@@ -47,6 +50,7 @@ suspend inline fun <reified  T> endpointResponse(
         }
         301 -> Result.Error(DataError.Remote.UNAUTHORIZED)
         307 -> Result.Error(DataError.Remote.TEMPORARY_REDIRECT)
+        400 -> Result.Error(DataError.Remote.BAD_REQUEST)
         404 -> Result.Error(DataError.Remote.NOT_FOUND)
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
         429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)

@@ -3,6 +3,7 @@ package com.miluconnect.profeliomp.domain.core
 sealed interface DataError: Error {
     enum class Remote: DataError {
         REQUEST_TIMEOUT,
+        BAD_REQUEST,
         TOO_MANY_REQUESTS,
         NOT_FOUND,
         NO_INTERNET,

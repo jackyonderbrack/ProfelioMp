@@ -17,11 +17,13 @@ import profeliomp.composeapp.generated.resources.error_unauthorized
 import profeliomp.composeapp.generated.resources.error_unknown_local
 import profeliomp.composeapp.generated.resources.error_unknown_remote
 import profeliomp.composeapp.generated.resources.error_temporary_redirect
+import profeliomp.composeapp.generated.resources.error_bad_request
 
 fun DataError.toUiText(): UiText {
     val stringRes = when (this) {
         DataError.Local.DISK_FULL -> Res.string.error_disk_full
         DataError.Local.UNKNOWN -> Res.string.error_unknown_local
+        DataError.Remote.BAD_REQUEST -> Res.string.error_bad_request
         DataError.Remote.REQUEST_TIMEOUT -> Res.string.error_request_timeout
         DataError.Remote.TOO_MANY_REQUESTS -> Res.string.error_too_many_requests
         DataError.Remote.NOT_FOUND -> Res.string.error_not_found

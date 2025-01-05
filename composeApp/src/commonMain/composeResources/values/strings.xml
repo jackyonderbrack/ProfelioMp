@@ -5,6 +5,7 @@
     <string name="favorites_empty">No favorites yet. Try add some</string>
     <string name="go_back">Go back</string>
     <!-- Remote Errors -->
+    <string name="error_bad_request">Bad Request exception...\nSomething wrong with request configuration.</string>
     <string name="error_request_timeout">Oops, it took too long to get a response. Please try again!</string>
     <string name="error_too_many_requests">Whoa, slow down! Too many requests at once.</string>
     <string name="error_not_found">Oops, we couldn’t find what you’re looking for!</string>
