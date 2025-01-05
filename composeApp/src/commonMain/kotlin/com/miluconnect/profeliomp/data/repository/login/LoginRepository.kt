@@ -13,10 +13,10 @@ interface LoginRepository {
 }
 
 class LoginRepositoryImpl (
-    private val remoteDataSoruce: RemoteLoginDataSource
+    private val remoteDataSource: RemoteLoginDataSource
 ): LoginRepository {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote> {
-        return remoteDataSoruce
+        return remoteDataSource
             .login(loginPayload)
             .map { it.toLoginResponse() }
     }

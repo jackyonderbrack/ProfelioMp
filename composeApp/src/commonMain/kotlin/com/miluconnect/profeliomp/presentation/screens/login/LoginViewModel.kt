@@ -79,8 +79,8 @@ class LoginViewModel(
                                     isLoading = false,
                                     errorMessage = error.toUiText(),
                                     responseMessage = "Error",
-                                    token = "Brak",
-                                    refreshToken = "Brak"
+                                    token = "No token provided",
+                                    refreshToken = "No refresh token provided"
                                 )
                             }
                         }

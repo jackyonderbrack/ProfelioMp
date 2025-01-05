@@ -12,10 +12,10 @@ interface UserRepository {
 }
 
 class UserRepositoryImpl(
-    private val remoteDataSoruce: RemoteUserDataSource
+    private val remoteDataSource: RemoteUserDataSource
 ): UserRepository {
     override suspend fun getCurrentUser(): Result<User, DataError.Remote> {
-        return remoteDataSoruce
+        return remoteDataSource
             .getCurrentUser()
             .map { it.toUserModel() }
     }
