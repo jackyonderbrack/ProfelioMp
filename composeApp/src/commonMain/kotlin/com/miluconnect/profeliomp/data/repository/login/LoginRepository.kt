@@ -16,7 +16,7 @@ interface LoginRepository {
 
 class LoginRepositoryImpl (
     private val remoteDataSource: RemoteLoginDataSource,
-    private val preferencesRepository: PreferencesRepository // problem się pojawia kiedy tutaj umieszczam PreferencesRepository
+    private val preferencesRepository: PreferencesRepository
 ): LoginRepository {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponse, DataError.Remote> {
         return remoteDataSource
