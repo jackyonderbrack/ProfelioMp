@@ -2,12 +2,10 @@ package com.miluconnect.profeliomp.presentation.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
+import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
 import com.miluconnect.profeliomp.domain.models.LoginPayload
-import com.miluconnect.profeliomp.data.repository.login.LoginRepository
-import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.presentation.core.toUiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

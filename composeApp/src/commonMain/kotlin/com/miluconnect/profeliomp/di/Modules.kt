@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.di
 
+import com.miluconnect.profeliomp.AppViewModel
 import com.miluconnect.profeliomp.data.core.HttpClientFactory
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
@@ -32,6 +33,7 @@ val sharedModule: Module = module {
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
 
     // ViewModels
+    viewModelOf(::AppViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::AccountViewModel)
 }

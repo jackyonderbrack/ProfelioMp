@@ -11,11 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -33,7 +37,24 @@ import org.koin.compose.viewmodel.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
-fun App() {
+fun App(
+    viewModel: AppViewModel = koinViewModel<AppViewModel>()
+) {
+    /**
+     * Retrieves the current state of the ViewModel as an observable object.
+     * - Uses [collectAsState] to automatically update the UI when the state changes.
+     */
+    val state by viewModel.state.collectAsState()
+    val navController = rememberNavController()
+
+    LaunchedEffect(state.token) {
+        if (state.token == null) {
+            navController.navigate(Route.LoginScreen) {
+                popUpTo(0) // clear so user cannot go to loginScreen by clicking "back"
+            }
+        }
+    }
+
     MaterialTheme {
         Scaffold(
             topBar = {
@@ -54,32 +75,36 @@ fun App() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                val navController = rememberNavController()
+
                 NavHost(
                     navController = navController,
-                    startDestination = Route.LoginGraph
+                    startDestination = Route.AppGraph
                 ) {
-                    navigation<Route.LoginGraph>(
-                        startDestination = Route.LoginScreen
+                    navigation<Route.AppGraph>(
+                        startDestination = Route.AccountScreen
                     ) {
+
                         composable<Route.LoginScreen> {
-                            val viewModel = koinViewModel<LoginViewModel>()
+                            val loginViewModel = koinViewModel<LoginViewModel>()
 
                             LoginScreenRoot(
-                                viewModel = viewModel,
+                                viewModel = loginViewModel,
                                 onLoginSuccess = {
                                     navController.navigate(Route.AccountScreen) {
-                                        popUpTo(Route.LoginScreen)
+                                        popUpTo(Route.LoginScreen) { inclusive = true }
                                     }
                                 }
                             )
                         }
+
                         composable<Route.AccountScreen> {
-                            val viewModel = koinViewModel<AccountViewModel>()
+                            val accountViewModel = koinViewModel<AccountViewModel>()
+
                             AccountScreenRoot(
-                                viewModel = viewModel
+                                viewModel = accountViewModel
                             )
                         }
+
                     }
                 }
             } // Column

@@ -12,6 +12,7 @@ interface PreferencesRepository {
     suspend fun saveToken(token: String)
     suspend fun getRefreshToken(): Flow<String?>
     suspend fun saveRefreshToken(refreshToken: String)
+    suspend fun clearPreferences()
 }
 
 class PreferencesRepositoryImpl(
@@ -45,5 +46,9 @@ class PreferencesRepositoryImpl(
         dataStore.edit {
             it[PreferenceKeys.REFRESH_TOKEN] = refreshToken
         }
+    }
+
+    override suspend fun clearPreferences() {
+        dataStore.edit { it.clear() }
     }
 }
