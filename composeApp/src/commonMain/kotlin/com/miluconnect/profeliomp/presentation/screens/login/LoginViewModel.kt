@@ -2,6 +2,7 @@ package com.miluconnect.profeliomp.presentation.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
 import com.miluconnect.profeliomp.domain.models.LoginPayload
@@ -80,8 +81,8 @@ class LoginViewModel(
                                     isLoading = false,
                                     errorMessage = error.toUiText(),
                                     responseMessage = null,
-                                    token = "No token provided",
-                                    refreshToken = "No refresh token provided"
+                                    token = null,
+                                    refreshToken = null
                                 )
                             }
                         }

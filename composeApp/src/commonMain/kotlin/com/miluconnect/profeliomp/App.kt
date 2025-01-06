@@ -40,7 +40,11 @@ fun App() {
 
                         LoginScreenRoot(
                             viewModel = viewModel,
-                            onLoginClick = {}
+                            onLoginSuccess = {
+                                navController.navigate(Route.AccountScreen) {
+                                    popUpTo(Route.LoginScreen)
+                                }
+                            }
                         )
                     }
                     composable<Route.AccountScreen> {
