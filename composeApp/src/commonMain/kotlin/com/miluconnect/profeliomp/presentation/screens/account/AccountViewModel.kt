@@ -20,7 +20,7 @@ class AccountViewModel(
 
     init {
         viewModelScope.launch {
-            userRepository.getCurrentUser()
+            userRepository.getCurrentUserData()
                 .onSuccess { userData ->
                     _state.update { it.copy(
                         userId = userData.id,
@@ -33,7 +33,11 @@ class AccountViewModel(
 
     fun onIntent(intent: AccountIntent) {
         when (intent) {
-            AccountIntent.GetCurrentUser -> {}
+            AccountIntent.GetCurrentUser -> {
+                viewModelScope.launch {
+                    preferencesRepository.getToken()
+                }
+            }
             AccountIntent.Logout -> {
                 viewModelScope.launch {
                     preferencesRepository.clearPreferences()

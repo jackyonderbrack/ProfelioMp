@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.data.core
 
+import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
@@ -8,9 +9,44 @@ import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
+import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.http.headers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.SerializationException
 import kotlin.coroutines.coroutineContext
 
+/**
+ * HTTP Endpoint call - With Authorization
+ * */
+suspend inline fun <reified T> protectedEndpointCall(
+    preferencesRepository: PreferencesRepository,
+    execute: (HttpRequestBuilder.() -> Unit) -> HttpResponse
+) : Result<T, DataError.Remote> {
+    val preferencesToken = preferencesRepository.getToken().firstOrNull()
+
+    if (preferencesToken.isNullOrEmpty()) {
+        /* Feature: refreshToken usage */
+        return Result.Error(DataError.Remote.UNAUTHORIZED)
+    }
+
+    return try {
+        /* HTTP Endpoint: Authorization + Generic */
+        endpointCall {
+            execute {
+                headers {
+                    append("Authorization", "Bearer $preferencesToken")
+                }
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Result.Error(DataError.Remote.UNKNOWN)
+    }
+}
+
+/**
+ * HTTP Endpoint call - Generic, used in with Auth.
+ * */
 suspend inline fun <reified T> endpointCall(
     execute: () -> HttpResponse
 ): Result<T, DataError.Remote> {
@@ -33,10 +69,12 @@ suspend inline fun <reified T> endpointCall(
         coroutineContext.ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
     }
-
     return endpointResponse(response)
 }
 
+/**
+ * HTTP Endpoint response from calls
+ * */
 suspend inline fun <reified  T> endpointResponse(
     response: HttpResponse
 ): Result<T, DataError.Remote> {

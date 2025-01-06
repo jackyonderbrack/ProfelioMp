@@ -8,15 +8,15 @@ import com.miluconnect.profeliomp.domain.core.map
 import com.miluconnect.profeliomp.domain.models.User
 
 interface UserRepository {
-    suspend fun getCurrentUser(): Result<User, DataError.Remote>
+    suspend fun getCurrentUserData(): Result<User, DataError.Remote>
 }
 
 class UserRepositoryImpl(
     private val remoteDataSource: RemoteUserDataSource
 ): UserRepository {
-    override suspend fun getCurrentUser(): Result<User, DataError.Remote> {
+    override suspend fun getCurrentUserData(): Result<User, DataError.Remote> {
         return remoteDataSource
-            .getCurrentUser()
+            .getCurrentUserData()
             .map { it.toUserModel() }
     }
 

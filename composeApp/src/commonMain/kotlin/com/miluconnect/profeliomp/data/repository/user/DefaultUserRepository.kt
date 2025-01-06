@@ -10,9 +10,9 @@ import com.miluconnect.profeliomp.domain.models.User
 class DefaultUserRepository (
     private val dataSource: RemoteUserDataSource
 ) : UserRepository {
-    override suspend fun getCurrentUser(): Result<User, DataError.Remote> {
+    override suspend fun getCurrentUserData(): Result<User, DataError.Remote> {
         return dataSource
-            .getCurrentUser()
+            .getCurrentUserData()
             .map { it.toUserModel() }
     }
 }
