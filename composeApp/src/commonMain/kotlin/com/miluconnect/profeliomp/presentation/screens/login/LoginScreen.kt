@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -18,10 +20,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.domain.models.LoginPayload
-import com.miluconnect.profeliomp.presentation.app.Route
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -93,6 +97,9 @@ fun LoginScreen(
     state: LoginState,
     onAction: (LoginIntent) -> Unit
 ) {
+
+    val focusManager = LocalFocusManager.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,7 +116,13 @@ fun LoginScreen(
                 onAction(LoginIntent.UpdateUsername(text))
             },
             label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down)}
+            )
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -126,7 +139,23 @@ fun LoginScreen(
             },
             visualTransformation = PasswordVisualTransformation(),
             label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                    onAction(
+                        LoginIntent.LoginToApp(
+                            LoginPayload(
+                                email = state.username,
+                                password = state.password
+                            )
+                        )
+                    )
+                }
+            )
         )
 
         Spacer(modifier = Modifier.height(8.dp))
