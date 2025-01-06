@@ -8,8 +8,6 @@ import com.miluconnect.profeliomp.data.network.RemoteUserDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
-import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
-import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
