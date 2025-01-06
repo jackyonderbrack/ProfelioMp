@@ -45,6 +45,9 @@ fun App(
      */
     val state by viewModel.state.collectAsState()
 
+    /**
+     * Creation of [Route] need to be managed by navController state.
+     */
     val navController = rememberNavController()
 
     /**
