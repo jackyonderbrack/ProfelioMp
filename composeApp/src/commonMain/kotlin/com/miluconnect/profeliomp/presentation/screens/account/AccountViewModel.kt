@@ -14,6 +14,7 @@ class AccountViewModel(
     private val userRepository: UserRepository,
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(AccountState())
     val state: StateFlow<AccountState> get() = _state
 
@@ -35,9 +36,7 @@ class AccountViewModel(
             AccountIntent.GetCurrentUser -> {}
             AccountIntent.Logout -> {
                 viewModelScope.launch {
-                    _state.update { it.copy(isLoading = true) }
                     preferencesRepository.clearPreferences()
-                    _state.update { it.copy(isLoading = false) }
                 }
             }
         }

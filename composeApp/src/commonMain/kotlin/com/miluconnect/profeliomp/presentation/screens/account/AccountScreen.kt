@@ -70,7 +70,7 @@ fun AccountScreen(
                 onClick = {}
             )
             Column(
-                Modifier.fillMaxWidth().padding(16.dp)
+                Modifier.fillMaxWidth().padding(24.dp)
             ) {
                 Text(
                     text = "Logged user info",

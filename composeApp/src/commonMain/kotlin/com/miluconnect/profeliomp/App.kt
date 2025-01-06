@@ -44,16 +44,24 @@ fun App(
      * - Uses [collectAsState] to automatically update the UI when the state changes.
      */
     val state by viewModel.state.collectAsState()
+
     val navController = rememberNavController()
 
+    /**
+     * Bind LaunchedEffect directly to {state.token} so that it reacts to any {state.token} change.
+     * Everytime {state.token} will change (to null - then this LaunchedEffect will work.
+     */
     LaunchedEffect(state.token) {
         if (state.token == null) {
             navController.navigate(Route.LoginScreen) {
-                popUpTo(0) // clear so user cannot go to loginScreen by clicking "back"
+                popUpTo(0)
             }
         }
     }
 
+    /**
+     * Actual UI
+     */
     MaterialTheme {
         Scaffold(
             topBar = {
@@ -90,7 +98,7 @@ fun App(
                                 viewModel = loginViewModel,
                                 onLoginSuccess = {
                                     navController.navigate(Route.AccountScreen) {
-                                        popUpTo(Route.LoginScreen) { inclusive = true }
+                                        popUpTo(Route.LoginScreen) { inclusive = false }
                                     }
                                 }
                             )
@@ -105,7 +113,7 @@ fun App(
                         }
 
                     }
-                }
+                } // NavHost
             } // Column
         } // Scaffold
     }
