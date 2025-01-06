@@ -57,7 +57,7 @@ fun App(
     LaunchedEffect(state.token) {
         if (state.token == null) {
             navController.navigate(Route.LoginScreen) {
-                popUpTo(0)
+                popUpTo(0) { inclusive = true }
             }
         }
     }
@@ -101,7 +101,7 @@ fun App(
                                 viewModel = loginViewModel,
                                 onLoginSuccess = {
                                     navController.navigate(Route.AccountScreen) {
-                                        popUpTo(Route.LoginScreen) { inclusive = false }
+                                        popUpTo(Route.LoginScreen) { inclusive = true }
                                     }
                                 }
                             )
