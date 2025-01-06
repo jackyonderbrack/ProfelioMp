@@ -29,7 +29,7 @@ import org.koin.compose.viewmodel.koinViewModel
  * - Responsible for initializing the [LoginScreen] view and passing the ViewModel state and actions
  *   for handling user interactions.
  * - Uses [koinViewModel] to get the ViewModel instance.
- * - The [onLoginClick] function handles external actions, such as navigation after successful login.
+ * - The [onLoginSuccess] function handles external actions, such as navigation after successful login.
  */
 @Composable
 fun LoginScreenRoot(
@@ -71,7 +71,6 @@ fun LoginScreenRoot(
                 /**
                  * Handle login action:
                  * - Passes the intent of button usage to the ViewModel.
-                 * - Calls the [onLoginClick] function with login credentials.
                  */
                 is LoginIntent.LoginToApp -> {
                     viewModel.onIntent(intent)
