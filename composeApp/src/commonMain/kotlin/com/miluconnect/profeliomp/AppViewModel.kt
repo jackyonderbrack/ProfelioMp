@@ -32,7 +32,6 @@ class AppViewModel(
             preferencesRepository.getToken().collect { preferencesToken ->
                 _state.update { it.copy(
                     token = preferencesToken,
-                    isLoggedIn = preferencesToken != null
                 ) }
             }
         }
