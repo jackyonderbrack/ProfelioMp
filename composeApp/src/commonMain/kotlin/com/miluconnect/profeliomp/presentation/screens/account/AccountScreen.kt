@@ -35,7 +35,9 @@ fun AccountScreenRoot(
         state = state,
         onAction = { intent ->
             when(intent) {
-                AccountIntent.GetCurrentUser -> {}
+                AccountIntent.GetCurrentUser -> {
+                    viewModel.onIntent(intent)
+                }
                 AccountIntent.Logout -> {
                     viewModel.onIntent(intent)
                 }
@@ -80,13 +82,13 @@ fun AccountScreen(
                     text = "Check all your data",
                 )
                 Spacer(Modifier.height(16.dp))
-                Text("Name: ")
+                Text("Name: ${state.userName}")
                 Spacer(Modifier.height(8.dp))
-                Text("Id: ")
+                Text("Id: ${state.userId}")
                 Spacer(Modifier.height(8.dp))
-                Text("Email: ")
+                Text("Email: ${state.userEmail}")
                 Spacer(Modifier.height(8.dp))
-                Text("Role: ")
+                Text("Role: Default")
                 Spacer(Modifier.height(8.dp))
                 AssistChip(
                     onClick = {
@@ -103,6 +105,10 @@ fun AccountScreen(
                         )
                     }
                 )
+                state.errorMessage?.let {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(it.asString(), color = MaterialTheme.colorScheme.error)
+                }
             }
 
         }

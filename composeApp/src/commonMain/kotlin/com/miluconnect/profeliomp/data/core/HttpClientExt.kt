@@ -1,46 +1,36 @@
 package com.miluconnect.profeliomp.data.core
 
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
+import com.miluconnect.profeliomp.domain.core.DataError
+import com.miluconnect.profeliomp.domain.core.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
+import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.headers
 import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
-import com.miluconnect.profeliomp.domain.core.DataError
-import com.miluconnect.profeliomp.domain.core.Result
-import io.ktor.client.request.HttpRequestBuilder
-import io.ktor.http.headers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.SerializationException
 import kotlin.coroutines.coroutineContext
 
-/**
- * HTTP Endpoint call - With Authorization
- * */
-suspend inline fun <reified T> protectedEndpointCall(
+suspend inline fun <reified T> authorizedEndpointCall(
     preferencesRepository: PreferencesRepository,
     execute: (HttpRequestBuilder.() -> Unit) -> HttpResponse
-) : Result<T, DataError.Remote> {
+): Result<T, DataError.Remote> {
     val preferencesToken = preferencesRepository.getToken().firstOrNull()
 
     if (preferencesToken.isNullOrEmpty()) {
-        /* Feature: refreshToken usage */
         return Result.Error(DataError.Remote.UNAUTHORIZED)
     }
 
-    return try {
-        /* HTTP Endpoint: Authorization + Generic */
-        endpointCall {
-            execute {
-                headers {
-                    append("Authorization", "Bearer $preferencesToken")
-                }
+    return endpointCall {
+        execute {
+            headers {
+                append("Authorization", "Bearer $preferencesToken")
             }
         }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        Result.Error(DataError.Remote.UNKNOWN)
     }
 }
 
@@ -86,9 +76,9 @@ suspend inline fun <reified  T> endpointResponse(
                 Result.Error(DataError.Remote.SERIALIZATION)
             }
         }
-        301 -> Result.Error(DataError.Remote.UNAUTHORIZED)
         307 -> Result.Error(DataError.Remote.TEMPORARY_REDIRECT)
         400 -> Result.Error(DataError.Remote.BAD_REQUEST)
+        401 -> Result.Error(DataError.Remote.UNAUTHORIZED)
         404 -> Result.Error(DataError.Remote.NOT_FOUND)
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
         429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)

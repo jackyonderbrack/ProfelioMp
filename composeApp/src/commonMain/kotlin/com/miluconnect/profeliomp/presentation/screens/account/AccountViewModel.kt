@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
+import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
+import com.miluconnect.profeliomp.presentation.core.UiText
+import com.miluconnect.profeliomp.presentation.core.toUiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -35,7 +38,24 @@ class AccountViewModel(
         when (intent) {
             AccountIntent.GetCurrentUser -> {
                 viewModelScope.launch {
-                    preferencesRepository.getToken()
+                    _state.update { it.copy(isLoading = true) }
+                    userRepository
+                        .getCurrentUserData()
+                        .onSuccess { response ->
+                            _state.update { it.copy(
+                                isLoading = false,
+                                userId = response.id,
+                                userName = response.name,
+                                userEmail = response.email
+                            ) }
+                        }
+                        .onError { error ->
+                            _state.update { it.copy(
+                                isLoading = false,
+                                errorMessage = error.toUiText()
+                            ) }
+
+                        }
                 }
             }
             AccountIntent.Logout -> {

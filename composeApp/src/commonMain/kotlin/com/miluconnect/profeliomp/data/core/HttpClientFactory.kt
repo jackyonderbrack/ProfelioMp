@@ -32,7 +32,6 @@ object HttpClientFactory {
                     override fun log(message: String) {
                         println(message)
                     }
-
                 }
                 level = LogLevel.ALL
             }
