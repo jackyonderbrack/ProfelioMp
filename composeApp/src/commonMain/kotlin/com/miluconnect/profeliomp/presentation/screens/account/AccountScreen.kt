@@ -29,16 +29,25 @@ import org.koin.compose.viewmodel.koinViewModel
 fun AccountScreenRoot(
     viewModel: AccountViewModel = koinViewModel<AccountViewModel>(),
 ) {
+    val state by viewModel.state.collectAsState()
 
-    val vmState by viewModel.state.collectAsState()
     AccountScreen(
-        state = vmState
+        state = state,
+        onAction = { intent ->
+            when(intent) {
+                AccountIntent.GetCurrentUser -> {}
+                AccountIntent.Logout -> {
+                    viewModel.onIntent(intent)
+                }
+            }
+        }
     )
 }
 
 @Composable
 fun AccountScreen(
-    state: AccountState
+    state: AccountState,
+    onAction: (AccountIntent) -> Unit
 ) {
     Column {
 
@@ -80,8 +89,12 @@ fun AccountScreen(
                 Text("Role: ")
                 Spacer(Modifier.height(8.dp))
                 AssistChip(
-                    onClick = {},
-                    label = { Text("Assist chip") },
+                    onClick = {
+                        onAction(
+                            AccountIntent.Logout
+                        )
+                    },
+                    label = { Text("Wyloguj") },
                     leadingIcon = {
                         Icon(
                             Icons.Filled.Settings,
