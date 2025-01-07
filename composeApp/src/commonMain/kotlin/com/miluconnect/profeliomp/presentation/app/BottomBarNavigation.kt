@@ -15,27 +15,30 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         Route.AccountScreen,
         Route.BlackboardScreen,
-        Route.LoginScreen
     )
     NavigationBar {
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
 
-        items.forEach { screen ->
-            NavigationBarItem(
-                icon = { Icon(imageVector = screen.icon, contentDescription = screen.title) },
-                label = { Text(screen.title) },
-                selected = currentDestination?.route == screen.route,
-                onClick = {
-                    navController.navigate(screen.route) {
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route) { saveState = true }
+        if (currentDestination?.route in items.map { it.route }) {
+            NavigationBar {
+                items.forEach { screen ->
+                    NavigationBarItem(
+                        icon = { Icon(imageVector = screen.icon, contentDescription = screen.title) },
+                        label = { Text(screen.title) },
+                        selected = currentDestination?.route == screen.route,
+                        onClick = {
+                            navController.navigate(screen.route) {
+                                navController.graph.startDestinationRoute?.let { route ->
+                                    popUpTo(route) { saveState = true }
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
+                    )
                 }
-            )
+            }
         }
     }
 }

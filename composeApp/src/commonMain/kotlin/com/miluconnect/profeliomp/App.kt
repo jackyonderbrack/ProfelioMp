@@ -49,8 +49,6 @@ fun App(
      */
     val navController = rememberNavController()
 
-
-
     /**
      * Actual UI
      */
