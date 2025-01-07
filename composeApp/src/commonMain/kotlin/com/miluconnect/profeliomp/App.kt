@@ -23,15 +23,12 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.miluconnect.profeliomp.presentation.app.BottomNavigationBar
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -52,21 +49,7 @@ fun App(
      */
     val navController = rememberNavController()
 
-    /**
-     * Bind LaunchedEffect directly to {state.token} so that it reacts to any {state.token} change.
-     * Everytime {state.token} will change (to null - then this LaunchedEffect will work.
-     */
-    LaunchedEffect(state.token) {
-        if (state.token == null) {
-            navController.navigate(Route.LoginScreen) {
-                popUpTo(0) { inclusive = true }
-            }
-        } else {
-            navController.navigate(Route.AccountScreen) {
-                popUpTo(Route.LoginScreen)
-            }
-        }
-    }
+
 
     /**
      * Actual UI
@@ -84,6 +67,9 @@ fun App(
                     }
                 )
             },
+            bottomBar = {
+                BottomNavigationBar(navController = navController)
+            }
         ) {
             innerPadding ->
             Column(
@@ -94,45 +80,38 @@ fun App(
 
                 NavHost(
                     navController = navController,
-                    startDestination = Route.AppGraph
+                    startDestination = Route.AccountScreen.route,
+                    modifier = Modifier.padding(innerPadding)
                 ) {
-                    navigation<Route.AppGraph>(
-                        startDestination = Route.AccountScreen
-                    ) {
-
-                        composable<Route.LoginScreen> {
-                            val loginViewModel = koinViewModel<LoginViewModel>()
-
-                            LoginScreenRoot(
-                                viewModel = loginViewModel,
-                                onLoginSuccess = {
-                                    navController.navigate(Route.AccountScreen) {
-                                        popUpTo(Route.LoginScreen) { inclusive = true }
-                                    }
-                                }
-                            )
-                        }
-
-                        composable<Route.AccountScreen> {
-                            val accountViewModel = koinViewModel<AccountViewModel>()
-
-                            AccountScreenRoot(
-                                viewModel = accountViewModel
-                            )
-                        }
-
-                        composable<Route.BlackboardScreen> {
-                            val blackboardViewModel = koinViewModel<BlackboardViewModel>()
-
-                            BlackboardScreenRoot(
-                                viewModel = blackboardViewModel
-                            )
-                        }
-
+                    composable(Route.AccountScreen.route) {
+                        AccountScreenRoot(viewModel = koinViewModel())
                     }
-                } // NavHost
+                    composable(Route.BlackboardScreen.route) {
+                        BlackboardScreenRoot(viewModel = koinViewModel())
+                    }
+                    composable(Route.LoginScreen.route) {
+                        LoginScreenRoot(viewModel = koinViewModel(), onLoginSuccess = {
+                            navController.navigate(Route.AccountScreen.route) {
+                                popUpTo(Route.LoginScreen.route) { inclusive = true }
+                            }
+                        })
+                    }
+
+                }
             } // Column
         } // Scaffold
+    }
+
+    LaunchedEffect(state.token) {
+        if (state.token == null) {
+            navController.navigate(Route.LoginScreen.route) {
+                popUpTo(0) { inclusive = true }
+            }
+        } else {
+            navController.navigate(Route.AccountScreen.route) {
+                popUpTo(Route.LoginScreen.route) { inclusive = true }
+            }
+        }
     }
 }
 
