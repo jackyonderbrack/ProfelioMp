@@ -47,7 +47,7 @@ fun AccountScreenRoot(
 }
 
 @Composable
-fun AccountScreen(
+private fun AccountScreen(
     state: AccountState,
     onAction: (AccountIntent) -> Unit
 ) {

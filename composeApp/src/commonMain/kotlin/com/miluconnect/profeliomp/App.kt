@@ -28,6 +28,8 @@ import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
+import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -116,6 +118,14 @@ fun App(
 
                             AccountScreenRoot(
                                 viewModel = accountViewModel
+                            )
+                        }
+
+                        composable<Route.BlackboardScreen> {
+                            val blackboardViewModel = koinViewModel<BlackboardViewModel>()
+
+                            BlackboardScreenRoot(
+                                viewModel = blackboardViewModel
                             )
                         }
 

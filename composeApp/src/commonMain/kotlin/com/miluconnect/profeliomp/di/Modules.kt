@@ -11,6 +11,7 @@ import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
+import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -34,6 +35,7 @@ val sharedModule: Module = module {
     viewModelOf(::AppViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::AccountViewModel)
+    viewModelOf(::BlackboardViewModel)
 }
 
 

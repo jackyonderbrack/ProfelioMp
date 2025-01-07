@@ -11,4 +11,7 @@ sealed interface Route {
 
     @Serializable
     data object AccountScreen: Route
+
+    @Serializable
+    data object BlackboardScreen: Route
 }
