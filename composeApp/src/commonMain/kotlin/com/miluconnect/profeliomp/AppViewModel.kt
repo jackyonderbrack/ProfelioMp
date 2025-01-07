@@ -2,13 +2,12 @@ package com.miluconnect.profeliomp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
-import com.miluconnect.profeliomp.presentation.screens.login.LoginIntent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+
 /**
  * Handles:
  * - [PreferencesRepository] tokens and navigation to manage [AppState].
