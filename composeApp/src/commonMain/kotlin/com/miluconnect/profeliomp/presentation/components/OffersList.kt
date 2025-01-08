@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.domain.models.Offer
 
@@ -22,7 +24,7 @@ fun OffersList(
     modifier: Modifier
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth().padding(top = 8.dp),
+        modifier = modifier.fillMaxWidth(),
         state = scrollState,
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -31,9 +33,14 @@ fun OffersList(
             items = offers,
             key = { it.id },
         ) { offer ->
+            val itemModifier = if (offers.indexOf(offer) == 0) {
+                Modifier.padding(top = 8.dp)
+            } else {
+                Modifier
+            }
             OffersListItem(
                 offer = offer,
-                modifier = modifier
+                modifier = itemModifier
                     .fillMaxWidth()
                     .widthIn(700.dp)
                     .padding(horizontal = 8.dp),
