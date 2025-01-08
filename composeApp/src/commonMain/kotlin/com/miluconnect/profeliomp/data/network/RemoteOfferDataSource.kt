@@ -11,14 +11,14 @@ import io.ktor.client.request.get
 
 
 interface RemoteOfferDataSource {
-    suspend fun getAllOffers(): Result<OfferDto, DataError.Remote>
+    suspend fun getAllOffers(): Result<List<OfferDto>, DataError.Remote>
 }
 
 class RemoteOfferDataSourceImpl (
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ): RemoteOfferDataSource {
-    override suspend fun getAllOffers(): Result<OfferDto, DataError.Remote> {
+    override suspend fun getAllOffers(): Result<List<OfferDto>, DataError.Remote> {
 
         return authorizedEndpointCall(preferencesRepository) { headers ->
             httpClient.get(

@@ -8,16 +8,15 @@ import com.miluconnect.profeliomp.domain.core.map
 import com.miluconnect.profeliomp.domain.models.Offer
 
 interface OfferRepository {
-    suspend fun getCurrentOfferData(): Result<Offer, DataError.Remote>
+    suspend fun getAllOffers(): Result<List<Offer>, DataError.Remote>
 }
 
 class OfferRepositoryImpl(
     private val remoteDataSource: RemoteOfferDataSource
 ): OfferRepository {
-    override suspend fun getCurrentOfferData(): Result<Offer, DataError.Remote> {
+    override suspend fun getAllOffers(): Result<List<Offer>, DataError.Remote> {
         return remoteDataSource
             .getAllOffers()
-            .map { it.toOfferModel() }
+            .map { items -> items.map { it.toOfferModel() } }
     }
-
 }

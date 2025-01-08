@@ -25,7 +25,6 @@ private fun BlackboardScreen(
     state: BlackboardState,
 ) {
     Column {
-        Text(text = state.userName)
         state.errorMessage?.let {
             Text(text = it.asString())
         }
