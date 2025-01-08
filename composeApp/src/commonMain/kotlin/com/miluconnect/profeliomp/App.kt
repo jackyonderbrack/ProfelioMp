@@ -29,6 +29,7 @@ import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -87,14 +88,17 @@ fun App(
                     composable(Route.BlackboardScreen.route) {
                         BlackboardScreenRoot(viewModel = koinViewModel())
                     }
+                    composable(Route.ProjectsScreen.route) {
+                        ProjectsScreenRoot(viewModel = koinViewModel())
+                    }
                     composable(Route.LoginScreen.route) {
-                        LoginScreenRoot(viewModel = koinViewModel(), onLoginSuccess = {
+                        LoginScreenRoot(
+                            viewModel = koinViewModel(), onLoginSuccess = {
                             navController.navigate(Route.AccountScreen.route) {
                                 popUpTo(Route.LoginScreen.route) { inclusive = true }
                             }
                         })
                     }
-
                 }
             } // Column
         } // Scaffold
