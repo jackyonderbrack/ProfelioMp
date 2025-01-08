@@ -5,4 +5,5 @@ data class Offer(
     val title: String,
     val category: String,
     val city: String,
+    val imageUrl: String?,
 )

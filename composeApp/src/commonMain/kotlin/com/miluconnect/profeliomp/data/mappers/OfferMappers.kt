@@ -8,6 +8,7 @@ fun OfferDto.toOfferModel(): Offer {
         id = id,
         title = title,
         category = category,
-        city = city
+        city = city,
+        imageUrl = imageUrl
     )
 }

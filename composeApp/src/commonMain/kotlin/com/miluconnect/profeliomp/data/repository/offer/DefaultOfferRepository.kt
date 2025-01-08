@@ -15,7 +15,8 @@ class DefaultOfferRepository : OfferRepository {
                 id = (index + 1).toString(),
                 title = "Default Offer Title $index",
                 category = "Default Category",
-                city = "Default City $index"
+                city = "Default City $index",
+                imageUrl = null
             )
         }
     }

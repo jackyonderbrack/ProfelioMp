@@ -9,4 +9,5 @@ data class OfferDto(
     @SerialName("title") val title: String,
     @SerialName("category") val category: String,
     @SerialName("city") val city: String,
+    @SerialName("image_url") val imageUrl: String,
 )
