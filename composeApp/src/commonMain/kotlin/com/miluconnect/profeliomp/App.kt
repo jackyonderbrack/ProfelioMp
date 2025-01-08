@@ -2,6 +2,7 @@ package com.miluconnect.profeliomp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -70,17 +71,10 @@ fun App(
                 BottomNavigationBar(navController = navController)
             }
         ) {
-            innerPadding ->
-            Column(
-                Modifier.fillMaxWidth().padding(innerPadding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-
                 NavHost(
                     navController = navController,
                     startDestination = Route.BlackboardScreen.route,
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(it),
                 ) {
                     composable(Route.BlackboardScreen.route) {
                         BlackboardScreenRoot(viewModel = koinViewModel())
@@ -102,7 +96,7 @@ fun App(
                 }
             } // Column
         } // Scaffold
-    }
+
 
     LaunchedEffect(state.token) {
         if (state.token == null) {
