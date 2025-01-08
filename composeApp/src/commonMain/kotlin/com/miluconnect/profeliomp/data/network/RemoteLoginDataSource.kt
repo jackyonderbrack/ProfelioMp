@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.data.network
 
+import com.miluconnect.profeliomp.data.core.BASE_URL
 import com.miluconnect.profeliomp.data.core.endpointCall
 import com.miluconnect.profeliomp.data.dto.LoginResponseDto
 import com.miluconnect.profeliomp.domain.core.DataError
@@ -11,8 +12,6 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-
-private const val BASE_URL = "http://10.0.2.2:8080"
 
 interface RemoteLoginDataSource {
     suspend fun login(loginPayload: LoginPayload): Result<LoginResponseDto, DataError.Remote>

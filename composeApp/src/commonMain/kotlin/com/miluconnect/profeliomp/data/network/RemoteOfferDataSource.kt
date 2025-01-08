@@ -9,15 +9,16 @@ import com.miluconnect.profeliomp.domain.core.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
-interface RemoteUserDataSource {
-    suspend fun getCurrentUserData(): Result<UserDto, DataError.Remote>
+
+interface RemoteOfferDataSource {
+    suspend fun getAllOffers(): Result<UserDto, DataError.Remote>
 }
 
-class RemoteUserDataSourceImpl (
+class RemoteOfferDataSourceImpl (
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
-): RemoteUserDataSource {
-    override suspend fun getCurrentUserData(): Result<UserDto, DataError.Remote> {
+): RemoteOfferDataSource {
+    override suspend fun getAllOffers(): Result<UserDto, DataError.Remote> {
 
         return authorizedEndpointCall(preferencesRepository) { headers ->
             httpClient.get(
