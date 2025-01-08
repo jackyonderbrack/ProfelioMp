@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.app
+package com.miluconnect.profeliomp.presentation.components
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.miluconnect.profeliomp.presentation.app.Route
 
 
 @Composable
