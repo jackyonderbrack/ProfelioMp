@@ -29,5 +29,5 @@ private fun BlackboardScreen(
             Text(text = it.asString())
         }
     }
-    OffersList()
+    OffersList(offers = state.offersList)
 }

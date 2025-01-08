@@ -7,6 +7,7 @@ import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class BlackboardViewModel(
@@ -22,10 +23,14 @@ class BlackboardViewModel(
 
     private fun getAllOffersList() {
         viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
             offerRepository
                 .getAllOffers()
                 .onSuccess { result ->
-                    result.forEach { println("Offer: $it") }
+                    _state.update { it.copy(
+                        isLoading = false,
+                        offersList = result
+                    ) }
                 }
                 .onError {
                     println("Error: $it")
