@@ -79,17 +79,17 @@ fun App(
 
                 NavHost(
                     navController = navController,
-                    startDestination = Route.AccountScreen.route,
+                    startDestination = Route.BlackboardScreen.route,
                     modifier = Modifier.padding(innerPadding)
                 ) {
-                    composable(Route.AccountScreen.route) {
-                        AccountScreenRoot(viewModel = koinViewModel())
-                    }
                     composable(Route.BlackboardScreen.route) {
                         BlackboardScreenRoot(viewModel = koinViewModel())
                     }
                     composable(Route.ProjectsScreen.route) {
                         ProjectsScreenRoot(viewModel = koinViewModel())
+                    }
+                    composable(Route.AccountScreen.route) {
+                        AccountScreenRoot(viewModel = koinViewModel())
                     }
                     composable(Route.LoginScreen.route) {
                         LoginScreenRoot(
@@ -110,7 +110,7 @@ fun App(
                 popUpTo(0) { inclusive = true }
             }
         } else {
-            navController.navigate(Route.AccountScreen.route) {
+            navController.navigate(Route.BlackboardScreen.route) {
                 popUpTo(Route.LoginScreen.route) { inclusive = true }
             }
         }
