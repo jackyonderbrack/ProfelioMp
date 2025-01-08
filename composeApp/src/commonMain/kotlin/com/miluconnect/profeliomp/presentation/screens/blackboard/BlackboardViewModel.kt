@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class BlackboardViewModel(
     private val userRepository: UserRepository,
-    private val preferencesRepository: PreferencesRepository
+    private val preferencesRepository: PreferencesRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(BlackboardState())

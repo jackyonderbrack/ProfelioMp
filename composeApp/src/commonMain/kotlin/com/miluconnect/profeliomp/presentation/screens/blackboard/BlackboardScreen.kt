@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.miluconnect.profeliomp.presentation.components.OffersList
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -29,4 +30,5 @@ private fun BlackboardScreen(
             Text(text = it.asString())
         }
     }
+    OffersList()
 }
