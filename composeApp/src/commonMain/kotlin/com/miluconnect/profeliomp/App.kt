@@ -59,11 +59,11 @@ fun App(
             topBar = {
                 TopAppBar(
                     colors = topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.surface,
                     ),
                     title = {
-                        Text("Profelio Multiplatform")
+                        Text("Profelio Multiplatform", style = MaterialTheme.typography.titleLarge)
                     }
                 )
             },
