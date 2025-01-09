@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
@@ -27,10 +28,11 @@ import com.miluconnect.profeliomp.domain.models.Project
 @Composable
 fun ProjectListItem(
     projectItem: Project,
-    modifier: Modifier
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.primaryContainer,
+        modifier = Modifier.fillMaxWidth()
+        .widthIn(700.dp)
+        .padding(horizontal = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -41,7 +43,7 @@ fun ProjectListItem(
         ) {
             Box(
                 modifier = Modifier
-                    .height(100.dp)
+                    .height(56.dp)
                     .aspectRatio(0.65f),
                 contentAlignment = Alignment.Center
             ) { /* Project status icon */ }

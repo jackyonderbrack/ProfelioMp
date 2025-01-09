@@ -23,25 +23,14 @@ fun ProjectsList(
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         state = scrollState,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+//        verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(
             items = projectList,
             key = { it.id }
         ) { item ->
-            val itemModifier = if (projectList.indexOf(item) == 0) {
-                Modifier.padding(top = 12.dp)
-            } else {
-                Modifier
-            }
-            ProjectListItem(
-                projectItem = item,
-                modifier = itemModifier
-                    .fillMaxWidth()
-                    .widthIn(700.dp)
-                    .padding(horizontal = 8.dp),
-            )
+            ProjectListItem(projectItem = item)
 
         }
     }
