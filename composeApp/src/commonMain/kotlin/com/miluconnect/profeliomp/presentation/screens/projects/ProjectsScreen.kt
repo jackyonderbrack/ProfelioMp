@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.presentation.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -51,7 +52,11 @@ private fun ProjectsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ScreenSurface {
-
+            ProjectsList(
+                modifier = Modifier,
+                scrollState = lazyProjectsListState,
+                projectList = state.projectsList
+            )
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.miluconnect.profeliomp.presentation.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,12 +7,10 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
@@ -24,39 +20,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.rememberAsyncImagePainter
-import com.miluconnect.profeliomp.domain.models.Offer
-import org.jetbrains.compose.resources.painterResource
-import profeliomp.composeapp.generated.resources.Res
-import profeliomp.composeapp.generated.resources.image_rest
+import com.miluconnect.profeliomp.domain.models.Project
 
 @Composable
-fun OffersListItem(
-    offer: Offer,
-    onOfferClick: (Offer) -> Unit,
-    modifier: Modifier = Modifier,
+fun ProjectListItem(
+    projectItem: Project,
+    modifier: Modifier
 ) {
-
-    /**
-     * Component logic
-     * */
-    val painter = rememberAsyncImagePainter(
-        model = offer.imageUrl,
-        placeholder = painterResource(Res.drawable.image_rest),
-        error = painterResource(Res.drawable.image_rest),
-        contentScale = ContentScale.Crop
-    )
-
-    /**
-     * Return
-     * */
     Surface(
-        shape = RoundedCornerShape(12.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
-        modifier = modifier.clickable(onClick = {})
     ) {
         Row(
             modifier = Modifier
@@ -70,14 +44,7 @@ fun OffersListItem(
                     .height(100.dp)
                     .aspectRatio(0.65f),
                 contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    contentDescription = offer.title,
-                    painter = painter,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            ) { /* Project status icon */ }
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -86,19 +53,19 @@ fun OffersListItem(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = offer.title,
+                    text = projectItem.title,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = offer.city,
+                    text = projectItem.city,
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = offer.category,
+                    text = projectItem.startDate,
                     style = MaterialTheme.typography.bodySmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -111,6 +78,4 @@ fun OffersListItem(
             )
         }
     }
-
-//    Text(text = "Offer: ${offer.title}, Category: ${offer.category}, City: ${offer.city}")
 }
