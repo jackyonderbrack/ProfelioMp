@@ -19,7 +19,7 @@ fun ColumnScope.ScreenSurface(composable: @Composable () -> Unit) {
             .fillMaxWidth()
             .weight(1f),
         color = MaterialTheme.colorScheme.surfaceBright,
-        shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
+        shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp),
     ) {
         Box {
             /* Component inside */

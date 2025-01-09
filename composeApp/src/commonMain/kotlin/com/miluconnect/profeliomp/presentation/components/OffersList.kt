@@ -34,7 +34,7 @@ fun OffersList(
             key = { it.id },
         ) { offer ->
             val itemModifier = if (offers.indexOf(offer) == 0) {
-                Modifier.padding(top = 8.dp)
+                Modifier.padding(top = 12.dp)
             } else {
                 Modifier
             }
