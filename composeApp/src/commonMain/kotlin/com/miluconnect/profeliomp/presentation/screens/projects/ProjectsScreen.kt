@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -49,15 +50,7 @@ private fun ProjectsScreen(
             .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            color = MaterialTheme.colorScheme.surfaceBright,
-            shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
-        ) {
-            Box {}
-
+        ScreenSurface {
 
         }
     }

@@ -32,8 +32,12 @@ class BlackboardViewModel(
                         offersList = result
                     ) }
                 }
-                .onError {
-                    println("Error: $it")
+                .onError { errorResult ->
+                    println("Error: $errorResult")
+                    _state.update { it.copy(
+                        isLoading = false,
+                        errorMessage = it.errorMessage
+                    ) }
                 }
         }
     }

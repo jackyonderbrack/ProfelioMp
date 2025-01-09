@@ -59,7 +59,7 @@ fun OffersListItem(
      * Return
      * */
     Surface(
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(8.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
         modifier = modifier.clickable(onClick = {})
     ) {
