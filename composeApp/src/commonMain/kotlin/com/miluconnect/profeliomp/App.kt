@@ -1,9 +1,5 @@
 package com.miluconnect.profeliomp
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -16,17 +12,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.miluconnect.profeliomp.presentation.components.BottomNavigationBar
 import com.miluconnect.profeliomp.presentation.app.Route
+import com.miluconnect.profeliomp.presentation.app.allRoutes
+import com.miluconnect.profeliomp.presentation.components.BottomNavigationBar
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
@@ -51,6 +47,10 @@ fun App(
      */
     val navController = rememberNavController()
 
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
+    val currentNavigationTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
+
     /**
      * Actual UI
      */
@@ -63,7 +63,7 @@ fun App(
                         titleContentColor = MaterialTheme.colorScheme.surface,
                     ),
                     title = {
-                        Text("Profelio Multiplatform", style = MaterialTheme.typography.titleLarge)
+                        Text(text = currentNavigationTitle, style = MaterialTheme.typography.titleLarge)
                     }
                 )
             },
@@ -94,9 +94,8 @@ fun App(
                         })
                     }
                 }
-            } // Column
+            }
         } // Scaffold
-
 
     LaunchedEffect(state.token) {
         if (state.token == null) {

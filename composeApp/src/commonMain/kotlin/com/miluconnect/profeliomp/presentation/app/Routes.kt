@@ -41,3 +41,10 @@ sealed interface Route {
         override val icon: ImageVector = Icons.Default.Build
     }
 }
+
+val allRoutes = listOf(
+    Route.LoginScreen,
+    Route.BlackboardScreen,
+    Route.AccountScreen,
+    Route.ProjectsScreen
+)
