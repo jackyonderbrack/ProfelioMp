@@ -13,6 +13,8 @@ import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.offer.DefaultOfferRepository
 import com.miluconnect.profeliomp.data.repository.offer.OfferRepository
 import com.miluconnect.profeliomp.data.repository.offer.OfferRepositoryImpl
+import com.miluconnect.profeliomp.data.repository.project.DefaultProjectRepository
+import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
@@ -38,6 +40,7 @@ val sharedModule: Module = module {
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
     singleOf(::DefaultOfferRepository).bind<OfferRepository>() // test
+    singleOf(::DefaultProjectRepository).bind<ProjectRepository>() // test
 
     // ViewModels
     viewModelOf(::AppViewModel)

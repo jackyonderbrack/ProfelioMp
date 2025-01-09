@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class ProjectsViewModel(
-    private val userRepository: UserRepository,
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
 
