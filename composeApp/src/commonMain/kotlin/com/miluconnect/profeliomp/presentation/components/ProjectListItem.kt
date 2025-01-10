@@ -1,5 +1,7 @@
 package com.miluconnect.profeliomp.presentation.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,7 +38,7 @@ fun ProjectListItem(
             .fillMaxWidth()
             .clickable(onClick = {})
             .widthIn(700.dp)
-            .padding(horizontal = 4.dp),
+            .border(BorderStroke(1.dp, MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f))),
     ) {
         Row(
             modifier = Modifier
