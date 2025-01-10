@@ -78,7 +78,7 @@ fun ColumnScope.ProjectsTabs(
     ) { pageIndex: Int ->
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopCenter,
         ) {
             when (pageIndex) {
                 0 -> {

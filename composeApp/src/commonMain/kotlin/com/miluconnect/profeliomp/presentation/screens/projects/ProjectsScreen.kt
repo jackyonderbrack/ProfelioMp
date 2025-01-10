@@ -3,7 +3,6 @@ package com.miluconnect.profeliomp.presentation.screens.projects
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,8 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabs
@@ -35,18 +38,33 @@ private fun ProjectsScreen(
     state: ProjectsState,
 ) {
     val lazyProjectsListState = rememberLazyListState()
+    val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent")
+    var selectedFilter by remember { mutableStateOf("All") }
 
-    LaunchedEffect(state.projectsList) {
-        lazyProjectsListState.animateScrollToItem(index = 0)
+    val filteredProjects = state.projectsList.filter { project ->
+        when (selectedFilter) {
+            "Ongoing" -> project.status == "Ongoing"
+            "Completed" -> project.status == "Completed"
+            "Archived" -> project.status == "Archived"
+            else -> true
+        }
+    }
+
+    LaunchedEffect(filteredProjects) {
+        lazyProjectsListState.scrollToItem(0)
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onTertiaryContainer)
-            .statusBarsPadding(),
+            .background(MaterialTheme.colorScheme.onTertiaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        ChipsRow(
+            chips = filterOptions,
+            selectedChip = selectedFilter,
+            onFilterSelected = { newFilter -> selectedFilter = newFilter }
+        )
         ScreenSurface {
             Column {
                 ProjectsTabs(
@@ -55,7 +73,7 @@ private fun ProjectsScreen(
                         ProjectsList(
                             modifier = Modifier,
                             scrollState = lazyProjectsListState,
-                            projectList = state.projectsList
+                            projectList = filteredProjects,
                         )
                     },
                     secondTabTitle = "Discussions",

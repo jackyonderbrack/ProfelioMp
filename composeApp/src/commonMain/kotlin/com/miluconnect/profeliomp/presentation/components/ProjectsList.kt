@@ -19,7 +19,6 @@ fun ProjectsList(
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         state = scrollState,
-//        verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(
@@ -27,7 +26,6 @@ fun ProjectsList(
             key = { it.id }
         ) { item ->
             ProjectListItem(projectItem = item)
-
         }
     }
 }
