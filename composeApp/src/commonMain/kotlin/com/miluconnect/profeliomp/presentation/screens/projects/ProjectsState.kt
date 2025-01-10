@@ -8,6 +8,4 @@ data class ProjectsState(
     val errorMessage: UiText? = null,
 
     val projectsList: List<Project> = emptyList(),
-
-    val selectedTabIndex: Int = 0
 )

@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.domain.models.Project
+import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsIntent
 
 @Composable
 fun ProjectsList(

@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.components
+package com.miluconnect.profeliomp.presentation.components.projectsTabs
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,11 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsState
 
 @Composable
 fun ColumnScope.ProjectsTabs(
-    state: ProjectsState,
+    state: ProjectsTabsState,
     firstTabTitle: String,
     secondTabTitle: String,
     firstTabContent: @Composable () -> Unit,
@@ -38,7 +37,6 @@ fun ColumnScope.ProjectsTabs(
     TabRow(
         selectedTabIndex = state.selectedTabIndex,
         modifier = Modifier
-            .padding(vertical = 12.dp)
             .widthIn(max = 700.dp)
             .fillMaxWidth(),
         indicator = { tabPositions ->
@@ -52,19 +50,16 @@ fun ColumnScope.ProjectsTabs(
             onClick = {},
             modifier = Modifier.weight(1f),
         ) {
-            Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 8.dp))
+            Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
         }
         Tab(
             selected = state.selectedTabIndex == 1,
             onClick = {},
             modifier = Modifier.weight(1f),
         ) {
-            Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 8.dp))
+            Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
         }
     }
-
-    Spacer(modifier = Modifier.height(4.dp))
-
     HorizontalPager(
         state = pagerState,
         modifier = Modifier.fillMaxWidth().weight(1f)

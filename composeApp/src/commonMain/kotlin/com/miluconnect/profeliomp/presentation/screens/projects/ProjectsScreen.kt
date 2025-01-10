@@ -13,8 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.miluconnect.profeliomp.presentation.components.ProjectsList
-import com.miluconnect.profeliomp.presentation.components.ProjectsTabs
+import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabs
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
+import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabsState
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -49,7 +50,7 @@ private fun ProjectsScreen(
         ScreenSurface {
             Column {
                 ProjectsTabs(
-                    state = ProjectsState(),
+                    state = ProjectsTabsState(),
                     firstTabTitle = "Projects",
                     firstTabContent = {
                         ProjectsList(
