@@ -7,5 +7,7 @@ data class ProjectsState(
     val isLoading: Boolean = false,
     val errorMessage: UiText? = null,
 
-    val projectsList: List<Project> = emptyList()
+    val projectsList: List<Project> = emptyList(),
+
+    val selectedTabIndex: Int = 0
 )
