@@ -56,6 +56,7 @@ fun App(
      */
     MaterialTheme {
         Scaffold(
+            containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             topBar = {
                 TopAppBar(
                     colors = topAppBarColors(
@@ -71,31 +72,31 @@ fun App(
                 BottomNavigationBar(navController = navController)
             }
         ) {
-                NavHost(
-                    navController = navController,
-                    startDestination = Route.BlackboardScreen.route,
-                    modifier = Modifier.padding(it),
-                ) {
-                    composable(Route.BlackboardScreen.route) {
-                        BlackboardScreenRoot(viewModel = koinViewModel())
-                    }
-                    composable(Route.ProjectsScreen.route) {
-                        ProjectsScreenRoot(viewModel = koinViewModel())
-                    }
-                    composable(Route.AccountScreen.route) {
-                        AccountScreenRoot(viewModel = koinViewModel())
-                    }
-                    composable(Route.LoginScreen.route) {
-                        LoginScreenRoot(
-                            viewModel = koinViewModel(), onLoginSuccess = {
-                            navController.navigate(Route.AccountScreen.route) {
-                                popUpTo(Route.LoginScreen.route) { inclusive = true }
-                            }
-                        })
-                    }
+            NavHost(
+                navController = navController,
+                startDestination = Route.BlackboardScreen.route,
+                modifier = Modifier.padding(it),
+            ) {
+                composable(Route.BlackboardScreen.route) {
+                    BlackboardScreenRoot(viewModel = koinViewModel())
+                }
+                composable(Route.ProjectsScreen.route) {
+                    ProjectsScreenRoot(viewModel = koinViewModel())
+                }
+                composable(Route.AccountScreen.route) {
+                    AccountScreenRoot(viewModel = koinViewModel())
+                }
+                composable(Route.LoginScreen.route) {
+                    LoginScreenRoot(
+                        viewModel = koinViewModel(), onLoginSuccess = {
+                        navController.navigate(Route.AccountScreen.route) {
+                            popUpTo(Route.LoginScreen.route) { inclusive = true }
+                        }
+                    })
                 }
             }
-        } // Scaffold
+        }
+    } // Scaffold
 
     LaunchedEffect(state.token) {
         if (state.token == null) {
