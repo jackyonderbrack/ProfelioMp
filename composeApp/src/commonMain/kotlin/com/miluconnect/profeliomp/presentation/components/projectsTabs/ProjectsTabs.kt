@@ -2,10 +2,8 @@ package com.miluconnect.profeliomp.presentation.components.projectsTabs
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
@@ -18,43 +16,57 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ColumnScope.ProjectsTabs(
-    state: ProjectsTabsState,
+    viewModel: ProjectsTabsViewModel = koinViewModel<ProjectsTabsViewModel>(),
     firstTabTitle: String,
     secondTabTitle: String,
     firstTabContent: @Composable () -> Unit,
     secondTabContent: @Composable () -> Unit,
 ) {
 
+    val state = viewModel.state.collectAsState()
     val pagerState = rememberPagerState { 2 }
 
+    LaunchedEffect(state.value.selectedTabIndex) {
+        println("Selected Tab Index: ${state.value.selectedTabIndex}")
+        pagerState.animateScrollToPage(state.value.selectedTabIndex)
+    }
+
+    LaunchedEffect(pagerState.currentPage) {
+        println("Current Page: ${pagerState.currentPage}")
+        viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(pagerState.currentPage))
+    }
+
     TabRow(
-        selectedTabIndex = state.selectedTabIndex,
+        selectedTabIndex = state.value.selectedTabIndex,
         modifier = Modifier
             .widthIn(max = 700.dp)
             .fillMaxWidth(),
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[0])
+                modifier = Modifier.tabIndicatorOffset(tabPositions[state.value.selectedTabIndex])
             )
         }
     ) {
         Tab(
-            selected = state.selectedTabIndex == 0,
-            onClick = {},
+            selected = state.value.selectedTabIndex == 0,
+            onClick = { viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(0)) },
             modifier = Modifier.weight(1f),
         ) {
             Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
         }
         Tab(
-            selected = state.selectedTabIndex == 1,
-            onClick = {},
+            selected = state.value.selectedTabIndex == 1,
+            onClick = { viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(1)) },
             modifier = Modifier.weight(1f),
         ) {
             Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
@@ -70,10 +82,10 @@ fun ColumnScope.ProjectsTabs(
         ) {
             when (pageIndex) {
                 0 -> {
-                    if (state.isLoading) {
+                    if (state.value.isLoading) {
                         CircularProgressIndicator()
                     } else {
-                        state.errorMessage?.let {
+                        state.value.errorMessage?.let {
                             Text(
                                 text = it.asString(),
                                 textAlign = TextAlign.Center,
@@ -86,10 +98,10 @@ fun ColumnScope.ProjectsTabs(
                 }
 
                 1 -> {
-                    if (state.isLoading) {
+                    if (state.value.isLoading) {
                         CircularProgressIndicator()
                     } else {
-                        state.errorMessage?.let {
+                        state.value.errorMessage?.let {
                             Text(
                                 text = it.asString(),
                                 textAlign = TextAlign.Center,

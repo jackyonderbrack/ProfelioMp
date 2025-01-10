@@ -12,11 +12,11 @@ import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.offer.DefaultOfferRepository
 import com.miluconnect.profeliomp.data.repository.offer.OfferRepository
-import com.miluconnect.profeliomp.data.repository.offer.OfferRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.project.DefaultProjectRepository
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
+import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabsViewModel
 import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
@@ -48,6 +48,7 @@ val sharedModule: Module = module {
     viewModelOf(::AccountViewModel)
     viewModelOf(::BlackboardViewModel)
     viewModelOf(::ProjectsViewModel)
+    viewModelOf(::ProjectsTabsViewModel)
 }
 
 
