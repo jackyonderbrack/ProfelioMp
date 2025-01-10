@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,9 +32,11 @@ fun ProjectListItem(
     projectItem: Project,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth()
-        .widthIn(700.dp)
-        .padding(horizontal = 4.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = {})
+            .widthIn(700.dp)
+            .padding(horizontal = 4.dp),
     ) {
         Row(
             modifier = Modifier
