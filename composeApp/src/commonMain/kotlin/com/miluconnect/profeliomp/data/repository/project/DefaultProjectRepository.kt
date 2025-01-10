@@ -15,6 +15,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = (index + 1).toString(),
                 title = "Default Project Title $index",
+                owner = "Michał Łuczak",
                 startDate = "20.01.2025",
                 city = "Default City $index",
                 status = "In progress"

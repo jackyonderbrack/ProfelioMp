@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -46,7 +47,12 @@ fun ProjectListItem(
                     .height(56.dp)
                     .aspectRatio(0.65f),
                 contentAlignment = Alignment.Center
-            ) { /* Project status icon */ }
+            ) {
+                Icon(
+                    Icons.Filled.MoreVert,
+                    contentDescription = ""
+                )
+            }
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -54,6 +60,13 @@ fun ProjectListItem(
                     .padding(start = 8.dp),
                 verticalArrangement = Arrangement.Center,
             ) {
+                Text(
+                    text = projectItem.owner,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
                 Text(
                     text = projectItem.title,
                     style = MaterialTheme.typography.titleMedium,
@@ -67,7 +80,7 @@ fun ProjectListItem(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = projectItem.startDate,
+                    text = "Started: ${projectItem.startDate}",
                     style = MaterialTheme.typography.bodySmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

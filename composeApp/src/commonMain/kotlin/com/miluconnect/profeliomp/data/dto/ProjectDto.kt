@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 data class ProjectDto(
     @SerialName("id") val id: String,
     @SerialName("title") val title: String,
+    @SerialName("owner") val owner: String,
     @SerialName("start_date") val startDate: String,
     @SerialName("city") val city: String,
     @SerialName("status") val status: String,
