@@ -1,15 +1,12 @@
 package com.miluconnect.profeliomp.presentation.screens.projects
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Label
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,10 +78,10 @@ private fun ProjectsScreen(
                 style = MaterialTheme.typography.bodyLarge
             )
             ChipsRow(
-                modifier = Modifier.weight(5f),
                 chips = filterOptions,
                 selectedChip = selectedFilter,
-                onFilterSelected = { newFilter -> selectedFilter = newFilter }
+                onFilterSelected = { newFilter -> selectedFilter = newFilter },
+                modifier = Modifier.weight(5f)
             )
         }
 
