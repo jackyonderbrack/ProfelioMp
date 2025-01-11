@@ -13,7 +13,7 @@ import com.miluconnect.profeliomp.presentation.app.Route
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(
+    val routes = listOf(
         Route.BlackboardScreen,
         Route.ProjectsScreen,
         Route.AccountScreen,
@@ -22,9 +22,9 @@ fun BottomNavigationBar(navController: NavController) {
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
 
-        if (currentDestination?.route in items.map { it.route }) {
+        if (currentDestination?.route in routes.map { it.route }) {
             NavigationBar {
-                items.forEach { screen ->
+                routes.forEach { screen ->
                     NavigationBarItem(
                         icon = { Icon(imageVector = screen.icon, contentDescription = screen.title) },
                         label = { Text(screen.title) },

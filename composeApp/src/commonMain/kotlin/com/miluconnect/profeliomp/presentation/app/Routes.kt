@@ -2,6 +2,7 @@ package com.miluconnect.profeliomp.presentation.app
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
@@ -12,12 +13,14 @@ sealed interface Route {
     val route: String
     val title: String
     val icon: ImageVector
+    val shouldShowBottomNav: Boolean
 
     @Serializable
     data object LoginScreen : Route {
         override val route = "login"
         override val title = "Login"
         override val icon: ImageVector = Icons.Default.Lock
+        override val shouldShowBottomNav = true
     }
 
     @Serializable
@@ -25,6 +28,7 @@ sealed interface Route {
         override val route = "blackboard"
         override val title = "Blackboard"
         override val icon: ImageVector = Icons.Default.Search
+        override val shouldShowBottomNav = true
     }
 
     @Serializable
@@ -32,6 +36,7 @@ sealed interface Route {
         override val route = "account"
         override val title = "Account"
         override val icon: ImageVector = Icons.Default.AccountBox
+        override val shouldShowBottomNav = true
     }
 
     @Serializable
@@ -39,6 +44,15 @@ sealed interface Route {
         override val route = "projects"
         override val title = "Projects"
         override val icon: ImageVector = Icons.Default.Build
+        override val shouldShowBottomNav = true
+    }
+
+    @Serializable
+    data object AddProjectScreen : Route {
+        override val route = "addNewProjecct"
+        override val title = "Add New Project"
+        override val icon: ImageVector = Icons.Default.Add
+        override val shouldShowBottomNav = false
     }
 }
 
@@ -46,5 +60,6 @@ val allRoutes = listOf(
     Route.LoginScreen,
     Route.BlackboardScreen,
     Route.AccountScreen,
-    Route.ProjectsScreen
+    Route.ProjectsScreen,
+    Route.AddProjectScreen
 )

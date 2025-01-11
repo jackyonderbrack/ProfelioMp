@@ -27,6 +27,7 @@ import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.projects.addProject.AddProjectScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -77,6 +78,18 @@ fun App(
                 startDestination = Route.BlackboardScreen.route,
                 modifier = Modifier.padding(it),
             ) {
+
+                /* Login screen only */
+                composable(Route.LoginScreen.route) {
+                    LoginScreenRoot(
+                        viewModel = koinViewModel(), onLoginSuccess = {
+                            navController.navigate(Route.AccountScreen.route) {
+                                popUpTo(Route.LoginScreen.route) { inclusive = true }
+                            }
+                        })
+                }
+
+                /* Main Bottom navigation screen */
                 composable(Route.BlackboardScreen.route) {
                     BlackboardScreenRoot(viewModel = koinViewModel())
                 }
@@ -86,13 +99,10 @@ fun App(
                 composable(Route.AccountScreen.route) {
                     AccountScreenRoot(viewModel = koinViewModel())
                 }
-                composable(Route.LoginScreen.route) {
-                    LoginScreenRoot(
-                        viewModel = koinViewModel(), onLoginSuccess = {
-                        navController.navigate(Route.AccountScreen.route) {
-                            popUpTo(Route.LoginScreen.route) { inclusive = true }
-                        }
-                    })
+
+                /* Details navigation screens*/
+                composable(Route.AddProjectScreen.route) {
+                    AddProjectScreenRoot(viewModel = koinViewModel())
                 }
             }
         }
