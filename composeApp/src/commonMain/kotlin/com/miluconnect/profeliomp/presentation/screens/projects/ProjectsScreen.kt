@@ -1,6 +1,7 @@
 package com.miluconnect.profeliomp.presentation.screens.projects
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.presentation.components.Button
+import com.miluconnect.profeliomp.presentation.components.ButtonType
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
@@ -65,9 +68,18 @@ private fun ProjectsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
+            Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Button(
+                onClick = {},
+                label = "+ Create project"
+            )
+        }
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp)
+                .padding(horizontal = 8.dp)
                 .align(Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
