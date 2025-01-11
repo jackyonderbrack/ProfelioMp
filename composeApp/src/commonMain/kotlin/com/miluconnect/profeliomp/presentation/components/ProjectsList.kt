@@ -23,7 +23,7 @@ fun ProjectsList(
     ) {
         items(
             items = projectList,
-            key = { it.id }
+            key = { it.id!! }
         ) { item ->
             ProjectListItem(projectItem = item)
         }
