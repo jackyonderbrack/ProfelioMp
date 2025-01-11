@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -46,7 +45,23 @@ fun App(
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
+
+
+//    val previousRoute = navController.previousBackStackEntry?.destination?.route
+//    val navAnimationTransition = if (previousRoute< currentRoute) {
+//        AnimatedContentTransitionScope.SlideDirection.Right
+//    } else {
+//        AnimatedContentTransitionScope.SlideDirection.Left
+//    }
+//    val navAnimationSpecification = tween<IntOffset>(
+//        durationMillis = 200,
+//        delayMillis = 100,
+//        easing = FastOutSlowInEasing
+//    )
+
+    // Purpose: TopBar values
     val currentNavigationTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
+    val canNavigateBack = allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
 
     /**
      * Actual UI
@@ -55,7 +70,6 @@ fun App(
         Scaffold(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             topBar = {
-                val canNavigateBack = allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
                 TopBar(
                     currentNavigationTitle = currentNavigationTitle,
                     canNavigateBack = canNavigateBack,
@@ -72,14 +86,16 @@ fun App(
                 navController = navController,
                 startDestination = Route.BlackboardScreen.route,
                 modifier = Modifier.padding(it),
+//                enterTransition = { slideIntoContainer(navAnimationTransition, navAnimationSpecification) },
+//                exitTransition = { slideOutOfContainer(enterTransition, navAnimationSpecification) },
+//                popEnterTransition = { slideIntoContainer(navAnimationTransition, navAnimationSpecification) },
+//                popExitTransition = { slideOutOfContainer(forwardTransition, navAnimationSpecification) }
             ) {
-
                 /* Login screen only */
                 composable(Route.LoginScreen.route) {
                     LoginScreenRoot(
                         viewModel = koinViewModel(), onLoginSuccess = {
                             navController.navigate(Route.AccountScreen.route) {
-                                popUpTo(Route.LoginScreen.route) { inclusive = true }
                             }
                         })
                 }
@@ -89,10 +105,7 @@ fun App(
                     BlackboardScreenRoot(viewModel = koinViewModel())
                 }
                 composable(Route.ProjectsScreen.route) {
-                    ProjectsScreenRoot(
-                        viewModel = koinViewModel(),
-                        navController = navController
-                    )
+                    ProjectsScreenRoot(viewModel = koinViewModel(), navController = navController)
                 }
                 composable(Route.AccountScreen.route) {
                     AccountScreenRoot(viewModel = koinViewModel())
@@ -105,18 +118,6 @@ fun App(
             }
         }
     } // Scaffold
-
-    LaunchedEffect(state.token) {
-        if (state.token == null) {
-            navController.navigate(Route.LoginScreen.route) {
-                popUpTo(0) { inclusive = true }
-            }
-        } else {
-            navController.navigate(Route.BlackboardScreen.route) {
-                popUpTo(Route.LoginScreen.route) { inclusive = true }
-            }
-        }
-    }
 }
 
 @Composable

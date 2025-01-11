@@ -32,18 +32,18 @@ sealed interface Route {
     }
 
     @Serializable
-    data object AccountScreen : Route {
-        override val route = "account"
-        override val title = "Account"
-        override val icon: ImageVector = Icons.Default.AccountBox
-        override val isDetailScreen = false
-    }
-
-    @Serializable
     data object ProjectsScreen : Route {
         override val route = "projects"
         override val title = "Projects"
         override val icon: ImageVector = Icons.Default.Build
+        override val isDetailScreen = false
+    }
+
+    @Serializable
+    data object AccountScreen : Route {
+        override val route = "account"
+        override val title = "Account"
+        override val icon: ImageVector = Icons.Default.AccountBox
         override val isDetailScreen = false
     }
 
@@ -59,7 +59,7 @@ sealed interface Route {
 val allRoutes = listOf(
     Route.LoginScreen,
     Route.BlackboardScreen,
-    Route.AccountScreen,
     Route.ProjectsScreen,
+    Route.AccountScreen,
     Route.AddProjectScreen
 )
