@@ -1,12 +1,8 @@
 package com.miluconnect.profeliomp
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.app.allRoutes
 import com.miluconnect.profeliomp.presentation.components.BottomNavigationBar
+import com.miluconnect.profeliomp.presentation.components.TopBar
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
@@ -31,7 +28,6 @@ import com.miluconnect.profeliomp.presentation.screens.projects.addProject.AddPr
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App(
@@ -59,18 +55,17 @@ fun App(
         Scaffold(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             topBar = {
-                TopAppBar(
-                    colors = topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.surface,
-                    ),
-                    title = {
-                        Text(text = currentNavigationTitle, style = MaterialTheme.typography.titleLarge)
-                    }
+                val canNavigateBack = allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
+                TopBar(
+                    currentNavigationTitle = currentNavigationTitle,
+                    canNavigateBack = canNavigateBack,
+                    navigateUp = { navController.navigateUp() }
                 )
             },
             bottomBar = {
-                BottomNavigationBar(navController = navController)
+                if (allRoutes.find { it.route == currentRoute }?.isDetailScreen == false) {
+                    BottomNavigationBar(navController = navController)
+                }
             }
         ) {
             NavHost(
