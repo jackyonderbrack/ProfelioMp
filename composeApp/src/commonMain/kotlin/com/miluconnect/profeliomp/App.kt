@@ -67,7 +67,9 @@ fun App(
         Scaffold(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             topBar = {
-                val canNavigateBack = allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
+                val canNavigateBack =
+                    allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
+                            && allRoutes.find { it.route == currentRoute }?.route != "login"
                 TopBar(
                     currentNavigationTitle = currentNavigationTitle,
                     canNavigateBack = canNavigateBack,
