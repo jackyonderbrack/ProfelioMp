@@ -69,11 +69,16 @@ private fun ProjectsScreen(
     ) {
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
                 onClick = {},
                 label = "+ Create project"
+            )
+            Button(
+                onClick = {},
+                label = "+ Issue",
+                buttonType = ButtonType.TEXT
             )
         }
         Row(
