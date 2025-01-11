@@ -16,7 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -37,23 +36,12 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LoginScreenRoot(
     viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
-    onLoginSuccess: () -> Unit
 ) {
     /**
      * Retrieves the current state of the ViewModel as an observable object.
      * - Uses [collectAsState] to automatically update the UI when the state changes.
      */
     val state by viewModel.state.collectAsState()
-
-    /**
-     * Observe state of token.
-     * - Uses [onLoginSuccess] to navigate off LoginScreen.
-     */
-    if (state.token != null) {
-        LaunchedEffect(Unit) {
-            onLoginSuccess()
-        }
-    }
 
     /**
      * Render the [LoginScreen]:

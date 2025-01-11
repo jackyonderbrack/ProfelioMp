@@ -20,7 +20,7 @@ sealed interface Route {
         override val route = "login"
         override val title = "Login"
         override val icon: ImageVector = Icons.Default.Lock
-        override val isDetailScreen = false
+        override val isDetailScreen = true
     }
 
     @Serializable

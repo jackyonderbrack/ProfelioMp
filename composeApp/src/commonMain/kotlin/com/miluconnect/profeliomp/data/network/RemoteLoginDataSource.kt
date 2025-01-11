@@ -3,6 +3,7 @@ package com.miluconnect.profeliomp.data.network
 import com.miluconnect.profeliomp.data.core.BASE_URL
 import com.miluconnect.profeliomp.data.core.endpointCall
 import com.miluconnect.profeliomp.data.dto.LoginResponseDto
+import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.models.LoginPayload
@@ -18,10 +19,11 @@ interface RemoteLoginDataSource {
 }
 
 class RemoteLoginDataSourceImpl (
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val preferencesRepository: PreferencesRepository
 ): RemoteLoginDataSource {
     override suspend fun login(loginPayload: LoginPayload): Result<LoginResponseDto, DataError.Remote> {
-        return endpointCall {
+        return endpointCall(preferencesRepository = preferencesRepository) {
             httpClient.post(
                 urlString = "$BASE_URL/login/",
             ) {
