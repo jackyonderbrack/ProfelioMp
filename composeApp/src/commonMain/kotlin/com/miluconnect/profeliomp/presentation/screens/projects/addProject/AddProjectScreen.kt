@@ -8,7 +8,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AddProjectScreenRoot(
-    viewModel: AddProjectViewModel = koinViewModel<AddProjectViewModel>()
+    viewModel: AddProjectViewModel = koinViewModel<AddProjectViewModel>(),
 ) {
 
     val state by viewModel.state.collectAsState()

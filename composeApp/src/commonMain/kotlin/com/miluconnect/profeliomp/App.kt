@@ -94,7 +94,10 @@ fun App(
                     BlackboardScreenRoot(viewModel = koinViewModel())
                 }
                 composable(Route.ProjectsScreen.route) {
-                    ProjectsScreenRoot(viewModel = koinViewModel())
+                    ProjectsScreenRoot(
+                        viewModel = koinViewModel(),
+                        navController = navController
+                    )
                 }
                 composable(Route.AccountScreen.route) {
                     AccountScreenRoot(viewModel = koinViewModel())

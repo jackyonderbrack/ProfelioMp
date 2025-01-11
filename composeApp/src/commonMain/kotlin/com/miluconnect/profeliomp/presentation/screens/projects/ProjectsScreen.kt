@@ -20,6 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.components.Button
 import com.miluconnect.profeliomp.presentation.components.ButtonType
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
@@ -30,19 +33,22 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ProjectsScreenRoot(
-    viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>()
+    viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
+    navController: NavController
 ) {
 
     val state by viewModel.state.collectAsState()
 
     ProjectsScreen(
-        state = state
+        state = state,
+        navController = navController
     )
 }
 
 @Composable
 private fun ProjectsScreen(
     state: ProjectsState,
+    navController: NavController
 ) {
     val lazyProjectsListState = rememberLazyListState()
     val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
@@ -72,7 +78,7 @@ private fun ProjectsScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
-                onClick = {},
+                onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
                 label = "+ Create project"
             )
             Button(
