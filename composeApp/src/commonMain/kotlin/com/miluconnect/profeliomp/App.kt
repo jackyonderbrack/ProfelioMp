@@ -48,6 +48,18 @@ fun App(
     val currentRoute = currentBackStackEntry?.destination?.route
     val currentNavigationTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
 
+    LaunchedEffect(state.token) {
+        if (state.token == null) {
+            navController.navigate(Route.LoginScreen.route) {
+                popUpTo(0) { inclusive = true }
+            }
+        } else {
+            navController.navigate(Route.BlackboardScreen.route) {
+                popUpTo(Route.LoginScreen.route) { inclusive = true }
+            }
+        }
+    }
+
     /**
      * Actual UI
      */
@@ -76,12 +88,7 @@ fun App(
 
                 /* Login screen only */
                 composable(Route.LoginScreen.route) {
-                    LoginScreenRoot(
-                        viewModel = koinViewModel(), onLoginSuccess = {
-                            navController.navigate(Route.AccountScreen.route) {
-                                popUpTo(Route.LoginScreen.route) { inclusive = true }
-                            }
-                        })
+                    LoginScreenRoot(viewModel = koinViewModel())
                 }
 
                 /* Main Bottom navigation screen */
@@ -102,18 +109,6 @@ fun App(
                 composable(Route.AddProjectScreen.route) {
                     AddProjectScreenRoot(viewModel = koinViewModel())
                 }
-            }
-        }
-    } // Scaffold
-
-    LaunchedEffect(state.token) {
-        if (state.token == null) {
-            navController.navigate(Route.LoginScreen.route) {
-                popUpTo(0) { inclusive = true }
-            }
-        } else {
-            navController.navigate(Route.BlackboardScreen.route) {
-                popUpTo(Route.LoginScreen.route) { inclusive = true }
             }
         }
     }
