@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.miluconnect.profeliomp.presentation.app.Route
 
-
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val routes = listOf(
