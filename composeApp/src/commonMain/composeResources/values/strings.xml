@@ -4,6 +4,13 @@
     <string name="search_result_empty">Oops! No results found.</string>
     <string name="favorites_empty">No favorites yet. Try add some</string>
     <string name="go_back">Go back</string>
+
+    <!-- SCREEN: AddProject -->
+    <string name="add_new_project_title">New project</string>
+    <string name="new_project_name">Name</string>
+    <string name="new_project_max_issues">Max issues</string>
+    <string name="new_project_recurrence">Recurrence</string>
+
     <!-- Remote Errors -->
     <string name="error_bad_request">Bad Request exception...\nSomething wrong with request configuration.</string>
     <string name="error_request_timeout">Oops, it took too long to get a response. Please try again!</string>
