@@ -7,7 +7,7 @@
 
     <!-- SCREEN: AddProject -->
     <string name="add_new_project_title">New project</string>
-
+    <string name="new_project_name">Name</string>
 
     <!-- Remote Errors -->
     <string name="error_bad_request">Bad Request exception...\nSomething wrong with request configuration.</string>
