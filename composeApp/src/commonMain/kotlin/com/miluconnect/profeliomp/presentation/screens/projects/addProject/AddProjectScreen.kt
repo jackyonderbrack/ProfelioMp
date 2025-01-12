@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.miluconnect.profeliomp.presentation.components.AddProjectForm
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -25,9 +26,5 @@ fun AddProjectScreenRoot(
 fun AddProjectScreen(
     state: AddProjectState
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text("Add new project screen")
-    }
+    AddProjectForm()
 }
