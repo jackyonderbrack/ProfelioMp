@@ -6,11 +6,15 @@
     <string name="go_back">Go back</string>
 
     <!-- SCREEN: AddProject -->
-    <string name="add_new_project_title">New project</string>
-    <string name="new_project_name">Name</string>
+    <string name="add_new_project_title">New project wizard</string>
+    <string name="new_project_name">Project name</string>
     <string name="new_project_max_issues">Max issues</string>
     <string name="new_project_recurrence">Recurrence</string>
     <string name="new_project_end_date">End date</string>
+    <string name="new_project_place">Project place (city)</string>
+    <string name="new_project_custom_label">Label</string>
+    <string name="new_project_create_button_label">Create</string>
+    <string name="new_project_dismiss_button_label">Dismiss</string>
 
     <!-- Remote Errors -->
     <string name="error_bad_request">Bad Request exception...\nSomething wrong with request configuration.</string>
