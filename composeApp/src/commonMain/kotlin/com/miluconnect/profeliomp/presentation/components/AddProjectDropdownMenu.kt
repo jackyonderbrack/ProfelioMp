@@ -1,6 +1,5 @@
 package com.miluconnect.profeliomp.presentation.components
 
-import TextFieldDatePicker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.DropdownMenuItem
@@ -65,6 +64,6 @@ fun AddProjectDropdownMenu(recurrence: (String) -> Unit) {
             }
         }
         /* TODO #12 DatePicker */
-        TextFieldDatePicker()
+
     }
 }

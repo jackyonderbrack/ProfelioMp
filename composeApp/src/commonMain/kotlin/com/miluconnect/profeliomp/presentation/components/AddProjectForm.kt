@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.presentation.components
 
+import TextFieldWithDatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,10 +30,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.domain.models.ProjectRecurrence
-import io.ktor.http.HttpHeaders.Date
 import org.jetbrains.compose.resources.stringResource
 import profeliomp.composeapp.generated.resources.Res
 import profeliomp.composeapp.generated.resources.add_new_project_title
+import profeliomp.composeapp.generated.resources.new_project_end_date
 import profeliomp.composeapp.generated.resources.new_project_max_issues
 import profeliomp.composeapp.generated.resources.new_project_name
 
@@ -127,6 +128,14 @@ fun AddProjectForm() {
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(Res.string.new_project_end_date),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            TextFieldWithDatePicker()
         }
     }
 }
