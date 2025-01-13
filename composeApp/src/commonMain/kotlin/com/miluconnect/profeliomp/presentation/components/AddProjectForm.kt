@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,18 +34,23 @@ import com.miluconnect.profeliomp.domain.models.ProjectRecurrence
 import org.jetbrains.compose.resources.stringResource
 import profeliomp.composeapp.generated.resources.Res
 import profeliomp.composeapp.generated.resources.add_new_project_title
+import profeliomp.composeapp.generated.resources.new_project_create_button_label
+import profeliomp.composeapp.generated.resources.new_project_custom_label
+import profeliomp.composeapp.generated.resources.new_project_dismiss_button_label
 import profeliomp.composeapp.generated.resources.new_project_end_date
 import profeliomp.composeapp.generated.resources.new_project_max_issues
 import profeliomp.composeapp.generated.resources.new_project_name
+import profeliomp.composeapp.generated.resources.new_project_place
 
 @Composable
 fun AddProjectForm() {
 
     var projectName by rememberSaveable { mutableStateOf("") }
     var numberOfIssues by rememberSaveable { mutableStateOf("") }
+    var projectPlace by rememberSaveable { mutableStateOf("") }
+    var projectCustomLabel by rememberSaveable { mutableStateOf("") }
     var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.DAILY.name) }
     var isMaxNumberOfIssuesError by rememberSaveable { mutableStateOf(false) }
-//    var endDate by rememberSaveable { mutableStateOf(Date().time) }
 
     Column(
         modifier = Modifier
@@ -136,6 +142,40 @@ fun AddProjectForm() {
                 style = MaterialTheme.typography.bodyLarge
             )
             TextFieldWithDatePicker()
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(Res.string.new_project_place),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = projectPlace,
+                onValueChange = { projectPlace = it },
+                placeholder = { Text(text = "e.g. Rybnik") }
+            )
+
+            Text(
+                text = stringResource(Res.string.new_project_custom_label),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = projectCustomLabel,
+                onValueChange = { projectCustomLabel = it },
+                placeholder = { Text(text = "e.g. Housework, Outdoor") }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier.align(Alignment.End),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(onClick = {}, label = stringResource(Res.string.new_project_dismiss_button_label), buttonType = ButtonType.TEXT)
+                Button(onClick = {}, label = stringResource(Res.string.new_project_create_button_label))
+            }
         }
     }
 }
