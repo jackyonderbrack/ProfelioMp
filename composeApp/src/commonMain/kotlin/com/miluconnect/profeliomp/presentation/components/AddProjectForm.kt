@@ -198,7 +198,6 @@ fun AddProjectForm() {
                         buttonType = ButtonType.OUTLINED,
                         label = "Delete",
                         onClick = {
-                            // Usuwanie elementu
                             invitedEmails.removeAt(index)
                         }
                     )
