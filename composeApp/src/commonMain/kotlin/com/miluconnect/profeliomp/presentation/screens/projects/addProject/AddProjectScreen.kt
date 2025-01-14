@@ -28,5 +28,7 @@ fun AddProjectScreen(
     state: AddProjectState,
     onIntent: (AddProjectIntent) -> Unit
 ) {
-    AddProjectForm()
+    AddProjectForm(
+        onSubmit = {}
+    )
 }
