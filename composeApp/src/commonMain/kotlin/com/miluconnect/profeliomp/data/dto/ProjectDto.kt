@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.data.dto
 
+import com.miluconnect.profeliomp.domain.models.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -7,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class ProjectDto(
     @SerialName("id") val id: String,
     @SerialName("title") val title: String,
-    @SerialName("owner") val owner: String,
+    @SerialName("users") val users: List<UserDto>,
     @SerialName("start_date") val startDate: String,
     @SerialName("end_date") val endDate: String,
     @SerialName("city") val city: String,

@@ -3,7 +3,7 @@ package com.miluconnect.profeliomp.domain.models
 data class Project(
     val id: String?,
     val title: String,
-    val owner: String,
+    val users: List<User>,
     val startDate: String,
     val endDate: String,
     val city: String,

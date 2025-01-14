@@ -27,7 +27,7 @@ class AccountViewModel(
                 .onSuccess { userData ->
                     _state.update { it.copy(
                         userId = userData.id,
-                        userEmail = userData.email,
+                        userEmail = userData.email!!,
                         userName = userData.name
                     ) }
                 }
@@ -46,7 +46,7 @@ class AccountViewModel(
                                 isLoading = false,
                                 userId = response.id,
                                 userName = response.name,
-                                userEmail = response.email
+                                userEmail = response.email!!
                             ) }
                         }
                         .onError { error ->

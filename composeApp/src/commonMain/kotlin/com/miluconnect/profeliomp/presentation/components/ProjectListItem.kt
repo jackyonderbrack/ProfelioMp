@@ -66,7 +66,7 @@ fun ProjectListItem(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = projectItem.owner,
+                    text = projectItem.users.first().name,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
                     maxLines = 1,
