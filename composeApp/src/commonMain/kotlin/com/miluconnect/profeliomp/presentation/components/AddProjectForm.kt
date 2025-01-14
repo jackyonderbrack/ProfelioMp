@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,9 +23,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +42,9 @@ import profeliomp.composeapp.generated.resources.add_new_project_title
 import profeliomp.composeapp.generated.resources.new_project_create_button_label
 import profeliomp.composeapp.generated.resources.new_project_custom_label
 import profeliomp.composeapp.generated.resources.new_project_dismiss_button_label
+import profeliomp.composeapp.generated.resources.new_project_email_invitation_label
+import profeliomp.composeapp.generated.resources.new_project_email_invitation_notice
+import profeliomp.composeapp.generated.resources.new_project_email_invitation_placeholder
 import profeliomp.composeapp.generated.resources.new_project_end_date
 import profeliomp.composeapp.generated.resources.new_project_max_issues
 import profeliomp.composeapp.generated.resources.new_project_name
@@ -52,6 +60,11 @@ fun AddProjectForm() {
     var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.Daily.name) }
     var isMaxNumberOfIssuesError by rememberSaveable { mutableStateOf(false) }
 
+    val invitedEmails = remember {
+        mutableStateListOf<String>()
+    }
+
+    var emailInput by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -167,14 +180,87 @@ fun AddProjectForm() {
                 placeholder = { Text(text = "e.g. Housework, Outdoor") }
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            invitedEmails.forEachIndexed { index, email ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = email,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(2f)
+                    )
+                    Button(
+                        modifier = Modifier.weight(1f),
+                        buttonType = ButtonType.OUTLINED,
+                        label = "Delete",
+                        onClick = {
+                            // Usuwanie elementu
+                            invitedEmails.removeAt(index)
+                        }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(Res.string.new_project_email_invitation_label),
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            Text(
+                text = stringResource(Res.string.new_project_email_invitation_notice),
+                style = MaterialTheme.typography.bodySmall
+            )
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    modifier = Modifier.weight(2f),
+                    value = emailInput,
+                    onValueChange = { emailInput = it },
+                    label = {
+                        Text(
+                            text = stringResource(Res.string.new_project_email_invitation_placeholder),
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                )
+
+                Button(
+                    modifier = Modifier.weight(1f),
+                    buttonType = ButtonType.TEXT,
+                    label = "+ Add person",
+                    onClick = {
+                        if (emailInput.isNotBlank()) {
+                            invitedEmails.add(emailInput)
+                            emailInput = ""
+                        }
+                    }
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 modifier = Modifier.align(Alignment.End),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Button(onClick = {}, label = stringResource(Res.string.new_project_dismiss_button_label), buttonType = ButtonType.TEXT)
-                Button(onClick = {}, label = stringResource(Res.string.new_project_create_button_label))
+                Button(
+                    onClick = {},
+                    label = stringResource(Res.string.new_project_dismiss_button_label),
+                    buttonType = ButtonType.TEXT
+                )
+                Button(
+                    onClick = {},
+                    label = stringResource(Res.string.new_project_create_button_label)
+                )
             }
         }
     }
