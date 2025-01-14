@@ -14,13 +14,19 @@ fun AddProjectScreenRoot(
     val state by viewModel.state.collectAsState()
 
     AddProjectScreen(
-        state = state
+        state = state,
+        onIntent = { intent ->
+            when (intent) {
+                is AddProjectIntent.AddNewProject -> { viewModel.onIntent(intent) }
+            }
+        }
     )
 }
 
 @Composable
 fun AddProjectScreen(
-    state: AddProjectState
+    state: AddProjectState,
+    onIntent: (AddProjectIntent) -> Unit
 ) {
     AddProjectForm()
 }

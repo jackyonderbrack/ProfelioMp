@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.domain.models.Project
 import com.miluconnect.profeliomp.domain.models.ProjectRecurrence
 import org.jetbrains.compose.resources.stringResource
 import profeliomp.composeapp.generated.resources.Res
@@ -51,7 +52,9 @@ import profeliomp.composeapp.generated.resources.new_project_name
 import profeliomp.composeapp.generated.resources.new_project_place
 
 @Composable
-fun AddProjectForm() {
+fun AddProjectForm(
+    onSubmit: (Project) -> Unit
+) {
 
     var projectName by rememberSaveable { mutableStateOf("") }
     var numberOfIssues by rememberSaveable { mutableStateOf("") }

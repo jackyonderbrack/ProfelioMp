@@ -8,4 +8,8 @@ class AddProjectViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(AddProjectState())
     val state: StateFlow<AddProjectState> get() = _state
+
+    fun onIntent(intent: AddProjectIntent) {
+
+    }
 }
