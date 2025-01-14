@@ -5,19 +5,20 @@ data class Project(
     val title: String,
     val owner: String,
     val startDate: String,
+    val endDate: String,
     val city: String,
     val status: String?,
 )
 
 enum class ProjectRecurrence {
-    DAILY, WEEKLY, MONTHLY
+    Daily, Weekly, Monthly
 }
 
 fun getProjectRecurrenceList(): List<ProjectRecurrence> {
     val projectRecurrenceList = mutableListOf<ProjectRecurrence>()
-    projectRecurrenceList.add(ProjectRecurrence.DAILY)
-    projectRecurrenceList.add(ProjectRecurrence.WEEKLY)
-    projectRecurrenceList.add(ProjectRecurrence.MONTHLY)
+    projectRecurrenceList.add(ProjectRecurrence.Daily)
+    projectRecurrenceList.add(ProjectRecurrence.Weekly)
+    projectRecurrenceList.add(ProjectRecurrence.Monthly)
 
     return projectRecurrenceList
 }

@@ -52,7 +52,7 @@ private fun ProjectsScreen(
 ) {
     val lazyProjectsListState = rememberLazyListState()
     val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
-    var selectedFilter by remember { mutableStateOf("All") }
+    var selectedFilter by remember { mutableStateOf("Ongoing") }
 
     val filteredProjects = state.projectsList.filter { project ->
         when (selectedFilter) {

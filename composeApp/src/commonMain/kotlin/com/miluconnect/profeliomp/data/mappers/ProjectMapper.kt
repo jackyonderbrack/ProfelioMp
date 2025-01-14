@@ -9,6 +9,7 @@ fun ProjectDto.toProjectModel(): Project {
         title = title,
         owner = owner,
         startDate = startDate,
+        endDate = endDate,
         city = city,
         status = status
     )

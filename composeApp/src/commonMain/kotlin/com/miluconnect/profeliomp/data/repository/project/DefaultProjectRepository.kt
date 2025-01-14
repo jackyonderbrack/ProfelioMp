@@ -17,6 +17,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "New house in Miami",
                 owner = "Mariah Carr",
                 startDate = "20.01.2025",
+                endDate = "30.11.2025",
                 city = "Miami",
                 status = "Ongoing"
             ),
@@ -25,6 +26,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Door repair",
                 owner = "John Random",
                 startDate = "30.11.2025",
+                endDate = "30.11.2025",
                 city = "New York",
                 status = "Completed"
             ),
@@ -33,6 +35,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Office renovation",
                 owner = "Anna Smith",
                 startDate = "15.03.2025",
+                endDate = "30.11.2025",
                 city = "San Francisco",
                 status = "Ongoing"
             ),
@@ -41,6 +44,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Kitchen remodeling",
                 owner = "Robert Brown",
                 startDate = "01.07.2025",
+                endDate = "30.11.2025",
                 city = "Chicago",
                 status = "Archived"
             ),
@@ -49,6 +53,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Bathroom upgrade",
                 owner = "Emma Wilson",
                 startDate = "10.05.2025",
+                endDate = "30.11.2025",
                 city = "Houston",
                 status = "Completed"
             ),
@@ -57,6 +62,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Pool construction",
                 owner = "Michael Johnson",
                 startDate = "25.08.2025",
+                endDate = "30.11.2025",
                 city = "Phoenix",
                 status = "Ongoing"
             ),
@@ -65,6 +71,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Garage extension",
                 owner = "Sarah Davis",
                 startDate = "12.02.2025",
+                endDate = "30.11.2025",
                 city = "Philadelphia",
                 status = "Ongoing"
             ),
@@ -73,6 +80,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Roof replacement",
                 owner = "David Martinez",
                 startDate = "08.09.2025",
+                endDate = "30.11.2025",
                 city = "San Diego",
                 status = "Archived"
             ),
@@ -81,6 +89,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Landscaping project",
                 owner = "Sophia Garcia",
                 startDate = "18.04.2025",
+                endDate = "30.11.2025",
                 city = "Dallas",
                 status = "Completed"
             ),
@@ -89,6 +98,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Library construction",
                 owner = "James White",
                 startDate = "05.06.2025",
+                endDate = "30.11.2025",
                 city = "San Antonio",
                 status = "Ongoing"
             ),
@@ -97,6 +107,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Painting exterior walls",
                 owner = "Olivia Lee",
                 startDate = "20.10.2025",
+                endDate = "30.11.2025",
                 city = "Austin",
                 status = "Completed"
             ),
@@ -105,6 +116,7 @@ class DefaultProjectRepository : ProjectRepository {
                 title = "Basement waterproofing",
                 owner = "William Harris",
                 startDate = "01.12.2025",
+                endDate = "30.11.2025",
                 city = "Seattle",
                 status = "Ongoing"
             )

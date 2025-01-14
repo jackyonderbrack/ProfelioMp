@@ -9,6 +9,7 @@ data class ProjectDto(
     @SerialName("title") val title: String,
     @SerialName("owner") val owner: String,
     @SerialName("start_date") val startDate: String,
+    @SerialName("end_date") val endDate: String,
     @SerialName("city") val city: String,
     @SerialName("status") val status: String,
 )

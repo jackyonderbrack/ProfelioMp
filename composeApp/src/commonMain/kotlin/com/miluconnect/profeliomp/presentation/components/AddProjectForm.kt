@@ -49,7 +49,7 @@ fun AddProjectForm() {
     var numberOfIssues by rememberSaveable { mutableStateOf("") }
     var projectPlace by rememberSaveable { mutableStateOf("") }
     var projectCustomLabel by rememberSaveable { mutableStateOf("") }
-    var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.DAILY.name) }
+    var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.Daily.name) }
     var isMaxNumberOfIssuesError by rememberSaveable { mutableStateOf(false) }
 
     Column(
