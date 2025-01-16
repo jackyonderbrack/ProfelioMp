@@ -12,6 +12,27 @@ class DefaultProjectRepository : ProjectRepository {
         return Result.Success(createDefaultProjects())
     }
 
+    override suspend fun createNewProject(): Result<Project, DataError.Remote> {
+        return Result.Success(createDefaultSingleProject())
+    }
+
+    // Mocks:
+    private fun createDefaultSingleProject(): Project {
+        return Project(
+            id = "1",
+            title = "New house in Miami",
+            users = listOf(
+                User(id = "3213", name = "mcar@example.com", email = "mcar@example.com")
+                // Możesz dodać więcej użytkowników, np.:
+                // User(id = "1234", name = "jane.doe@example.com", email = "jane.doe@example.com")
+            ),
+            startDate = "20.01.2025",
+            endDate = "30.11.2025",
+            city = "Miami",
+            status = "Ongoing"
+            )
+    }
+
     private fun createDefaultProjects(): List<Project> {
         return listOf(
             Project(
