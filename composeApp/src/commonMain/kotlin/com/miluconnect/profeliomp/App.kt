@@ -68,10 +68,6 @@ fun App(
             navController.navigate(Route.LoginScreen.route) {
                 popUpTo(0) { inclusive = true }
             }
-        } else {
-            navController.navigate(Route.BlackboardScreen.route) {
-                popUpTo(Route.LoginScreen.route) { inclusive = true }
-            }
         }
     }
 
@@ -99,7 +95,7 @@ fun App(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Route.BlackboardScreen.route,
+                startDestination = Route.ProjectsScreen.route,
                 modifier = Modifier.padding(it),
 //                enterTransition = { slideIntoContainer(navAnimationTransition, navAnimationSpecification) },
 //                exitTransition = { slideOutOfContainer(enterTransition, navAnimationSpecification) },

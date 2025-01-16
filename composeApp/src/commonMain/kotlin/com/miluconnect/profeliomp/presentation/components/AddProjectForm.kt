@@ -81,14 +81,6 @@ fun AddProjectForm(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = stringResource(Res.string.add_new_project_title),
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.displaySmall
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
                 text = stringResource(Res.string.new_project_name),
                 style = MaterialTheme.typography.bodyLarge
             )
