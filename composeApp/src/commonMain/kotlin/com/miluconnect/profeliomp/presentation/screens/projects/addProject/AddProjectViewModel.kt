@@ -10,6 +10,6 @@ class AddProjectViewModel : ViewModel() {
     val state: StateFlow<AddProjectState> get() = _state
 
     fun onIntent(intent: AddProjectIntent) {
-
+        // Pózniej
     }
 }

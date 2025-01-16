@@ -1,13 +1,13 @@
 package com.miluconnect.profeliomp.domain.models
 
 data class Project(
-    val id: String?,
+    val id: String? = null,
     val title: String,
-    val users: List<User>,
-    val startDate: String,
+    val users: List<String>,
+    val startDate: String? = null,
     val endDate: String,
     val city: String,
-    val status: String?,
+    val status: String? = null,
 )
 
 enum class ProjectRecurrence {

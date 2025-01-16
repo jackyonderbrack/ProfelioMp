@@ -1,6 +1,5 @@
-package com.miluconnect.profeliomp.presentation.components
+package com.miluconnect.profeliomp.presentation.screens.projects.addProject.components
 
-import TextFieldWithDatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,13 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,23 +24,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ModifierInfo
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.domain.models.Project
 import com.miluconnect.profeliomp.domain.models.ProjectRecurrence
+import com.miluconnect.profeliomp.presentation.components.Button
+import com.miluconnect.profeliomp.presentation.components.ButtonType
 import org.jetbrains.compose.resources.stringResource
 import profeliomp.composeapp.generated.resources.Res
-import profeliomp.composeapp.generated.resources.add_new_project_title
 import profeliomp.composeapp.generated.resources.new_project_create_button_label
 import profeliomp.composeapp.generated.resources.new_project_custom_label
 import profeliomp.composeapp.generated.resources.new_project_dismiss_button_label
@@ -54,6 +47,7 @@ import profeliomp.composeapp.generated.resources.new_project_end_date
 import profeliomp.composeapp.generated.resources.new_project_max_issues
 import profeliomp.composeapp.generated.resources.new_project_name
 import profeliomp.composeapp.generated.resources.new_project_place
+
 
 @Composable
 fun AddProjectForm(
@@ -259,10 +253,15 @@ fun AddProjectForm(
                 )
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = {},
+                    onClick = { handleSubmitClick() },
                     label = stringResource(Res.string.new_project_create_button_label)
                 )
             }
         }
     }
+}
+
+private fun handleSubmitClick() {
+ // Potrzebuję tutaj składać dane z tego formularza
+    // Czy juz tutaj mam posługiwać się stanem?
 }

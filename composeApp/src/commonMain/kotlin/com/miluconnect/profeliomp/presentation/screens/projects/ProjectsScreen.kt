@@ -21,12 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.components.Button
 import com.miluconnect.profeliomp.presentation.components.ButtonType
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
-import com.miluconnect.profeliomp.presentation.components.ProjectsList
+import com.miluconnect.profeliomp.presentation.screens.projects.addProject.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabs
 import org.koin.compose.viewmodel.koinViewModel

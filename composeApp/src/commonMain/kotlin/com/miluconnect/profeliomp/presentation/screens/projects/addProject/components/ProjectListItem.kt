@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.components
+package com.miluconnect.profeliomp.presentation.screens.projects.addProject.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -66,7 +66,7 @@ fun ProjectListItem(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = projectItem.users.first().name,
+                    text = projectItem.users.joinToString(", "),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
                     maxLines = 1,

@@ -19,11 +19,7 @@ class DefaultProjectRepository : ProjectRepository {
         return Project(
             id = "1",
             title = "New house in Miami",
-            users = listOf(
-                User(id = "3213", name = "mcar@example.com", email = "mcar@example.com")
-                // Możesz dodać więcej użytkowników, np.:
-                // User(id = "1234", name = "jane.doe@example.com", email = "jane.doe@example.com")
-            ),
+            users = listOf("Mariah", "Daryl", "Carol"),
             startDate = "20.01.2025",
             endDate = "30.11.2025",
             city = "Miami",
@@ -36,11 +32,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "1",
                 title = "New house in Miami",
-                users = listOf(
-                    User(id = "3213", name = "mcar@example.com", email = "mcar@example.com")
-                    // Możesz dodać więcej użytkowników, np.:
-                    // User(id = "1234", name = "jane.doe@example.com", email = "jane.doe@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "20.01.2025",
                 endDate = "30.11.2025",
                 city = "Miami",
@@ -49,9 +41,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "2",
                 title = "Door repair",
-                users = listOf(
-                    User(id = "4321", name = "John Random", email = "john.random@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "30.11.2025",
                 endDate = "30.11.2025",
                 city = "New York",
@@ -60,9 +50,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "3",
                 title = "Office renovation",
-                users = listOf(
-                    User(id = "9876", name = "Anna Smith", email = "anna.smith@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "15.03.2025",
                 endDate = "30.11.2025",
                 city = "San Francisco",
@@ -71,9 +59,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "4",
                 title = "Kitchen remodeling",
-                users = listOf(
-                    User(id = "6543", name = "Robert Brown", email = "robert.brown@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "01.07.2025",
                 endDate = "30.11.2025",
                 city = "Chicago",
@@ -82,9 +68,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "5",
                 title = "Bathroom upgrade",
-                users = listOf(
-                    User(id = "1122", name = "Emma Wilson", email = "emma.wilson@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "10.05.2025",
                 endDate = "30.11.2025",
                 city = "Houston",
@@ -93,9 +77,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "6",
                 title = "Pool construction",
-                users = listOf(
-                    User(id = "3344", name = "Michael Johnson", email = "michael.johnson@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "25.08.2025",
                 endDate = "30.11.2025",
                 city = "Phoenix",
@@ -104,9 +86,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "7",
                 title = "Garage extension",
-                users = listOf(
-                    User(id = "5566", name = "Sarah Davis", email = "sarah.davis@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "12.02.2025",
                 endDate = "30.11.2025",
                 city = "Philadelphia",
@@ -115,9 +95,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "8",
                 title = "Roof replacement",
-                users = listOf(
-                    User(id = "7788", name = "David Martinez", email = "david.martinez@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "08.09.2025",
                 endDate = "30.11.2025",
                 city = "San Diego",
@@ -126,9 +104,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "9",
                 title = "Landscaping project",
-                users = listOf(
-                    User(id = "9900", name = "Sophia Garcia", email = "sophia.garcia@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "18.04.2025",
                 endDate = "30.11.2025",
                 city = "Dallas",
@@ -137,9 +113,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "10",
                 title = "Library construction",
-                users = listOf(
-                    User(id = "1010", name = "James White", email = "james.white@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "05.06.2025",
                 endDate = "30.11.2025",
                 city = "San Antonio",
@@ -148,9 +122,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "11",
                 title = "Painting exterior walls",
-                users = listOf(
-                    User(id = "2020", name = "Olivia Lee", email = "olivia.lee@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "20.10.2025",
                 endDate = "30.11.2025",
                 city = "Austin",
@@ -159,9 +131,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "12",
                 title = "Basement waterproofing",
-                users = listOf(
-                    User(id = "3030", name = "William Harris", email = "william.harris@example.com")
-                ),
+                users = listOf("Mariah", "Daryl", "Carol"),
                 startDate = "01.12.2025",
                 endDate = "30.11.2025",
                 city = "Seattle",

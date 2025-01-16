@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.miluconnect.profeliomp.presentation.components.AddProjectForm
+import com.miluconnect.profeliomp.presentation.screens.projects.addProject.components.AddProjectForm
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import profeliomp.composeapp.generated.resources.Res
@@ -60,7 +60,10 @@ fun AddProjectScreen(
 
         AddProjectForm(
             navController = navController,
-            onSubmit = {}
+            onSubmit = {
+                // Tutaj będą wywoływane dane z tego formuarza i będzie wywoływany intent do viewmodela
+                // który będzie komunikował się z repozytorium w viewmodelu.
+            }
         )
     }
 }

@@ -7,7 +7,7 @@ fun ProjectDto.toProjectModel(): Project {
     return Project(
         id = id,
         title = title,
-        users = users.map { it.toUserModel() },
+        users = users,
         startDate = startDate,
         endDate = endDate,
         city = city,
