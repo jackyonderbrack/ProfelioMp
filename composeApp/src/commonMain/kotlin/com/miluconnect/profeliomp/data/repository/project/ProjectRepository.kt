@@ -9,6 +9,7 @@ import com.miluconnect.profeliomp.domain.models.Project
 
 interface ProjectRepository {
     suspend fun getAllProjects(): Result<List<Project>, DataError.Remote>
+    suspend fun createNewProject(): Result<Project, DataError.Remote>
 }
 
 class ProjectRepositoryImpl(
@@ -18,5 +19,11 @@ class ProjectRepositoryImpl(
         return remoteDataSource
             .getAllProjects()
             .map { items -> items.map { it.toProjectModel() } }
+    }
+
+    override suspend fun createNewProject(): Result<Project, DataError.Remote> {
+        return remoteDataSource
+            .createNewProject()
+            .map { it.toProjectModel() }
     }
 }
