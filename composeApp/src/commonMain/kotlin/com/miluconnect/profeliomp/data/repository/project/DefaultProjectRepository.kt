@@ -1,7 +1,5 @@
 package com.miluconnect.profeliomp.data.repository.project
 
-import com.miluconnect.profeliomp.data.dto.UserDto
-import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.models.Project
