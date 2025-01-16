@@ -37,6 +37,8 @@ import androidx.compose.ui.layout.ModifierInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.domain.models.Project
 import com.miluconnect.profeliomp.domain.models.ProjectRecurrence
 import org.jetbrains.compose.resources.stringResource
@@ -55,6 +57,7 @@ import profeliomp.composeapp.generated.resources.new_project_place
 
 @Composable
 fun AddProjectForm(
+    navController: NavController,
     onSubmit: (Project) -> Unit
 ) {
 
@@ -250,7 +253,7 @@ fun AddProjectForm(
             ) {
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = {},
+                    onClick = { navController.popBackStack() },
                     label = stringResource(Res.string.new_project_dismiss_button_label),
                     buttonType = ButtonType.TEXT
                 )

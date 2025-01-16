@@ -1,6 +1,5 @@
 package com.miluconnect.profeliomp.presentation.screens.projects.addProject
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.miluconnect.profeliomp.presentation.components.AddProjectForm
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -22,12 +22,14 @@ import profeliomp.composeapp.generated.resources.add_new_project_title
 
 @Composable
 fun AddProjectScreenRoot(
+    navController: NavController,
     viewModel: AddProjectViewModel = koinViewModel<AddProjectViewModel>(),
 ) {
 
     val state by viewModel.state.collectAsState()
 
     AddProjectScreen(
+        navController = navController,
         state = state,
         onIntent = { intent ->
             when (intent) {
@@ -39,6 +41,7 @@ fun AddProjectScreenRoot(
 
 @Composable
 fun AddProjectScreen(
+    navController: NavController,
     state: AddProjectState,
     onIntent: (AddProjectIntent) -> Unit
 ) {
@@ -56,6 +59,7 @@ fun AddProjectScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         AddProjectForm(
+            navController = navController,
             onSubmit = {}
         )
     }
