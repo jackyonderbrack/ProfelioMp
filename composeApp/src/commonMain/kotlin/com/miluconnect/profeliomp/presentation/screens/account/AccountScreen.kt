@@ -88,7 +88,7 @@ private fun AccountScreen(
                 Spacer(Modifier.height(8.dp))
                 Text("Email: ${state.userEmail}")
                 Spacer(Modifier.height(8.dp))
-                Text("Role: Default")
+                Text("Role: ${state.userRole}")
                 Spacer(Modifier.height(8.dp))
                 AssistChip(
                     onClick = {

@@ -68,6 +68,8 @@ fun App(
             navController.navigate(Route.LoginScreen.route) {
                 popUpTo(0) { inclusive = true }
             }
+        } else {
+            navController.navigate(Route.ProjectsScreen.route)
         }
     }
 

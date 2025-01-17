@@ -6,6 +6,7 @@ data class AccountState(
     val userId: String = "",
     val userName: String = "",
     val userEmail: String = "",
+    val userRole: String = "",
     val isLoading: Boolean = false,
     val errorMessage: UiText? = null,
 )

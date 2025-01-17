@@ -28,7 +28,8 @@ class AccountViewModel(
                     _state.update { it.copy(
                         userId = userData.id,
                         userEmail = userData.email!!,
-                        userName = userData.name
+                        userName = userData.name,
+                        userRole = userData.role!!,
                     ) }
                 }
         }
