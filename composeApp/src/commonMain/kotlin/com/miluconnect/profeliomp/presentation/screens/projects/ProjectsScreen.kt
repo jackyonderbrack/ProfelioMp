@@ -37,21 +37,19 @@ fun ProjectsScreenRoot(
 ) {
 
     val state by viewModel.state.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.onIntent(ProjectsIntent.GetProjectsList)
-    }
-
+    
     ProjectsScreen(
         state = state,
-        navController = navController
+        navController = navController,
+        viewModel = viewModel
     )
 }
 
 @Composable
 private fun ProjectsScreen(
     state: ProjectsState,
-    navController: NavController
+    navController: NavController,
+    viewModel: ProjectsViewModel
 ) {
     val lazyProjectsListState = rememberLazyListState()
     val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
@@ -67,6 +65,11 @@ private fun ProjectsScreen(
     }
 
     LaunchedEffect(filteredProjects) {
+        lazyProjectsListState.scrollToItem(0)
+    }
+
+    LaunchedEffect(state.selectedTabIndex, selectedFilter) {
+        viewModel.onIntent(ProjectsIntent.GetProjectsList)
         lazyProjectsListState.scrollToItem(0)
     }
 

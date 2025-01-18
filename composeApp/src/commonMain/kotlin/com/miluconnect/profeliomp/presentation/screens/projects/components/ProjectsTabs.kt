@@ -1,10 +1,13 @@
 package com.miluconnect.profeliomp.presentation.screens.projects.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -82,39 +85,30 @@ fun ColumnScope.ProjectsTabs(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter,
         ) {
-            when (pageIndex) {
-                0 -> {
-                    if (state.value.isLoading) {
-                        CircularProgressIndicator()
-                    } else {
-                        state.value.errorMessage?.let {
-                            Text(
-                                text = it.asString(),
-                                textAlign = TextAlign.Center,
-                                style = MaterialTheme.typography.headlineSmall,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                        firstTabContent()
-                    }
+            if (state.value.isLoading) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(128.dp))
+                }
+            } else {
+                state.value.errorMessage?.let {
+                    Text(
+                        text = it.asString(),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
                 }
 
-                1 -> {
-                    if (state.value.isLoading) {
-                        CircularProgressIndicator()
-                    } else {
-                        state.value.errorMessage?.let {
-                            Text(
-                                text = it.asString(),
-                                textAlign = TextAlign.Center,
-                                style = MaterialTheme.typography.headlineSmall,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                        }
-                        secondTabContent()
-                    }
+                when (pageIndex) {
+                    0 -> firstTabContent()
+                    1 -> secondTabContent()
                 }
             }
         }
     }
+
 }
