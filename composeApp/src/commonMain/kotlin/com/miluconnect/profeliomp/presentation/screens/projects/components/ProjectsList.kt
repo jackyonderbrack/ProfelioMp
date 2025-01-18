@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.miluconnect.profeliomp.domain.models.Project
@@ -16,6 +17,7 @@ fun ProjectsList(
     scrollState: LazyListState = rememberLazyListState(),
     modifier: Modifier
 ) {
+
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         state = scrollState,

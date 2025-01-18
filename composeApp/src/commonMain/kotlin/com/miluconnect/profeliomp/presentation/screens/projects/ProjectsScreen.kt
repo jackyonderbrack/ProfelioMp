@@ -24,9 +24,9 @@ import androidx.navigation.NavController
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.components.Button
 import com.miluconnect.profeliomp.presentation.components.ButtonType
+import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsList
-import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsTabs
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -37,6 +37,10 @@ fun ProjectsScreenRoot(
 ) {
 
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.onIntent(ProjectsIntent.GetProjectsList)
+    }
 
     ProjectsScreen(
         state = state,

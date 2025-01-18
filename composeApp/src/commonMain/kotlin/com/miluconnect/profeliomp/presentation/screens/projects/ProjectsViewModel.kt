@@ -17,13 +17,21 @@ class ProjectsViewModel(
     private val _state = MutableStateFlow(ProjectsState())
     val state: StateFlow<ProjectsState> get() = _state
 
-    init {
-        getAllOffersList()
+    fun onIntent(intent: ProjectsIntent) {
+        when (intent) {
+            is ProjectsIntent.OnTabSelectedChange -> {
+                _state.update { it.copy(selectedTabIndex = intent.tabIndex) }
+            }
+
+            is ProjectsIntent.GetProjectsList -> {
+                _state.update { it.copy(isLoading = true) }
+                getAllOffersList()
+            }
+        }
     }
 
     private fun getAllOffersList() {
         viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
             projectRepository
                 .getAllProjects()
                 .onSuccess { result ->
@@ -41,14 +49,5 @@ class ProjectsViewModel(
                 }
         }
     }
-
-    fun onIntent(intent: ProjectsIntent) {
-        when (intent) {
-            is ProjectsIntent.OnTabSelectedChange -> {
-                _state.update { it.copy(selectedTabIndex = intent.tabIndex) }
-            }
-
-            ProjectsIntent.GetProjectsList -> TODO()
-        }
-    }
 }
+
