@@ -6,6 +6,6 @@ import com.miluconnect.profeliomp.presentation.core.UiText
 data class ProjectsState(
     val isLoading: Boolean = false,
     val errorMessage: UiText? = null,
-
+    val selectedTabIndex: Int = 0,
     val projectsList: List<Project> = emptyList(),
 )

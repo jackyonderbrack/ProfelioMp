@@ -41,4 +41,14 @@ class ProjectsViewModel(
                 }
         }
     }
+
+    fun onIntent(intent: ProjectsIntent) {
+        when (intent) {
+            is ProjectsIntent.OnTabSelectedChange -> {
+                _state.update { it.copy(selectedTabIndex = intent.tabIndex) }
+            }
+
+            ProjectsIntent.GetProjectsList -> TODO()
+        }
+    }
 }

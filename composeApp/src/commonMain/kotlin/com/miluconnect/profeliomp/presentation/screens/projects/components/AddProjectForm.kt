@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.addProject.components
+package com.miluconnect.profeliomp.presentation.screens.projects.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

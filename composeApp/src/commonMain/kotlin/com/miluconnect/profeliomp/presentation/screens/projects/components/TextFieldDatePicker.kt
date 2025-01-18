@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.addProject.components
+package com.miluconnect.profeliomp.presentation.screens.projects.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

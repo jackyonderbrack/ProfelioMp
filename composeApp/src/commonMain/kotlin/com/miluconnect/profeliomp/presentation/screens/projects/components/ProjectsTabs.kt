@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.components.projectsTabs
+package com.miluconnect.profeliomp.presentation.screens.projects.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,11 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsIntent
+import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ColumnScope.ProjectsTabs(
-    viewModel: ProjectsTabsViewModel = koinViewModel<ProjectsTabsViewModel>(),
+    viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
     firstTabTitle: String,
     secondTabTitle: String,
     firstTabContent: @Composable () -> Unit,
@@ -43,7 +45,7 @@ fun ColumnScope.ProjectsTabs(
 
     LaunchedEffect(pagerState.currentPage) {
         println("Current Page: ${pagerState.currentPage}")
-        viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(pagerState.currentPage))
+        viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(pagerState.currentPage))
     }
 
     TabRow(
@@ -59,14 +61,14 @@ fun ColumnScope.ProjectsTabs(
     ) {
         Tab(
             selected = state.value.selectedTabIndex == 0,
-            onClick = { viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(0)) },
+            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(0)) },
             modifier = Modifier.weight(1f),
         ) {
             Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
         }
         Tab(
             selected = state.value.selectedTabIndex == 1,
-            onClick = { viewModel.onIntent(ProjectsTabsIntent.OnTabSelectedChange(1)) },
+            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(1)) },
             modifier = Modifier.weight(1f),
         ) {
             Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
