@@ -21,7 +21,7 @@ fun TopBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(text = currentNavigationTitle, style = MaterialTheme.typography.bodyLarge) },
+        title = { Text(text = currentNavigationTitle, style = MaterialTheme.typography.titleLarge) },
         colors = topAppBarColors(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             titleContentColor = MaterialTheme.colorScheme.surface,
