@@ -214,29 +214,30 @@ fun AddProjectForm(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextField(
-                    modifier = Modifier.weight(2f),
-                    value = emailInput,
-                    onValueChange = { emailInput = it },
-                    label = {
-                        Text(
-                            text = stringResource(Res.string.new_project_email_invitation_placeholder),
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                    }
-                )
-
-                Button(
-                    modifier = Modifier.weight(1f),
-                    buttonType = ButtonType.TEXT,
-                    label = "+ Add person",
-                    onClick = {
-                        if (emailInput.isNotBlank()) {
-                            invitedEmails.add(emailInput)
-                            emailInput = ""
+                if (invitedEmails.isEmpty()) {
+                    TextField(
+                        modifier = Modifier.weight(2f),
+                        value = emailInput,
+                        onValueChange = { emailInput = it },
+                        label = {
+                            Text(
+                                text = stringResource(Res.string.new_project_email_invitation_placeholder),
+                                style = MaterialTheme.typography.labelSmall
+                            )
                         }
-                    }
-                )
+                    )
+                    Button(
+                        modifier = Modifier.weight(1f),
+                        buttonType = ButtonType.TEXT,
+                        label = "+ Add person",
+                        onClick = {
+                            if (emailInput.isNotBlank()) {
+                                invitedEmails.add(emailInput)
+                                emailInput = ""
+                            }
+                        }
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -262,6 +263,6 @@ fun AddProjectForm(
 }
 
 private fun handleSubmitClick() {
- // Potrzebuję tutaj składać dane z tego formularza
+    // Potrzebuję tutaj składać dane z tego formularza
     // Czy juz tutaj mam posługiwać się stanem?
 }

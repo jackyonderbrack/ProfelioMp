@@ -13,7 +13,7 @@
     <string name="new_project_end_date">End date</string>
     <string name="new_project_place">Project place (city)</string>
     <string name="new_project_custom_label">Label</string>
-    <string name="new_project_email_invitation_notice">If those are app users - invitation will be send.</string>
+    <string name="new_project_email_invitation_notice">If user has an account - email will be sended</string>
     <string name="new_project_email_invitation_label">Other users signed to this project</string>
     <string name="new_project_email_invitation_placeholder">Type an email...</string>
     <string name="new_project_create_button_label">Create new project</string>
