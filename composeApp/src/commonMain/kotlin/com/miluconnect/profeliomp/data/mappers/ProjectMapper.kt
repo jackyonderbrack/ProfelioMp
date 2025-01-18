@@ -7,10 +7,11 @@ fun ProjectDto.toProjectModel(): Project {
     return Project(
         id = id,
         title = title,
-        users = users,
+        customer = customer,
         startDate = startDate,
         endDate = endDate,
         city = city,
-        status = status
+        status = status,
+        labels = labels
     )
 }

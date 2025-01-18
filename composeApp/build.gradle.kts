@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+//    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -31,9 +31,9 @@ kotlin {
         }
     }
 
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
+//    room {
+//        schemaDirectory("$projectDir/schemas")
+//    }
     
     sourceSets {
         androidMain.dependencies {
@@ -57,7 +57,7 @@ kotlin {
             implementation(libs.jetbrains.compose.navigation)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.androidx.room.runtime)
+//            implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)

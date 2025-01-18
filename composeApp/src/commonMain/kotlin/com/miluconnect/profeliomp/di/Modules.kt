@@ -6,14 +6,16 @@ import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteOfferDataSource
 import com.miluconnect.profeliomp.data.network.RemoteOfferDataSourceImpl
+import com.miluconnect.profeliomp.data.network.RemoteProjectDataSource
+import com.miluconnect.profeliomp.data.network.RemoteProjectDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSourceImpl
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.offer.DefaultOfferRepository
 import com.miluconnect.profeliomp.data.repository.offer.OfferRepository
-import com.miluconnect.profeliomp.data.repository.project.DefaultProjectRepository
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
+import com.miluconnect.profeliomp.data.repository.project.ProjectRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.user.UserRepository
 import com.miluconnect.profeliomp.data.repository.user.UserRepositoryImpl
 import com.miluconnect.profeliomp.presentation.components.projectsTabs.ProjectsTabsViewModel
@@ -36,12 +38,14 @@ val sharedModule: Module = module {
     singleOf(::RemoteLoginDataSourceImpl).bind<RemoteLoginDataSource>()
     singleOf(::RemoteUserDataSourceImpl).bind<RemoteUserDataSource>()
     singleOf(::RemoteOfferDataSourceImpl).bind<RemoteOfferDataSource>()
+    singleOf(::RemoteProjectDataSourceImpl).bind<RemoteProjectDataSource>()
 
     // Repositories
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
     singleOf(::DefaultOfferRepository).bind<OfferRepository>() // test
-    singleOf(::DefaultProjectRepository).bind<ProjectRepository>() // test
+//    singleOf(::DefaultProjectRepository).bind<ProjectRepository>() // test
+    singleOf(::ProjectRepositoryImpl).bind<ProjectRepository>()
 
     // ViewModels
     viewModelOf(::AppViewModel)

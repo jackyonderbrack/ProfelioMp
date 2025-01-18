@@ -19,7 +19,7 @@ class DefaultProjectRepository : ProjectRepository {
         return Project(
             id = "1",
             title = "New house in Miami",
-            users = listOf("Mariah", "Daryl", "Carol"),
+            customer = "Mariah",
             startDate = "20.01.2025",
             endDate = "30.11.2025",
             city = "Miami",
@@ -32,7 +32,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "1",
                 title = "New house in Miami",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "20.01.2025",
                 endDate = "30.11.2025",
                 city = "Miami",
@@ -41,7 +41,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "2",
                 title = "Door repair",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "30.11.2025",
                 endDate = "30.11.2025",
                 city = "New York",
@@ -50,7 +50,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "3",
                 title = "Office renovation",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "15.03.2025",
                 endDate = "30.11.2025",
                 city = "San Francisco",
@@ -59,7 +59,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "4",
                 title = "Kitchen remodeling",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "01.07.2025",
                 endDate = "30.11.2025",
                 city = "Chicago",
@@ -68,7 +68,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "5",
                 title = "Bathroom upgrade",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "10.05.2025",
                 endDate = "30.11.2025",
                 city = "Houston",
@@ -77,7 +77,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "6",
                 title = "Pool construction",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "25.08.2025",
                 endDate = "30.11.2025",
                 city = "Phoenix",
@@ -86,7 +86,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "7",
                 title = "Garage extension",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "12.02.2025",
                 endDate = "30.11.2025",
                 city = "Philadelphia",
@@ -95,7 +95,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "8",
                 title = "Roof replacement",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "08.09.2025",
                 endDate = "30.11.2025",
                 city = "San Diego",
@@ -104,7 +104,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "9",
                 title = "Landscaping project",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "18.04.2025",
                 endDate = "30.11.2025",
                 city = "Dallas",
@@ -113,7 +113,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "10",
                 title = "Library construction",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "05.06.2025",
                 endDate = "30.11.2025",
                 city = "San Antonio",
@@ -122,7 +122,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "11",
                 title = "Painting exterior walls",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "20.10.2025",
                 endDate = "30.11.2025",
                 city = "Austin",
@@ -131,7 +131,7 @@ class DefaultProjectRepository : ProjectRepository {
             Project(
                 id = "12",
                 title = "Basement waterproofing",
-                users = listOf("Mariah", "Daryl", "Carol"),
+                customer = "Mariah",
                 startDate = "01.12.2025",
                 endDate = "30.11.2025",
                 city = "Seattle",
