@@ -56,17 +56,15 @@ fun AddProjectForm(
 ) {
 
     var projectName by rememberSaveable { mutableStateOf("") }
+    var customer by rememberSaveable { mutableStateOf("") }
     var numberOfIssues by rememberSaveable { mutableStateOf("") }
     var projectPlace by rememberSaveable { mutableStateOf("") }
     var projectCustomLabel by rememberSaveable { mutableStateOf("") }
     var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.Daily.name) }
     var isMaxNumberOfIssuesError by rememberSaveable { mutableStateOf(false) }
 
-    val invitedEmails = remember {
-        mutableStateListOf<String>()
-    }
-
     var emailInput by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -176,26 +174,24 @@ fun AddProjectForm(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            invitedEmails.forEachIndexed { index, email ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = email,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.weight(2f)
-                    )
-                    Button(
-                        modifier = Modifier.weight(1f),
-                        buttonType = ButtonType.OUTLINED,
-                        label = "Delete",
-                        onClick = {
-                            invitedEmails.removeAt(index)
-                        }
-                    )
-                }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = customer,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(2f)
+                )
+                Button(
+                    modifier = Modifier.weight(1f),
+                    buttonType = ButtonType.OUTLINED,
+                    label = "Delete",
+                    onClick = {
+                        customer = ""
+                    }
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -214,7 +210,7 @@ fun AddProjectForm(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (invitedEmails.isEmpty()) {
+                if (customer.isEmpty()) {
                     TextField(
                         modifier = Modifier.weight(2f),
                         value = emailInput,
@@ -232,7 +228,7 @@ fun AddProjectForm(
                         label = "+ Add person",
                         onClick = {
                             if (emailInput.isNotBlank()) {
-                                invitedEmails.add(emailInput)
+                                customer = emailInput
                                 emailInput = ""
                             }
                         }
@@ -254,7 +250,13 @@ fun AddProjectForm(
                 )
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = { handleSubmitClick() },
+                    onClick = { handleSubmitClick(
+                        projectName = projectName,
+                        endDate = "",
+                        city = projectPlace,
+                        invitedEmails = "",
+                        onSubmit = onSubmit
+                    ) },
                     label = stringResource(Res.string.new_project_create_button_label)
                 )
             }
@@ -262,7 +264,20 @@ fun AddProjectForm(
     }
 }
 
-private fun handleSubmitClick() {
-    // Potrzebuję tutaj składać dane z tego formularza
-    // Czy juz tutaj mam posługiwać się stanem?
+private fun handleSubmitClick(
+    projectName: String,
+    endDate: String,
+    city: String,
+    invitedEmails: String,
+    onSubmit: (Project) -> Unit
+) {
+    val newProject = Project(
+        title = projectName,
+        customer = invitedEmails,
+        endDate = endDate,
+        city = city,
+    )
+
+    onSubmit(newProject)
 }
+

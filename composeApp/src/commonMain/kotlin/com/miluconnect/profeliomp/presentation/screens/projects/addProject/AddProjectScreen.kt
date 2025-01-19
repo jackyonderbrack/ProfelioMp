@@ -33,7 +33,7 @@ fun AddProjectScreenRoot(
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is AddProjectIntent.AddNewProject -> { viewModel.onIntent(intent) }
+                is AddProjectIntent.AddNewProject -> viewModel.onIntent(intent)
             }
         }
     )
@@ -60,9 +60,8 @@ fun AddProjectScreen(
 
         AddProjectForm(
             navController = navController,
-            onSubmit = {
-                // Tutaj będą wywoływane dane z tego formuarza i będzie wywoływany intent do viewmodela
-                // który będzie komunikował się z repozytorium w viewmodelu.
+            onSubmit = { newProject ->
+                onIntent(AddProjectIntent.AddNewProject(newProject))
             }
         )
     }
