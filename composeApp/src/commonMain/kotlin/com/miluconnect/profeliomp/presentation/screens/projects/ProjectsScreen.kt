@@ -175,7 +175,7 @@ private fun ProjectsScreen(
                     },
                     secondTabTitle = "Discussions",
                     secondTabContent = {
-                        Text("Second Tab text")
+                        Text("No discussions yet")
                     },
                 )
             }
