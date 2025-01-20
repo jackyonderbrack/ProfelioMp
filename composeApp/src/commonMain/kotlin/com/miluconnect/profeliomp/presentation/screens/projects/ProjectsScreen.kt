@@ -45,14 +45,12 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ProjectsScreenRoot(
     viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
-    navController: NavController
 ) {
 
     val state by viewModel.state.collectAsState()
     
     ProjectsScreen(
         state = state,
-        navController = navController,
         viewModel = viewModel
     )
 }
@@ -60,7 +58,6 @@ fun ProjectsScreenRoot(
 @Composable
 private fun ProjectsScreen(
     state: ProjectsState,
-    navController: NavController,
     viewModel: ProjectsViewModel
 ) {
     val lazyProjectsListState = rememberLazyListState()
