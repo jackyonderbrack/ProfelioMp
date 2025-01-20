@@ -62,7 +62,7 @@ suspend inline fun <reified T> endpointCall(
         coroutineContext.ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
     }
-    return endpointResponse(response, preferencesRepository)
+    return endpointResponse(response)
 }
 
 /**
@@ -70,7 +70,6 @@ suspend inline fun <reified T> endpointCall(
  * */
 suspend inline fun <reified  T> endpointResponse(
     response: HttpResponse,
-    preferencesRepository: PreferencesRepository
 ): Result<T, DataError.Remote> {
     return when(response.status.value) {
         in 200 .. 299 -> {
@@ -82,10 +81,7 @@ suspend inline fun <reified  T> endpointResponse(
         }
         307 -> Result.Error(DataError.Remote.TEMPORARY_REDIRECT)
         400 -> Result.Error(DataError.Remote.BAD_REQUEST)
-        401 -> {
-            preferencesRepository.clearPreferences()
-            Result.Error(DataError.Remote.UNAUTHORIZED)
-        }
+        401 -> { Result.Error(DataError.Remote.UNAUTHORIZED) }
         404 -> Result.Error(DataError.Remote.NOT_FOUND)
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
         429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
