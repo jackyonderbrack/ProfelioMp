@@ -1,16 +1,16 @@
 package com.miluconnect.profeliomp.data.repository.project
 
+import com.miluconnect.profeliomp.data.dto.ProjectDto
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.models.Project
-import com.miluconnect.profeliomp.domain.models.User
 
 class DefaultProjectRepository : ProjectRepository {
     override suspend fun getAllProjects(): Result<List<Project>, DataError.Remote> {
         return Result.Success(createDefaultProjects())
     }
 
-    override suspend fun createNewProject(): Result<Project, DataError.Remote> {
+    override suspend fun createNewProject(newProject: Project): Result<Project, DataError.Remote> {
         return Result.Success(createDefaultSingleProject())
     }
 
