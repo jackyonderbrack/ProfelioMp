@@ -52,12 +52,6 @@ fun AddProjectForm(
     navController: NavController,
     onSubmit: (Project) -> Unit
 ) {
-
-
-
-
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,6 +88,7 @@ fun AddProjectForm(
                 text = stringResource(Res.string.new_project_end_date),
                 style = MaterialTheme.typography.bodyLarge
             )
+
             TextFieldWithDatePicker(
                 selectedDate = endDate,
                 onDateSelected = { endDate = it }
@@ -106,6 +101,7 @@ fun AddProjectForm(
                 text = stringResource(Res.string.new_project_place),
                 style = MaterialTheme.typography.bodyLarge
             )
+
             TextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = city,
@@ -120,6 +116,7 @@ fun AddProjectForm(
                 text = stringResource(Res.string.new_project_custom_label),
                 style = MaterialTheme.typography.bodyLarge
             )
+
             TextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = label,
@@ -136,10 +133,12 @@ fun AddProjectForm(
                 text = stringResource(Res.string.new_project_email_invitation_label),
                 style = MaterialTheme.typography.bodyLarge
             )
+
             Text(
                 text = stringResource(Res.string.new_project_email_invitation_notice),
                 style = MaterialTheme.typography.bodySmall
             )
+
             TextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = customer,
