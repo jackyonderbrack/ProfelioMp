@@ -46,10 +46,8 @@ suspend inline fun <reified T> makeRequest(
             }
             body?.let { this.setBody(it) }
         }
-        handleResponse(response)
-    } catch(e: Exception) {
-        e.printStackTrace()
-        return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
+        handleResponse(response, preferencesRepository)
+
     } catch(e: SocketTimeoutException) {
         e.printStackTrace()
         return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
@@ -69,7 +67,10 @@ suspend inline fun <reified T> makeRequest(
 /**
  * HTTP Endpoint response from calls
  * */
-suspend inline fun <reified T> handleResponse(response: HttpResponse): Result<T, DataError.Remote> {
+suspend inline fun <reified T> handleResponse(
+    response: HttpResponse,
+    preferencesRepository: PreferencesRepository
+): Result<T, DataError.Remote> {
     return when (response.status.value) {
         in 200..299 -> {
             try {
@@ -80,7 +81,10 @@ suspend inline fun <reified T> handleResponse(response: HttpResponse): Result<T,
         }
         307 -> Result.Error(DataError.Remote.TEMPORARY_REDIRECT)
         400 -> Result.Error(DataError.Remote.BAD_REQUEST)
-        401 -> Result.Error(DataError.Remote.UNAUTHORIZED)
+        401 -> {
+            preferencesRepository.clearPreferences()
+            Result.Error(DataError.Remote.UNAUTHORIZED)
+        }
         404 -> Result.Error(DataError.Remote.NOT_FOUND)
         408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
         429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
