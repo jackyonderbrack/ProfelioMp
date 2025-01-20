@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -80,7 +78,7 @@ fun App(
     val topBarActions: @Composable RowScope.() -> Unit = when (currentRoute) {
         Route.BlackboardScreen.route -> {
             {
-                IconButton(onClick = { /* Akcja dla Blackboard */ }) {
+                IconButton(onClick = {}) {
                     Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                 }
             }
