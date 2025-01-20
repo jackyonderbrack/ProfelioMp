@@ -10,17 +10,3 @@ data class Project(
     val status: String? = null,
     val labels: List<String> = emptyList()
 )
-
-enum class ProjectRecurrence {
-    Daily, Weekly, Monthly
-}
-
-fun getProjectRecurrenceList(): List<ProjectRecurrence> {
-    val projectRecurrenceList = mutableListOf<ProjectRecurrence>()
-    projectRecurrenceList.add(ProjectRecurrence.Daily)
-    projectRecurrenceList.add(ProjectRecurrence.Weekly)
-    projectRecurrenceList.add(ProjectRecurrence.Monthly)
-
-    return projectRecurrenceList
-}
-
