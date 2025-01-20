@@ -17,6 +17,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -42,7 +43,7 @@ fun AddProjectForm(
     navController: NavController,
     onSubmit: (Project) -> Unit
 ) {
-    var projectState by rememberSaveable {
+    var projectState by remember {
         mutableStateOf(
             Project(
                 id = null,
