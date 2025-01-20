@@ -107,7 +107,7 @@ private fun ProjectsScreen(
                 .padding(horizontal = 8.dp)
                 .align(Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(32.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Column(
                 modifier = Modifier.weight(1f)
@@ -120,15 +120,10 @@ private fun ProjectsScreen(
                 AssistChip(
                     onClick = { isDescending = !isDescending },
                     label = {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = if (isDescending) "ASC" else "DESC",
-                                style = MaterialTheme.typography.bodySmall,
-                            )
-                        }
+                        Text(
+                            text = if (isDescending) "ASC" else "DESC",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     },
                     colors = AssistChipDefaults.assistChipColors(
                         containerColor = MaterialTheme.colorScheme.secondary,
@@ -145,7 +140,7 @@ private fun ProjectsScreen(
                 )
             }
             Column(
-                modifier = Modifier.weight(3f)
+                modifier = Modifier.weight(4f)
             ) {
                 Text(
                     text = "Status:",
