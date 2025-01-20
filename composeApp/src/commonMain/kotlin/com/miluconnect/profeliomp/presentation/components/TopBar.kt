@@ -1,6 +1,7 @@
 package com.miluconnect.profeliomp.presentation.components
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,6 +13,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,7 +22,6 @@ fun TopBar(
     actionButtons: @Composable RowScope.() -> Unit,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     TopAppBar(
         title = { Text(text = currentNavigationTitle, style = MaterialTheme.typography.titleLarge) },
@@ -28,7 +29,6 @@ fun TopBar(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             titleContentColor = MaterialTheme.colorScheme.surface,
         ),
-        modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
@@ -41,5 +41,6 @@ fun TopBar(
             }
         },
         actions = actionButtons,
+        modifier = Modifier.padding(end = 8.dp)
     )
 }

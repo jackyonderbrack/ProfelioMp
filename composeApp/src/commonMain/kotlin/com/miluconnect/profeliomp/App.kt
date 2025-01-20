@@ -123,6 +123,7 @@ fun App(
 
         else -> {{}}
     }
+
     LaunchedEffect(state.token) {
         if (state.token == null) {
             navController.navigate(Route.LoginScreen.route) {
@@ -149,7 +150,6 @@ fun App(
                     canNavigateBack = canNavigateBack,
                     navigateUp = { navController.navigateUp() },
                     actionButtons = topBarActions,
-                    modifier = Modifier.padding(horizontal = 4.dp)
                 )
             },
             bottomBar = {
