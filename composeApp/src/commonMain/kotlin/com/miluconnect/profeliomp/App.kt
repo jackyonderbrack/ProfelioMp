@@ -73,7 +73,9 @@ fun App(
 //        easing = FastOutSlowInEasing
 //    )
 
-    // Purpose: TopBar values
+    /**
+     * TopBar Values
+     * */
     val topBarTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
     val topBarActions: @Composable RowScope.() -> Unit = when (currentRoute) {
         Route.BlackboardScreen.route -> {
@@ -124,6 +126,9 @@ fun App(
         else -> {{}}
     }
 
+    /**
+     * Launched Effects
+     * */
     LaunchedEffect(state.token) {
         if (state.token == null) {
             navController.navigate(Route.LoginScreen.route) {
