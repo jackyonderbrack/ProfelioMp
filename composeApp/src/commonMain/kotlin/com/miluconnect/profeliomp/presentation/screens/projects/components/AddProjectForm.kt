@@ -42,6 +42,21 @@ fun AddProjectForm(
     navController: NavController,
     onSubmit: (Project) -> Unit
 ) {
+    var projectState by rememberSaveable {
+        mutableStateOf(
+            Project(
+                id = null,
+                title = "",
+                customer = "",
+                startDate = null,
+                endDate = "",
+                city = "",
+                status = null,
+                labels = emptyList()
+            )
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,9 +69,7 @@ fun AddProjectForm(
                 .background(MaterialTheme.colorScheme.background),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            /* TITLE */
-            var title by rememberSaveable { mutableStateOf("") }
-
+            /* TITLE FIELD */
             Text(
                 text = stringResource(Res.string.new_project_name),
                 style = MaterialTheme.typography.bodyLarge
@@ -64,29 +77,25 @@ fun AddProjectForm(
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = title,
-                onValueChange = { title = it },
+                value = projectState.title,
+                onValueChange = { projectState = projectState.copy(title = it) },
                 placeholder = { Text(text = "e.g. New kitchen project") }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             /* END DATE FIELD */
-            var endDate by rememberSaveable { mutableStateOf("") }
-
             Text(
                 text = stringResource(Res.string.new_project_end_date),
                 style = MaterialTheme.typography.bodyLarge
             )
 
             TextFieldWithDatePicker(
-                selectedDate = endDate,
-                onDateSelected = { endDate = it }
+                selectedDate = projectState.endDate,
+                onDateSelected = { projectState = projectState.copy(endDate = it) }
             )
 
             /* CITY FIELD */
-            var city by rememberSaveable { mutableStateOf("") }
-
             Text(
                 text = stringResource(Res.string.new_project_place),
                 style = MaterialTheme.typography.bodyLarge
@@ -94,14 +103,12 @@ fun AddProjectForm(
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = city,
-                onValueChange = { city = it },
+                value = projectState.city,
+                onValueChange = { projectState = projectState.copy(city = it) },
                 placeholder = { Text(text = "e.g. Rybnik") }
             )
 
             /* LABEL FIELD */
-            var label by rememberSaveable { mutableStateOf("") }
-
             Text(
                 text = stringResource(Res.string.new_project_custom_label),
                 style = MaterialTheme.typography.bodyLarge
@@ -109,16 +116,16 @@ fun AddProjectForm(
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = label,
-                onValueChange = { label = it },
+                value = projectState.labels?.joinToString(", ") ?: "",
+                onValueChange = {
+                    projectState = projectState.copy(labels = it.split(",").map(String::trim))
+                },
                 placeholder = { Text(text = "e.g. Housework, Outdoor") }
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             /* CUSTOMER FIELD */
-            var customer by rememberSaveable { mutableStateOf("") }
-
             Text(
                 text = stringResource(Res.string.new_project_email_invitation_label),
                 style = MaterialTheme.typography.bodyLarge
@@ -131,8 +138,8 @@ fun AddProjectForm(
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = customer,
-                onValueChange = { customer = it },
+                value = projectState.customer,
+                onValueChange = { projectState = projectState.copy(customer = it) },
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -150,37 +157,10 @@ fun AddProjectForm(
                 )
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = { handleSubmitClick(
-                        newTitle = title,
-                        newEndDate = endDate,
-                        newCity = city,
-                        newCustomer = customer,
-                        newLabels = listOf("bug"),
-                        onSubmit = onSubmit
-                    ) },
+                    onClick = { onSubmit(projectState) },
                     label = stringResource(Res.string.new_project_create_button_label)
                 )
             }
         }
     }
 }
-
-private fun handleSubmitClick(
-    newTitle: String,
-    newCustomer: String,
-    newEndDate: String,
-    newCity: String,
-    newLabels: List<String>,
-    onSubmit: (Project) -> Unit
-) {
-    val newProject = Project(
-        title = newTitle,
-        customer = newCustomer,
-        endDate = newEndDate,
-        city = newCity,
-        labels = newLabels
-    )
-
-    onSubmit(newProject)
-}
-
