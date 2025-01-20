@@ -43,11 +43,11 @@ fun ColumnScope.ProjectsTabs(
 ) {
 
     val state = viewModel.state.collectAsState()
-    val pagerState = rememberPagerState { 1 }
+    val pagerState = rememberPagerState { 3 }
 
     LaunchedEffect(state.value.selectedTabIndex) {
         println("Selected Tab Index: ${state.value.selectedTabIndex}")
-        pagerState.animateScrollToPage(state.value.selectedTabIndex)
+        pagerState.scrollToPage(state.value.selectedTabIndex)
     }
 
     LaunchedEffect(pagerState.currentPage) {
@@ -64,30 +64,31 @@ fun ColumnScope.ProjectsTabs(
             TabRowDefaults.SecondaryIndicator(
                 modifier = Modifier.tabIndicatorOffset(tabPositions[state.value.selectedTabIndex])
             )
+        },
+        tabs = {
+            Tab(
+                selected = state.value.selectedTabIndex == 0,
+                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(0)) },
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
+            }
+            Tab(
+                selected = state.value.selectedTabIndex == 1,
+                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(1)) },
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
+            }
+            Tab(
+                selected = state.value.selectedTabIndex == 2,
+                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(2)) },
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(text = thirdTabTitle, modifier = Modifier.padding(vertical = 12.dp))
+            }
         }
-    ) {
-        Tab(
-            selected = state.value.selectedTabIndex == 0,
-            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(0)) },
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
-        }
-        Tab(
-            selected = state.value.selectedTabIndex == 1,
-            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(1)) },
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
-        }
-        Tab(
-            selected = state.value.selectedTabIndex == 2,
-            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(2)) },
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(text = thirdTabTitle, modifier = Modifier.padding(vertical = 12.dp))
-        }
-    }
+    )
     HorizontalPager(
         state = pagerState,
         modifier = Modifier.fillMaxWidth().weight(1f)
@@ -122,5 +123,4 @@ fun ColumnScope.ProjectsTabs(
             }
         }
     }
-
 }
