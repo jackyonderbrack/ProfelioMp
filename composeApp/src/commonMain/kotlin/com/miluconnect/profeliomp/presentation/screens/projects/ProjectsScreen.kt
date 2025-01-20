@@ -2,12 +2,23 @@ package com.miluconnect.profeliomp.presentation.screens.projects
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +39,7 @@ import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsTabs
+import kotlinx.coroutines.delay
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -54,22 +66,32 @@ private fun ProjectsScreen(
     val lazyProjectsListState = rememberLazyListState()
     val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
     var selectedFilter by remember { mutableStateOf("Ongoing") }
+    var isDescending by remember { mutableStateOf(false) }
 
-    val filteredProjects = state.projectsList.filter { project ->
-        when (selectedFilter) {
-            "Ongoing" -> project.status == "Ongoing"
-            "Completed" -> project.status == "Completed"
-            "Archived" -> project.status == "Archived"
-            else -> true
-        }
-    }
-
-    LaunchedEffect(filteredProjects) {
-        lazyProjectsListState.scrollToItem(0)
+    val filteredAndSortedProjects = remember(state.projectsList, selectedFilter, isDescending) {
+        state.projectsList
+            .filter { project ->
+                when (selectedFilter) {
+                    "Ongoing" -> project.status == "Ongoing"
+                    "Completed" -> project.status == "Completed"
+                    "Archived" -> project.status == "Archived"
+                    else -> true
+                }
+            }
+            .let { filteredList ->
+                if (isDescending) {
+                    filteredList.sortedByDescending { it.startDate }
+                } else {
+                    filteredList.sortedBy { it.startDate }
+                }
+            }
     }
 
     LaunchedEffect(state.selectedTabIndex, selectedFilter) {
         viewModel.onIntent(ProjectsIntent.GetProjectsList)
+    }
+
+    LaunchedEffect(isDescending) {
         lazyProjectsListState.scrollToItem(0)
     }
 
@@ -80,7 +102,9 @@ private fun ProjectsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
@@ -102,7 +126,7 @@ private fun ProjectsScreen(
         ) {
             Text(
                 text = "Status:",
-                modifier = Modifier.weight(1f).padding(start = 8.dp),
+                modifier = Modifier.padding(end = 4.dp),
                 color = MaterialTheme.colorScheme.onTertiary,
                 style = MaterialTheme.typography.bodyLarge
             )
@@ -110,7 +134,36 @@ private fun ProjectsScreen(
                 chips = filterOptions,
                 selectedChip = selectedFilter,
                 onFilterSelected = { newFilter -> selectedFilter = newFilter },
-                modifier = Modifier.weight(5f)
+                modifier = Modifier.weight(7f)
+            )
+            AssistChip(
+                modifier = Modifier
+                    .weight(3f)
+                    .padding(start = 8.dp),
+                onClick = { isDescending = !isDescending },
+                label = {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Sort",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                },
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    labelColor = MaterialTheme.colorScheme.onSecondary,
+                ),
+                leadingIcon = {
+                    Icon(
+                        imageVector = if (isDescending) Icons.Outlined.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                        contentDescription = "Localized description",
+                        tint = MaterialTheme.colorScheme.onSecondary,
+                        modifier = Modifier.size(AssistChipDefaults.IconSize)
+                    )
+                }
             )
         }
 
@@ -122,7 +175,8 @@ private fun ProjectsScreen(
                         ProjectsList(
                             modifier = Modifier,
                             scrollState = lazyProjectsListState,
-                            projectList = filteredProjects,
+                            projectList = filteredAndSortedProjects,
+                            isDescending = isDescending
                         )
                     },
                     secondTabTitle = "Discussions",
