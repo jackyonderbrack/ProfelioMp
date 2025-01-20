@@ -25,9 +25,7 @@ suspend inline fun <reified T> authorizedEndpointCall(
         return Result.Error(DataError.Remote.UNAUTHORIZED)
     }
 
-    return endpointCall(
-        preferencesRepository
-    ) {
+    return endpointCall() {
         execute {
             headers {
                 append("Authorization", "Bearer $preferencesToken")
@@ -40,7 +38,6 @@ suspend inline fun <reified T> authorizedEndpointCall(
  * HTTP Endpoint call - Generic, used in with Auth.
  * */
 suspend inline fun <reified T> endpointCall(
-    preferencesRepository: PreferencesRepository,
     execute: () -> HttpResponse
 ): Result<T, DataError.Remote> {
     val response = try {
