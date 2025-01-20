@@ -25,7 +25,7 @@ class RemoteLoginDataSourceImpl (
             body = loginPayload,
             httpClient = httpClient,
             preferencesRepository = preferencesRepository,
-            url = "$BASE_URL/login"
+            url = "$BASE_URL/login/"
         )
     }
 }
