@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
+import com.miluconnect.profeliomp.presentation.core.toUiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,18 +25,21 @@ class AddProjectViewModel(
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                     projectRepository
-                        .createNewProject()
+                        .createNewProject(
+                            intent.newProjectData
+                        )
                         .onSuccess { result ->
                             delay(1000)
                             _state.update { it.copy(
                                 isLoading = false,
-                                newProjectData = result
+                                successMessage = result
                             ) }
                         }
                         .onError { error ->
                             delay(1000)
                             _state.update { it.copy(
-                                isLoading = false
+                                isLoading = false,
+                                errorMessage = error.toUiText()
                             ) }
                             println(error)
                         }

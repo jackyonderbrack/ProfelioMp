@@ -1,6 +1,5 @@
 package com.miluconnect.profeliomp.data.dto
 
-import com.miluconnect.profeliomp.domain.models.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

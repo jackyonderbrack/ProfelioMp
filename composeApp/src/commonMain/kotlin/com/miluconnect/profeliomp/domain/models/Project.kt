@@ -1,5 +1,8 @@
 package com.miluconnect.profeliomp.domain.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Project(
     val id: String? = null,
     val title: String,
