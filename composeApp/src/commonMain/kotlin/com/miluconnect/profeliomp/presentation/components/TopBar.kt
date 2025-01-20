@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.presentation.components
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun TopBar(
     currentNavigationTitle: String,
+    actionButtons: @Composable RowScope.() -> Unit,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
@@ -37,6 +39,7 @@ fun TopBar(
                     )
                 }
             }
-        }
+        },
+        actions = actionButtons,
     )
 }

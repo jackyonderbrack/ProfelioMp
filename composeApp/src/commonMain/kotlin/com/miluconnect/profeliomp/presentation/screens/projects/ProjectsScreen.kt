@@ -102,69 +102,63 @@ private fun ProjectsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
-                label = "+ Create project"
-            )
-            Button(
-                onClick = {},
-                label = "+ Issue",
-                buttonType = ButtonType.TEXT
-            )
-        }
-        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
                 .align(Alignment.CenterHorizontally),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            Text(
-                text = "Status:",
-                modifier = Modifier.padding(end = 4.dp),
-                color = MaterialTheme.colorScheme.onTertiary,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            ChipsRow(
-                chips = filterOptions,
-                selectedChip = selectedFilter,
-                onFilterSelected = { newFilter -> selectedFilter = newFilter },
-                modifier = Modifier.weight(7f)
-            )
-            AssistChip(
-                modifier = Modifier
-                    .weight(3f)
-                    .padding(start = 8.dp),
-                onClick = { isDescending = !isDescending },
-                label = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Sort",
-                            style = MaterialTheme.typography.bodyLarge,
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Sort:",
+                    color = MaterialTheme.colorScheme.onTertiary,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                AssistChip(
+                    onClick = { isDescending = !isDescending },
+                    label = {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = if (isDescending) "ASC" else "DESC",
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
+                    },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        labelColor = MaterialTheme.colorScheme.onSecondary,
+                    ),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = if (isDescending) Icons.Outlined.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                            contentDescription = "Localized description",
+                            tint = MaterialTheme.colorScheme.onSecondary,
+                            modifier = Modifier.size(AssistChipDefaults.IconSize)
                         )
                     }
-                },
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    labelColor = MaterialTheme.colorScheme.onSecondary,
-                ),
-                leadingIcon = {
-                    Icon(
-                        imageVector = if (isDescending) Icons.Outlined.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
-                        contentDescription = "Localized description",
-                        tint = MaterialTheme.colorScheme.onSecondary,
-                        modifier = Modifier.size(AssistChipDefaults.IconSize)
-                    )
-                }
-            )
+                )
+            }
+            Column(
+                modifier = Modifier.weight(3f)
+            ) {
+                Text(
+                    text = "Status:",
+                    color = MaterialTheme.colorScheme.onTertiary,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                ChipsRow(
+                    chips = filterOptions,
+                    selectedChip = selectedFilter,
+                    onFilterSelected = { newFilter -> selectedFilter = newFilter },
+                )
+            }
+
         }
 
         ScreenSurface {

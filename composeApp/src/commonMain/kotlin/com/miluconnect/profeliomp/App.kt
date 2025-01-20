@@ -1,14 +1,29 @@
 package com.miluconnect.profeliomp
 
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -61,8 +76,55 @@ fun App(
 //    )
 
     // Purpose: TopBar values
-    val currentNavigationTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
+    val topBarTitle = allRoutes.find { it.route == currentRoute }?.title ?: "Profelio"
+    val topBarActions: @Composable RowScope.() -> Unit = when (currentRoute) {
+        Route.BlackboardScreen.route -> {
+            {
+                IconButton(onClick = { /* Akcja dla Blackboard */ }) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+                }
+            }
+        }
+        Route.ProjectsScreen.route -> {
+            {
+                AssistChip(
+                    onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        labelColor = MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    label = { Text("Project") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Filled.AddCircle,
+                            contentDescription = "Add new project icon",
+                            Modifier.size(AssistChipDefaults.IconSize),
+                            tint = MaterialTheme.colorScheme.onSecondary,
+                        )
+                    }
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                AssistChip(
+                    onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        labelColor = MaterialTheme.colorScheme.onTertiary,
+                    ),
+                    label = { Text("Issue") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Filled.AddCircle,
+                            contentDescription = "Add new issue icon",
+                            Modifier.size(AssistChipDefaults.IconSize),
+                            tint = MaterialTheme.colorScheme.onSecondary,
+                        )
+                    }
+                )
+            }
+        }
 
+        else -> {{}}
+    }
     LaunchedEffect(state.token) {
         if (state.token == null) {
             navController.navigate(Route.LoginScreen.route) {
@@ -83,10 +145,13 @@ fun App(
                 val canNavigateBack =
                     allRoutes.find { it.route == currentRoute }?.isDetailScreen == true
                             && allRoutes.find { it.route == currentRoute }?.route != "login"
+
                 TopBar(
-                    currentNavigationTitle = currentNavigationTitle,
+                    currentNavigationTitle = topBarTitle,
                     canNavigateBack = canNavigateBack,
-                    navigateUp = { navController.navigateUp() }
+                    navigateUp = { navController.navigateUp() },
+                    actionButtons = topBarActions,
+                    modifier = Modifier.padding(horizontal = 4.dp)
                 )
             },
             bottomBar = {

@@ -19,14 +19,14 @@ fun ChipsRow(
     chips: List<String>,
     selectedChip: String,
     onFilterSelected: (String) -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState())
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+            .padding(end = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         chips.forEach { chip ->
             FilterChip(
@@ -42,7 +42,6 @@ fun ChipsRow(
                         style = MaterialTheme.typography.bodySmall
                     )
                 },
-                modifier = Modifier.padding(vertical = 4.dp),
                 shape = MaterialTheme.shapes.small
             )
         }
