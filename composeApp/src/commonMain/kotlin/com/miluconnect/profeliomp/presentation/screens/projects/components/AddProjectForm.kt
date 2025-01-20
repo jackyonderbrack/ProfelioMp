@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -48,22 +47,16 @@ import profeliomp.composeapp.generated.resources.new_project_max_issues
 import profeliomp.composeapp.generated.resources.new_project_name
 import profeliomp.composeapp.generated.resources.new_project_place
 
-
 @Composable
 fun AddProjectForm(
     navController: NavController,
     onSubmit: (Project) -> Unit
 ) {
 
-    var projectName by rememberSaveable { mutableStateOf("") }
-    var customer by rememberSaveable { mutableStateOf("") }
-    var numberOfIssues by rememberSaveable { mutableStateOf("") }
-    var projectPlace by rememberSaveable { mutableStateOf("") }
-    var projectCustomLabel by rememberSaveable { mutableStateOf("") }
-    var projectRecurrence by rememberSaveable { mutableStateOf(ProjectRecurrence.Daily.name) }
-    var isMaxNumberOfIssuesError by rememberSaveable { mutableStateOf(false) }
 
-    var emailInput by remember { mutableStateOf("") }
+
+
+
 
     Column(
         modifier = Modifier
@@ -77,6 +70,9 @@ fun AddProjectForm(
                 .background(MaterialTheme.colorScheme.background),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            /* TITLE */
+            var title by rememberSaveable { mutableStateOf("") }
+
             Text(
                 text = stringResource(Res.string.new_project_name),
                 style = MaterialTheme.typography.bodyLarge
@@ -84,71 +80,27 @@ fun AddProjectForm(
 
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = projectName,
-                onValueChange = { projectName = it },
+                value = title,
+                onValueChange = { title = it },
                 placeholder = { Text(text = "e.g. New kitchen project") }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                val maxIssuesNumber = 3
-
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(Res.string.new_project_max_issues),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    TextField(
-                        modifier = Modifier.width(128.dp),
-                        value = numberOfIssues,
-                        onValueChange = {
-                            if (it.length < maxIssuesNumber) {
-                                isMaxNumberOfIssuesError = false
-                                numberOfIssues = it
-                            } else {
-                                isMaxNumberOfIssuesError = true
-                            }
-                        },
-                        trailingIcon = {
-                            if (isMaxNumberOfIssuesError) {
-                                Icon(
-                                    imageVector = Icons.Filled.Info,
-                                    contentDescription = "Error",
-                                    tint = MaterialTheme.colorScheme.error
-                                )
-                            }
-                        },
-                        placeholder = { Text(text = "e.g. 1") },
-                        isError = isMaxNumberOfIssuesError,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                    )
-                }
-                AddProjectDropdownMenu {
-                    projectRecurrence = it
-                }
-            }
-            if (isMaxNumberOfIssuesError) {
-                Text(
-                    text = "You cannot have more than 3 issues per day.",
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
+            /* END DATE FIELD */
+            var endDate by rememberSaveable { mutableStateOf("") }
 
             Text(
                 text = stringResource(Res.string.new_project_end_date),
                 style = MaterialTheme.typography.bodyLarge
             )
-            TextFieldWithDatePicker()
+            TextFieldWithDatePicker(
+                selectedDate = endDate,
+                onDateSelected = { endDate = it }
+            )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            /* CITY FIELD */
+            var city by rememberSaveable { mutableStateOf("") }
 
             Text(
                 text = stringResource(Res.string.new_project_place),
@@ -156,10 +108,13 @@ fun AddProjectForm(
             )
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = projectPlace,
-                onValueChange = { projectPlace = it },
+                value = city,
+                onValueChange = { city = it },
                 placeholder = { Text(text = "e.g. Rybnik") }
             )
+
+            /* LABEL FIELD */
+            var label by rememberSaveable { mutableStateOf("") }
 
             Text(
                 text = stringResource(Res.string.new_project_custom_label),
@@ -167,77 +122,33 @@ fun AddProjectForm(
             )
             TextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = projectCustomLabel,
-                onValueChange = { projectCustomLabel = it },
+                value = label,
+                onValueChange = { label = it },
                 placeholder = { Text(text = "e.g. Housework, Outdoor") }
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = customer,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.weight(2f)
-                )
-                Button(
-                    modifier = Modifier.weight(1f),
-                    buttonType = ButtonType.OUTLINED,
-                    label = "Delete",
-                    onClick = {
-                        customer = ""
-                    }
-                )
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
+            /* CUSTOMER FIELD */
+            var customer by rememberSaveable { mutableStateOf("") }
 
             Text(
                 text = stringResource(Res.string.new_project_email_invitation_label),
                 style = MaterialTheme.typography.bodyLarge
             )
-
             Text(
                 text = stringResource(Res.string.new_project_email_invitation_notice),
                 style = MaterialTheme.typography.bodySmall
             )
-
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (customer.isEmpty()) {
-                    TextField(
-                        modifier = Modifier.weight(2f),
-                        value = emailInput,
-                        onValueChange = { emailInput = it },
-                        label = {
-                            Text(
-                                text = stringResource(Res.string.new_project_email_invitation_placeholder),
-                                style = MaterialTheme.typography.labelSmall
-                            )
-                        }
-                    )
-                    Button(
-                        modifier = Modifier.weight(1f),
-                        buttonType = ButtonType.TEXT,
-                        label = "+ Add person",
-                        onClick = {
-                            if (emailInput.isNotBlank()) {
-                                customer = emailInput
-                                emailInput = ""
-                            }
-                        }
-                    )
-                }
-            }
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = customer,
+                onValueChange = { customer = it },
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            /* ACTION BUTTONS */
             Row(
                 modifier = Modifier.align(Alignment.End),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -251,10 +162,11 @@ fun AddProjectForm(
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
                     onClick = { handleSubmitClick(
-                        projectName = projectName,
-                        endDate = "",
-                        city = projectPlace,
-                        invitedEmails = "",
+                        newTitle = title,
+                        newEndDate = endDate,
+                        newCity = city,
+                        newCustomer = customer,
+                        newLabels = listOf("bug"),
                         onSubmit = onSubmit
                     ) },
                     label = stringResource(Res.string.new_project_create_button_label)
@@ -265,17 +177,19 @@ fun AddProjectForm(
 }
 
 private fun handleSubmitClick(
-    projectName: String,
-    endDate: String,
-    city: String,
-    invitedEmails: String,
+    newTitle: String,
+    newCustomer: String,
+    newEndDate: String,
+    newCity: String,
+    newLabels: List<String>,
     onSubmit: (Project) -> Unit
 ) {
     val newProject = Project(
-        title = projectName,
-        customer = invitedEmails,
-        endDate = endDate,
-        city = city,
+        title = newTitle,
+        customer = newCustomer,
+        endDate = newEndDate,
+        city = newCity,
+        labels = newLabels
     )
 
     onSubmit(newProject)

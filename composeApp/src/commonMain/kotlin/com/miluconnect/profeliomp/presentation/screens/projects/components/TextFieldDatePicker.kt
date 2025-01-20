@@ -22,13 +22,15 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 @Composable
-fun TextFieldWithDatePicker() {
+fun TextFieldWithDatePicker(
+    selectedDate: String,
+    onDateSelected: (String) -> Unit
+) {
     var showDatePicker by remember { mutableStateOf(false) }
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
     Box {
         OutlinedTextField(
-            value = selectedDate?.toString() ?: "",
+            value = selectedDate,
             onValueChange = {},
             readOnly = true,
             label = { Text("Select Date") },
@@ -46,18 +48,21 @@ fun TextFieldWithDatePicker() {
     if (showDatePicker) {
         DatePickerModal(
             onDateSelected = { dateInMillis ->
-                selectedDate = dateInMillis?.let {
+                val formattedDate = dateInMillis?.let {
                     Instant
                         .fromEpochMilliseconds(it)
                         .toLocalDateTime(TimeZone.currentSystemDefault())
                         .date
-                }
+                        .toString()
+                } ?: ""
+                onDateSelected(formattedDate)
                 showDatePicker = false
             },
             onDismiss = { showDatePicker = false }
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
