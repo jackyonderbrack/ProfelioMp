@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -34,12 +36,14 @@ fun ColumnScope.ProjectsTabs(
     viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
     firstTabTitle: String,
     secondTabTitle: String,
+    thirdTabTitle: String,
     firstTabContent: @Composable () -> Unit,
     secondTabContent: @Composable () -> Unit,
+    thirdTabContent: @Composable () -> Unit,
 ) {
 
     val state = viewModel.state.collectAsState()
-    val pagerState = rememberPagerState { 2 }
+    val pagerState = rememberPagerState { 1 }
 
     LaunchedEffect(state.value.selectedTabIndex) {
         println("Selected Tab Index: ${state.value.selectedTabIndex}")
@@ -76,6 +80,13 @@ fun ColumnScope.ProjectsTabs(
         ) {
             Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
         }
+        Tab(
+            selected = state.value.selectedTabIndex == 2,
+            onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(2)) },
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(text = thirdTabTitle, modifier = Modifier.padding(vertical = 12.dp))
+        }
     }
     HorizontalPager(
         state = pagerState,
@@ -106,6 +117,7 @@ fun ColumnScope.ProjectsTabs(
                 when (pageIndex) {
                     0 -> firstTabContent()
                     1 -> secondTabContent()
+                    2 -> thirdTabContent()
                 }
             }
         }

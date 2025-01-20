@@ -177,6 +177,10 @@ private fun ProjectsScreen(
                     secondTabContent = {
                         Text("No discussions yet")
                     },
+                    thirdTabTitle = "Issues",
+                    thirdTabContent = {
+                        Text("No issues yet")
+                    },
                 )
             }
         }
