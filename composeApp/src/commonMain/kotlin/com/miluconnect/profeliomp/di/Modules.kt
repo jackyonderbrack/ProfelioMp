@@ -42,8 +42,7 @@ val sharedModule: Module = module {
     // Repositories
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
-    singleOf(::DefaultOfferRepository).bind<OfferRepository>() // test
-//    singleOf(::DefaultProjectRepository).bind<ProjectRepository>() // test
+    singleOf(::DefaultOfferRepository).bind<OfferRepository>()
     singleOf(::ProjectRepositoryImpl).bind<ProjectRepository>()
 
     // ViewModels

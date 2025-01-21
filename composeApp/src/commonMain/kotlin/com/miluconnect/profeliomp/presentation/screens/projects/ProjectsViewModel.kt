@@ -2,6 +2,7 @@ package com.miluconnect.profeliomp.presentation.screens.projects
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ProjectsViewModel(
-    private val projectRepository: ProjectRepository
+    private val projectRepository: ProjectRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProjectsState())

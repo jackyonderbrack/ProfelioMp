@@ -13,15 +13,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AddProjectViewModel(
-    private val projectRepository: ProjectRepository
+    private val projectRepository: ProjectRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AddProjectState())
     val state: StateFlow<AddProjectState> get() = _state
 
-    fun onIntent(intent: AddProjectIntent) {
+    fun onIntent(intent: AddProjectIntent, onNavigateBack: () -> Unit) {
         when (intent) {
-            is AddProjectIntent.AddNewProject -> {
+            is AddProjectIntent.SubmitForm -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                     projectRepository
@@ -34,6 +34,7 @@ class AddProjectViewModel(
                                 isLoading = false,
                                 successMessage = result
                             ) }
+                            onNavigateBack()
                         }
                         .onError { error ->
                             delay(1000)
@@ -45,6 +46,8 @@ class AddProjectViewModel(
                         }
                 }
             }
+
+            AddProjectIntent.DismissForm -> onNavigateBack()
         }
     }
 }

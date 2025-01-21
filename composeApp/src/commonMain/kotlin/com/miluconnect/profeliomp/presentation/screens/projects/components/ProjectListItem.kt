@@ -75,7 +75,7 @@ fun ProjectListItem(
                 Text(
                     text = projectItem.title,
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(

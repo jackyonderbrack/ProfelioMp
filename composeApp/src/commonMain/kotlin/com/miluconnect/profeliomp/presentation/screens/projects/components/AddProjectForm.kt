@@ -40,8 +40,8 @@ import profeliomp.composeapp.generated.resources.new_project_place
 
 @Composable
 fun AddProjectForm(
-    navController: NavController,
-    onSubmit: (Project) -> Unit
+    onSubmit: (Project) -> Unit,
+    onDismiss: () -> Unit
 ) {
     var projectState by remember {
         mutableStateOf(
@@ -152,7 +152,7 @@ fun AddProjectForm(
             ) {
                 Button(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = { navController.popBackStack() },
+                    onClick = { onDismiss() },
                     label = stringResource(Res.string.new_project_dismiss_button_label),
                     buttonType = ButtonType.TEXT
                 )

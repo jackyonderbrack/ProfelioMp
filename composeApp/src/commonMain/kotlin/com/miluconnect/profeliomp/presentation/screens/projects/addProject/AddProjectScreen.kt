@@ -1,9 +1,14 @@
 package com.miluconnect.profeliomp.presentation.screens.projects.addProject
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,18 +27,22 @@ import profeliomp.composeapp.generated.resources.add_new_project_title
 
 @Composable
 fun AddProjectScreenRoot(
-    navController: NavController,
     viewModel: AddProjectViewModel = koinViewModel<AddProjectViewModel>(),
+    navController: NavController,
 ) {
 
     val state by viewModel.state.collectAsState()
 
     AddProjectScreen(
-        navController = navController,
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is AddProjectIntent.AddNewProject -> viewModel.onIntent(intent)
+                is AddProjectIntent.SubmitForm -> viewModel.onIntent(intent) {
+                    navController.popBackStack()
+                }
+                is AddProjectIntent.DismissForm -> {
+                    navController.popBackStack()
+                }
             }
         }
     )
@@ -41,9 +50,8 @@ fun AddProjectScreenRoot(
 
 @Composable
 fun AddProjectScreen(
-    navController: NavController,
-    state: AddProjectState,
-    onIntent: (AddProjectIntent) -> Unit
+    onIntent: (AddProjectIntent) -> Unit,
+    state: AddProjectState
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -58,11 +66,25 @@ fun AddProjectScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        AddProjectForm(
-            navController = navController,
-            onSubmit = { newProject ->
-                onIntent(AddProjectIntent.AddNewProject(newProject))
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.size(128.dp))
+            } else {
+                AddProjectForm(
+                    onSubmit = { newProject ->
+                        onIntent(AddProjectIntent.SubmitForm(newProject))
+                    },
+                    onDismiss = {
+                        onIntent(AddProjectIntent.DismissForm)
+                    }
+                )
             }
-        )
+        }
+
+
     }
 }
