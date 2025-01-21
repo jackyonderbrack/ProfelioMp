@@ -2,6 +2,8 @@ package com.miluconnect.profeliomp.di
 
 import com.miluconnect.profeliomp.AppViewModel
 import com.miluconnect.profeliomp.data.core.HttpClientFactory
+import com.miluconnect.profeliomp.data.network.RemoteIssueDataSource
+import com.miluconnect.profeliomp.data.network.RemoteIssuesDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteOfferDataSource
@@ -10,6 +12,8 @@ import com.miluconnect.profeliomp.data.network.RemoteProjectDataSource
 import com.miluconnect.profeliomp.data.network.RemoteProjectDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSource
 import com.miluconnect.profeliomp.data.network.RemoteUserDataSourceImpl
+import com.miluconnect.profeliomp.data.repository.issue.IssueRepository
+import com.miluconnect.profeliomp.data.repository.issue.IssueRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.offer.DefaultOfferRepository
@@ -39,12 +43,14 @@ val sharedModule: Module = module {
     singleOf(::RemoteUserDataSourceImpl).bind<RemoteUserDataSource>()
     singleOf(::RemoteOfferDataSourceImpl).bind<RemoteOfferDataSource>()
     singleOf(::RemoteProjectDataSourceImpl).bind<RemoteProjectDataSource>()
+    singleOf(::RemoteIssuesDataSourceImpl).bind<RemoteIssueDataSource>()
 
     // Repositories
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
     singleOf(::DefaultOfferRepository).bind<OfferRepository>()
     singleOf(::ProjectRepositoryImpl).bind<ProjectRepository>()
+    singleOf(::IssueRepositoryImpl).bind<IssueRepository>()
 
     // ViewModels
     viewModelOf(::AppViewModel)
@@ -55,6 +61,5 @@ val sharedModule: Module = module {
     viewModelOf(::AddProjectViewModel)
     viewModelOf(::AddIssueViewModel)
 }
-
 
 expect val platformModule: Module
