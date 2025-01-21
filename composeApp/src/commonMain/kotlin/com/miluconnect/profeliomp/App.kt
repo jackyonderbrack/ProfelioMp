@@ -148,15 +148,15 @@ fun App(
     /**
      * Launched Effects
      * */
-//    LaunchedEffect(state.token) {
-//        if (state.token == null) {
-//            navController.navigate(Route.LoginScreen.route) {
-//                popUpTo(0)
-//            }
-//        } else {
-//            navController.navigate(Route.ProjectsScreen.route)
-//        }
-//    }
+    LaunchedEffect(state.token) {
+        if (state.token == null) {
+            navController.navigate(Route.LoginScreen.route) {
+                popUpTo(0)
+            }
+        } else {
+            navController.navigate(Route.ProjectsScreen.route)
+        }
+    }
 
     /**
      * Actual UI

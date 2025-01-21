@@ -22,6 +22,7 @@ import com.miluconnect.profeliomp.presentation.screens.account.AccountViewModel
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardViewModel
 import com.miluconnect.profeliomp.presentation.screens.login.LoginViewModel
 import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsViewModel
+import com.miluconnect.profeliomp.presentation.screens.projects.addIssue.AddIssueViewModel
 import com.miluconnect.profeliomp.presentation.screens.projects.addProject.AddProjectViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -52,6 +53,7 @@ val sharedModule: Module = module {
     viewModelOf(::BlackboardViewModel)
     viewModelOf(::ProjectsViewModel)
     viewModelOf(::AddProjectViewModel)
+    viewModelOf(::AddIssueViewModel)
 }
 
 
