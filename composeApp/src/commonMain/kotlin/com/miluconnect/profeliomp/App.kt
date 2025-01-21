@@ -41,8 +41,8 @@ import com.miluconnect.profeliomp.presentation.components.TopBar
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.projects.addProject.AddProjectScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.work.WorkScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.work.addProject.AddProjectScreenRoot
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -104,7 +104,7 @@ fun App(
                 }
             }
         }
-        Route.ProjectsScreen.route -> {
+        Route.WorkScreen.route -> {
             {
                 AssistChip(
                     onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
@@ -154,7 +154,7 @@ fun App(
                 popUpTo(0)
             }
         } else {
-            navController.navigate(Route.ProjectsScreen.route)
+            navController.navigate(Route.WorkScreen.route)
         }
     }
 
@@ -184,7 +184,7 @@ fun App(
         ) { paddingValues ->
             NavHost(
                 navController = navController,
-                startDestination = Route.ProjectsScreen.route,
+                startDestination = Route.WorkScreen.route,
                 modifier = Modifier.padding(paddingValues),
                 enterTransition = {
                     animationDirection?.let { direction ->
@@ -218,8 +218,8 @@ fun App(
                 composable(Route.BlackboardScreen.route) {
                     BlackboardScreenRoot(viewModel = koinViewModel())
                 }
-                composable(Route.ProjectsScreen.route) {
-                    ProjectsScreenRoot(viewModel = koinViewModel())
+                composable(Route.WorkScreen.route) {
+                    WorkScreenRoot(viewModel = koinViewModel())
                 }
                 composable(Route.AccountScreen.route) {
                     AccountScreenRoot(viewModel = koinViewModel())

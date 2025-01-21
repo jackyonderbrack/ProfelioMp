@@ -32,9 +32,9 @@ sealed interface Route {
     }
 
     @Serializable
-    data object ProjectsScreen : Route {
-        override val route = "projects"
-        override val title = "Projects"
+    data object WorkScreen : Route {
+        override val route = "work"
+        override val title = "Work"
         override val icon: ImageVector = Icons.Default.Build
         override val isDetailScreen = false
     }
@@ -62,7 +62,7 @@ val allRoutes = listOf(
 
     // Main Screens
     Route.BlackboardScreen, // 1
-    Route.ProjectsScreen, // 2
+    Route.WorkScreen, // 2
     Route.AccountScreen, // 3
 
     //Details Screens

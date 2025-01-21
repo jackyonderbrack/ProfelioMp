@@ -1,15 +1,13 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.components
+package com.miluconnect.profeliomp.presentation.screens.work.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -27,13 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsIntent
-import com.miluconnect.profeliomp.presentation.screens.projects.ProjectsViewModel
+import com.miluconnect.profeliomp.presentation.screens.work.WorkIntent
+import com.miluconnect.profeliomp.presentation.screens.work.WorkViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ColumnScope.ProjectsTabs(
-    viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
+    viewModel: WorkViewModel = koinViewModel<WorkViewModel>(),
     firstTabTitle: String,
     secondTabTitle: String,
     thirdTabTitle: String,
@@ -52,7 +50,7 @@ fun ColumnScope.ProjectsTabs(
 
     LaunchedEffect(pagerState.currentPage) {
         println("Current Page: ${pagerState.currentPage}")
-        viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(pagerState.currentPage))
+        viewModel.onIntent(WorkIntent.OnTabSelectedChange(pagerState.currentPage))
     }
 
     TabRow(
@@ -68,21 +66,21 @@ fun ColumnScope.ProjectsTabs(
         tabs = {
             Tab(
                 selected = state.value.selectedTabIndex == 0,
-                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(0)) },
+                onClick = { viewModel.onIntent(WorkIntent.OnTabSelectedChange(0)) },
                 modifier = Modifier.weight(1f),
             ) {
                 Text(text = firstTabTitle, modifier = Modifier.padding(vertical = 12.dp))
             }
             Tab(
                 selected = state.value.selectedTabIndex == 1,
-                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(1)) },
+                onClick = { viewModel.onIntent(WorkIntent.OnTabSelectedChange(1)) },
                 modifier = Modifier.weight(1f),
             ) {
                 Text(text = secondTabTitle, modifier = Modifier.padding(vertical = 12.dp))
             }
             Tab(
                 selected = state.value.selectedTabIndex == 2,
-                onClick = { viewModel.onIntent(ProjectsIntent.OnTabSelectedChange(2)) },
+                onClick = { viewModel.onIntent(WorkIntent.OnTabSelectedChange(2)) },
                 modifier = Modifier.weight(1f),
             ) {
                 Text(text = thirdTabTitle, modifier = Modifier.padding(vertical = 12.dp))

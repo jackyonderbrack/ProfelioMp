@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.addProject
+package com.miluconnect.profeliomp.presentation.screens.work.addProject
 
 import com.miluconnect.profeliomp.domain.models.Project
 

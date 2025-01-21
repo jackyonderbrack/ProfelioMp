@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.components
+package com.miluconnect.profeliomp.presentation.screens.work.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -27,11 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.miluconnect.profeliomp.domain.models.Project
+import com.miluconnect.profeliomp.domain.models.Issue
 
 @Composable
-fun ProjectListItem(
-    projectItem: Project,
+fun IssuesListItem(
+    issueItem: Issue,
 ) {
     Surface(
         modifier = Modifier
@@ -66,20 +66,20 @@ fun ProjectListItem(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = projectItem.customer,
+                    text = issueItem.projectId,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = projectItem.title,
+                    text = issueItem.title,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = projectItem.city,
+                    text = issueItem.storyPoint,
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -88,13 +88,13 @@ fun ProjectListItem(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "Started: ${projectItem.startDate}",
+                        text = "Created at: ${issueItem.createdAt}",
                         style = MaterialTheme.typography.labelSmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "Due to: ${projectItem.endDate}",
+                        text = "Due to: ${issueItem.dueTo}",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.error,
                         maxLines = 1,

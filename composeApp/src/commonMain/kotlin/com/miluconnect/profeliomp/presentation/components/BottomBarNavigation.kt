@@ -14,7 +14,7 @@ import com.miluconnect.profeliomp.presentation.app.Route
 fun BottomNavigationBar(navController: NavController) {
     val routes = listOf(
         Route.BlackboardScreen,
-        Route.ProjectsScreen,
+        Route.WorkScreen,
         Route.AccountScreen,
     )
 

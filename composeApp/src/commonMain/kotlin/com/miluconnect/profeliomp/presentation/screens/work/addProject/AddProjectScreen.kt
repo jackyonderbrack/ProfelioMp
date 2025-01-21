@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.addProject
+package com.miluconnect.profeliomp.presentation.screens.work.addProject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.miluconnect.profeliomp.presentation.screens.projects.components.AddProjectForm
+import com.miluconnect.profeliomp.presentation.screens.work.components.AddProjectForm
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import profeliomp.composeapp.generated.resources.Res

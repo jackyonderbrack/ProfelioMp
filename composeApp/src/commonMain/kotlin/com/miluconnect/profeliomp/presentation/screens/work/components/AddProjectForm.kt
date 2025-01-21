@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects.components
+package com.miluconnect.profeliomp.presentation.screens.work.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,12 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.miluconnect.profeliomp.domain.models.Project
 import com.miluconnect.profeliomp.presentation.components.Button
 import com.miluconnect.profeliomp.presentation.components.ButtonType

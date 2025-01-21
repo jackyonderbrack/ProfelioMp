@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.projects
+package com.miluconnect.profeliomp.presentation.screens.work
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,58 +29,85 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
-import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsList
-import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsTabs
+import com.miluconnect.profeliomp.presentation.screens.work.components.IssuesList
+import com.miluconnect.profeliomp.presentation.screens.work.components.ProjectsList
+import com.miluconnect.profeliomp.presentation.screens.work.components.ProjectsTabs
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ProjectsScreenRoot(
-    viewModel: ProjectsViewModel = koinViewModel<ProjectsViewModel>(),
+fun WorkScreenRoot(
+    viewModel: WorkViewModel = koinViewModel<WorkViewModel>(),
 ) {
 
     val state by viewModel.state.collectAsState()
-    
-    ProjectsScreen(
+
+    WorkScreen(
         state = state,
         viewModel = viewModel
     )
 }
 
 @Composable
-private fun ProjectsScreen(
-    state: ProjectsState,
-    viewModel: ProjectsViewModel
+private fun WorkScreen(
+    state: WorkState,
+    viewModel: WorkViewModel
 ) {
     val lazyProjectsListState = rememberLazyListState()
-    val filterOptions = listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
-    var selectedFilter by remember { mutableStateOf("Ongoing") }
+    var selectedFilter by remember { mutableStateOf("") }
+    val filterOptions =
+        when (state.selectedTabIndex) {
+            0 -> listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
+            2 -> listOf("To do", "In progress", "Done")
+            else -> emptyList()
+        }
+
     var isDescending by remember { mutableStateOf(false) }
 
     val filteredAndSortedProjects = remember(state.projectsList, selectedFilter, isDescending) {
-        state.projectsList
-            .filter { project ->
-                when (selectedFilter) {
-                    "Ongoing" -> project.status == "Ongoing"
-                    "Completed" -> project.status == "Completed"
-                    "Archived" -> project.status == "Archived"
-                    else -> true
-                }
+        val filtered = if (selectedFilter.isEmpty()) {
+            state.projectsList
+        } else {
+            state.projectsList.filter { project ->
+                project.status == selectedFilter
             }
-            .let { filteredList ->
-                if (isDescending) {
-                    filteredList.sortedByDescending { it.startDate }
-                } else {
-                    filteredList.sortedBy { it.startDate }
-                }
+        }
+        if (isDescending) {
+            filtered.sortedByDescending { it.startDate ?: "" }
+        } else {
+            filtered.sortedBy { it.endDate }
+        }
+    }
+
+    val filteredAndSortedIssues = remember(state.issuesList, selectedFilter, isDescending) {
+        val filtered = if (selectedFilter.isEmpty()) {
+            state.issuesList
+        } else {
+            state.issuesList.filter { project ->
+                project.status == selectedFilter
             }
+        }
+        if (isDescending) {
+            filtered.sortedByDescending { it.createdAt ?: "" }
+        } else {
+            filtered.sortedBy { it.dueTo }
+        }
     }
 
     LaunchedEffect(state.selectedTabIndex, selectedFilter) {
-        viewModel.onIntent(ProjectsIntent.GetProjectsList)
+        viewModel.onIntent(WorkIntent.GetProjectsList)
     }
 
     LaunchedEffect(isDescending) {
         lazyProjectsListState.scrollToItem(0)
+    }
+
+    LaunchedEffect(state.selectedTabIndex) {
+        selectedFilter = when (state.selectedTabIndex) {
+            0 -> "Ongoing"
+            2 -> "To do"
+            else -> ""
+        }
+        viewModel.onIntent(WorkIntent.GetProjectsList)
     }
 
     Column(
@@ -161,10 +188,18 @@ private fun ProjectsScreen(
                     },
                     thirdTabTitle = "Issues",
                     thirdTabContent = {
-                        Text("No issues yet")
+                        IssuesList(
+                            modifier = Modifier,
+                            scrollState = lazyProjectsListState,
+                            issuesList = filteredAndSortedIssues,
+                            isDescending = isDescending
+                        )
                     },
                 )
             }
         }
     }
 }
+
+
+
