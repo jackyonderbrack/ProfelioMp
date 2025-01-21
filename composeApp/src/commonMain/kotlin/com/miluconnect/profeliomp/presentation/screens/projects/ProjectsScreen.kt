@@ -2,7 +2,6 @@ package com.miluconnect.profeliomp.presentation.screens.projects
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -31,15 +27,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.miluconnect.profeliomp.presentation.app.Route
-import com.miluconnect.profeliomp.presentation.components.Button
-import com.miluconnect.profeliomp.presentation.components.ButtonType
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsList
 import com.miluconnect.profeliomp.presentation.screens.projects.components.ProjectsTabs
-import kotlinx.coroutines.delay
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -137,7 +128,7 @@ private fun ProjectsScreen(
                 )
             }
             Column(
-                modifier = Modifier.weight(4f)
+                modifier = Modifier.weight(3f)
             ) {
                 Text(
                     text = "Status:",
