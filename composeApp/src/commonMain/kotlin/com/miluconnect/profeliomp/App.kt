@@ -1,5 +1,10 @@
 package com.miluconnect.profeliomp
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -19,12 +24,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -57,21 +62,35 @@ fun App(
      */
     val navController = rememberNavController()
 
-    val currentBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = currentBackStackEntry?.destination?.route
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+    val currentRouteIndex = allRoutes.indexOfFirst { it.route == currentRoute }
 
+    var animationDirection by remember { mutableStateOf<AnimatedContentTransitionScope.SlideDirection?>(null) }
+    var lastRouteIndex by remember { mutableStateOf(-1) }
 
-//    val previousRoute = navController.previousBackStackEntry?.destination?.route
-//    val navAnimationTransition = if (previousRoute< currentRoute) {
-//        AnimatedContentTransitionScope.SlideDirection.Right
-//    } else {
-//        AnimatedContentTransitionScope.SlideDirection.Left
-//    }
-//    val navAnimationSpecification = tween<IntOffset>(
-//        durationMillis = 200,
-//        delayMillis = 100,
-//        easing = FastOutSlowInEasing
-//    )
+    LaunchedEffect(currentRouteIndex) {
+        if (currentRouteIndex != -1) {
+            animationDirection = when {
+                lastRouteIndex == -1 -> AnimatedContentTransitionScope.SlideDirection.Start
+                currentRouteIndex > lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.Left
+                currentRouteIndex < lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.Right
+                else -> null
+            }
+            lastRouteIndex = currentRouteIndex
+        }
+    }
+
+    val navAnimationSpecification = tween<IntOffset>(
+        durationMillis = 200,
+        delayMillis = 100,
+        easing = FastOutSlowInEasing
+    )
+
+    LaunchedEffect(currentRoute, lastRouteIndex) {
+        println("NAV Current route: $currentRoute")
+        println("NAV Previous route: $lastRouteIndex")
+        println("NAV Animation direction: $animationDirection")
+    }
 
     /**
      * TopBar Values
@@ -129,15 +148,15 @@ fun App(
     /**
      * Launched Effects
      * */
-    LaunchedEffect(state.token) {
-        if (state.token == null) {
-            navController.navigate(Route.LoginScreen.route) {
-                popUpTo(0) { inclusive = true }
-            }
-        } else {
-            navController.navigate(Route.ProjectsScreen.route)
-        }
-    }
+//    LaunchedEffect(state.token) {
+//        if (state.token == null) {
+//            navController.navigate(Route.LoginScreen.route) {
+//                popUpTo(0)
+//            }
+//        } else {
+//            navController.navigate(Route.ProjectsScreen.route)
+//        }
+//    }
 
     /**
      * Actual UI
@@ -162,15 +181,32 @@ fun App(
                     BottomNavigationBar(navController = navController)
                 }
             }
-        ) {
+        ) { paddingValues ->
             NavHost(
                 navController = navController,
                 startDestination = Route.ProjectsScreen.route,
-                modifier = Modifier.padding(it),
-//                enterTransition = { slideIntoContainer(navAnimationTransition, navAnimationSpecification) },
-//                exitTransition = { slideOutOfContainer(enterTransition, navAnimationSpecification) },
-//                popEnterTransition = { slideIntoContainer(navAnimationTransition, navAnimationSpecification) },
-//                popExitTransition = { slideOutOfContainer(forwardTransition, navAnimationSpecification) }
+                modifier = Modifier.padding(paddingValues),
+                enterTransition = {
+                    animationDirection?.let { direction ->
+                        slideIntoContainer(direction, navAnimationSpecification)
+                    } ?: EnterTransition.None
+                },
+                exitTransition = {
+                    animationDirection?.let { direction ->
+                        slideOutOfContainer(direction, navAnimationSpecification)
+                    } ?: ExitTransition.None
+                },
+                popEnterTransition = {
+                    animationDirection?.let { direction ->
+                        slideIntoContainer(direction, navAnimationSpecification)
+                    } ?: EnterTransition.None
+                },
+                popExitTransition = {
+                    animationDirection?.let { direction ->
+                        slideOutOfContainer(direction, navAnimationSpecification)
+                    } ?: ExitTransition.None
+                }
+
             ) {
 
                 /* Login screen only */
@@ -198,13 +234,3 @@ fun App(
     }
 }
 
-@Composable
-private inline fun <reified T: ViewModel> NavBackStackEntry.sharedKoinViewModel(
-    navController: NavController
-): T {
-    val navGraphRoute = destination.parent?.route ?: return koinViewModel<T>()
-    val parentEntry = remember(this) {
-        navController.getBackStackEntry(navGraphRoute)
-    }
-    return koinViewModel(viewModelStoreOwner = parentEntry)
-}

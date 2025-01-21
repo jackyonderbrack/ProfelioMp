@@ -141,7 +141,6 @@ private fun ProjectsScreen(
                     onFilterSelected = { newFilter -> selectedFilter = newFilter },
                 )
             }
-
         }
 
         ScreenSurface {

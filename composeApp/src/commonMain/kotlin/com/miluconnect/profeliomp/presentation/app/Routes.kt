@@ -57,9 +57,20 @@ sealed interface Route {
 }
 
 val allRoutes = listOf(
-    Route.LoginScreen,
-    Route.BlackboardScreen,
-    Route.ProjectsScreen,
-    Route.AccountScreen,
-    Route.AddProjectScreen
+    // Login Screen
+    Route.LoginScreen, // 0
+
+    // Main Screens
+    Route.BlackboardScreen, // 1
+    Route.ProjectsScreen, // 2
+    Route.AccountScreen, // 3
+
+    //Details Screens
+    Route.AddProjectScreen // 4
 )
+
+// Current 0 -> Right to 1
+// Current 1 -> Left to 0, Right to 2,
+// Current 2 -> Left to 3, Right to 1,
+// Current 2 -> Left to 4, Right to 2 (back) - analogicznie inne details
+
