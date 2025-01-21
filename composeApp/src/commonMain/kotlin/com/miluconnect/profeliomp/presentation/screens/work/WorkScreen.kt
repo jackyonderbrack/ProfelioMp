@@ -52,17 +52,16 @@ private fun WorkScreen(
     state: WorkState,
     viewModel: WorkViewModel
 ) {
+    var isDescending by remember { mutableStateOf(false) }
+    var selectedFilter by remember { mutableStateOf("") }
     val lazyProjectsListState = rememberLazyListState()
     val lazyIssuesListState = rememberLazyListState()
-    var selectedFilter by remember { mutableStateOf("") }
     val filterOptions =
         when (state.selectedTabIndex) {
             0 -> listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
             2 -> listOf("To do", "In progress", "Done")
             else -> emptyList()
         }
-
-    var isDescending by remember { mutableStateOf(false) }
 
     val filteredAndSortedProjects = remember(state.projectsList, selectedFilter, isDescending) {
         val filtered =
