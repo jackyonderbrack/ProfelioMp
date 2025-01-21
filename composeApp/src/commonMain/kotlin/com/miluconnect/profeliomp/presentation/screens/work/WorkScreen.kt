@@ -53,6 +53,7 @@ private fun WorkScreen(
     viewModel: WorkViewModel
 ) {
     val lazyProjectsListState = rememberLazyListState()
+    val lazyIssuesListState = rememberLazyListState()
     var selectedFilter by remember { mutableStateOf("") }
     val filterOptions =
         when (state.selectedTabIndex) {
@@ -64,50 +65,38 @@ private fun WorkScreen(
     var isDescending by remember { mutableStateOf(false) }
 
     val filteredAndSortedProjects = remember(state.projectsList, selectedFilter, isDescending) {
-        val filtered = if (selectedFilter.isEmpty()) {
-            state.projectsList
-        } else {
-            state.projectsList.filter { project ->
-                project.status == selectedFilter
-            }
-        }
-        if (isDescending) {
-            filtered.sortedByDescending { it.startDate ?: "" }
-        } else {
-            filtered.sortedBy { it.endDate }
-        }
+        val filtered =
+        if (selectedFilter.isEmpty()) { state.projectsList }
+        else { state.projectsList.filter { project -> project.status == selectedFilter } }
+        if (isDescending) { filtered.sortedByDescending { it.startDate ?: "" } }
+        else { filtered.sortedBy { it.endDate } }
     }
 
     val filteredAndSortedIssues = remember(state.issuesList, selectedFilter, isDescending) {
-        val filtered = if (selectedFilter.isEmpty()) {
-            state.issuesList
-        } else {
-            state.issuesList.filter { project ->
-                project.status == selectedFilter
-            }
-        }
-        if (isDescending) {
-            filtered.sortedByDescending { it.createdAt ?: "" }
-        } else {
-            filtered.sortedBy { it.dueTo }
-        }
-    }
-
-    LaunchedEffect(state.selectedTabIndex, selectedFilter) {
-        viewModel.onIntent(WorkIntent.GetProjectsList)
+        val filtered =
+        if (selectedFilter.isEmpty()) { state.issuesList }
+        else { state.issuesList.filter { project -> project.status == selectedFilter } }
+        if (isDescending) { filtered.sortedByDescending { it.createdAt ?: "" } }
+        else { filtered.sortedBy { it.dueTo } }
     }
 
     LaunchedEffect(isDescending) {
         lazyProjectsListState.scrollToItem(0)
+        lazyIssuesListState.scrollToItem(0)
     }
 
     LaunchedEffect(state.selectedTabIndex) {
         selectedFilter = when (state.selectedTabIndex) {
-            0 -> "Ongoing"
-            2 -> "To do"
+            0 -> {
+                viewModel.onIntent(WorkIntent.GetProjectsList)
+                "Ongoing"
+            }
+            2 -> {
+                viewModel.onIntent(WorkIntent.GetIssuesList)
+                "To do"
+            }
             else -> ""
         }
-        viewModel.onIntent(WorkIntent.GetProjectsList)
     }
 
     Column(
@@ -190,7 +179,7 @@ private fun WorkScreen(
                     thirdTabContent = {
                         IssuesList(
                             modifier = Modifier,
-                            scrollState = lazyProjectsListState,
+                            scrollState = lazyIssuesListState,
                             issuesList = filteredAndSortedIssues,
                             isDescending = isDescending
                         )
