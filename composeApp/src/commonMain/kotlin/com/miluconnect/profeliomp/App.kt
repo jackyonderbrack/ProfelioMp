@@ -42,7 +42,9 @@ import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.work.WorkScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.work.addIssue.AddIssueScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.work.addProject.AddProjectScreenRoot
+import com.miluconnect.profeliomp.presentation.theme.ProfelioTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -72,8 +74,8 @@ fun App(
         if (currentRouteIndex != -1) {
             animationDirection = when {
                 lastRouteIndex == -1 -> AnimatedContentTransitionScope.SlideDirection.Start
-                currentRouteIndex > lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.Left
-                currentRouteIndex < lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.Right
+                currentRouteIndex > lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.Start
+                currentRouteIndex < lastRouteIndex -> AnimatedContentTransitionScope.SlideDirection.End
                 else -> null
             }
             lastRouteIndex = currentRouteIndex
@@ -81,16 +83,9 @@ fun App(
     }
 
     val navAnimationSpecification = tween<IntOffset>(
-        durationMillis = 200,
-        delayMillis = 100,
+        durationMillis = 300,
         easing = FastOutSlowInEasing
     )
-
-    LaunchedEffect(currentRoute, lastRouteIndex) {
-        println("NAV Current route: $currentRoute")
-        println("NAV Previous route: $lastRouteIndex")
-        println("NAV Animation direction: $animationDirection")
-    }
 
     /**
      * TopBar Values
@@ -112,7 +107,7 @@ fun App(
                         containerColor = MaterialTheme.colorScheme.primary,
                         labelColor = MaterialTheme.colorScheme.onPrimary,
                     ),
-                    label = { Text("Project") },
+                    label = { Text("Project", style = MaterialTheme.typography.bodySmall) },
                     leadingIcon = {
                         Icon(
                             Icons.Filled.AddCircle,
@@ -124,12 +119,12 @@ fun App(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 AssistChip(
-                    onClick = { navController.navigate(route = Route.AddProjectScreen.route) },
+                    onClick = { navController.navigate(route = Route.AddIssueScreen.route) },
                     colors = AssistChipDefaults.assistChipColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         labelColor = MaterialTheme.colorScheme.onTertiary,
                     ),
-                    label = { Text("Issue") },
+                    label = { Text("Issue", style = MaterialTheme.typography.bodySmall) },
                     leadingIcon = {
                         Icon(
                             Icons.Filled.AddCircle,
@@ -161,7 +156,7 @@ fun App(
     /**
      * Actual UI
      */
-    MaterialTheme {
+    ProfelioTheme {
         Scaffold(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
             topBar = {
@@ -228,6 +223,9 @@ fun App(
                 /* Details navigation screens*/
                 composable(Route.AddProjectScreen.route) {
                     AddProjectScreenRoot(viewModel = koinViewModel(), navController = navController)
+                }
+                composable(Route.AddIssueScreen.route) {
+                    AddIssueScreenRoot(viewModel = koinViewModel(), navController = navController)
                 }
             }
         }

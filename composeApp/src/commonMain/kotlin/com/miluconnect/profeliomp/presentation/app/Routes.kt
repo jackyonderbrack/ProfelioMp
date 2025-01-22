@@ -54,19 +54,28 @@ sealed interface Route {
         override val icon: ImageVector = Icons.Default.Add
         override val isDetailScreen = true
     }
+
+    @Serializable
+    data object AddIssueScreen : Route {
+        override val route = "addNewIssue"
+        override val title = "Create new issue"
+        override val icon: ImageVector = Icons.Default.Add
+        override val isDetailScreen = true
+    }
 }
 
 val allRoutes = listOf(
     // Login Screen
-    Route.LoginScreen, // 0
+    Route.LoginScreen,
 
     // Main Screens
-    Route.BlackboardScreen, // 1
-    Route.WorkScreen, // 2
-    Route.AccountScreen, // 3
+    Route.BlackboardScreen,
+    Route.WorkScreen,
+    Route.AccountScreen,
 
     //Details Screens
-    Route.AddProjectScreen // 4
+    Route.AddProjectScreen,
+    Route.AddIssueScreen
 )
 
 // Current 0 -> Right to 1
