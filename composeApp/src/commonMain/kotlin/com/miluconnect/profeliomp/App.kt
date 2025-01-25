@@ -37,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.presentation.app.Route
 import com.miluconnect.profeliomp.presentation.app.allRoutes
 import com.miluconnect.profeliomp.presentation.components.BottomNavigationBar
+import com.miluconnect.profeliomp.presentation.components.ImagePicker
 import com.miluconnect.profeliomp.presentation.components.TopBar
 import com.miluconnect.profeliomp.presentation.screens.account.AccountScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.blackboard.BlackboardScreenRoot
@@ -51,7 +52,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 @Preview
 fun App(
-    viewModel: AppViewModel = koinViewModel<AppViewModel>()
+    viewModel: AppViewModel = koinViewModel<AppViewModel>(),
+    imagePicker: ImagePicker,
 ) {
     /**
      * Retrieves the current state of the ViewModel as an observable object.
@@ -225,7 +227,11 @@ fun App(
                     AddProjectScreenRoot(viewModel = koinViewModel(), navController = navController)
                 }
                 composable(Route.AddIssueScreen.route) {
-                    AddIssueScreenRoot(viewModel = koinViewModel(), navController = navController)
+                    AddIssueScreenRoot(
+                        viewModel = koinViewModel(),
+                        navController = navController,
+                        imagePicker = imagePicker
+                    )
                 }
             }
         }
