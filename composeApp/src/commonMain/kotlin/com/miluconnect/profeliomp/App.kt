@@ -229,7 +229,10 @@ fun App(
 
                 /* Details navigation screens*/
                 composable(Route.AddProjectScreen.route) {
-                    AddProjectScreenRoot(viewModel = koinViewModel(), navController = navController)
+                    AddProjectScreenRoot(
+                        viewModel = koinViewModel(),
+                        navController = navController
+                    )
                 }
                 composable(Route.AddIssueScreen.route) {
                     AddIssueScreenRoot(
