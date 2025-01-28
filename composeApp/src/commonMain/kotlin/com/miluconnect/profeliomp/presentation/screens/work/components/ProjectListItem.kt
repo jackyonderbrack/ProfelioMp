@@ -32,11 +32,12 @@ import com.miluconnect.profeliomp.domain.models.Project
 @Composable
 fun ProjectListItem(
     projectItem: Project,
+    onItemClick: (String) -> Unit, // create callback from item click
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = {})
+            .clickable(onClick = { projectItem.id?.let { onItemClick(it) }})
             .widthIn(700.dp)
             .border(BorderStroke(1.dp, MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f))),
     ) {

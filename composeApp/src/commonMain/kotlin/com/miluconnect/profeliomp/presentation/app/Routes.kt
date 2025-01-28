@@ -62,6 +62,14 @@ sealed interface Route {
         override val icon: ImageVector = Icons.Default.Add
         override val isDetailScreen = true
     }
+
+    @Serializable
+    data object ProjectDetailsScreen : Route {
+        override val route = "projectDetails/{projectId}"
+        override val title = "Project Details"
+        override val icon: ImageVector = Icons.Default.Add
+        override val isDetailScreen = true
+    }
 }
 
 val allRoutes = listOf(
@@ -75,11 +83,6 @@ val allRoutes = listOf(
 
     //Details Screens
     Route.AddProjectScreen,
-    Route.AddIssueScreen
+    Route.AddIssueScreen,
+    Route.ProjectDetailsScreen
 )
-
-// Current 0 -> Right to 1
-// Current 1 -> Left to 0, Right to 2,
-// Current 2 -> Left to 3, Right to 1,
-// Current 2 -> Left to 4, Right to 2 (back) - analogicznie inne details
-

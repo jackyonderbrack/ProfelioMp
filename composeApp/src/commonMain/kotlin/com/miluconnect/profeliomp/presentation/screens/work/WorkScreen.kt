@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.miluconnect.profeliomp.presentation.components.ScreenSurface
 import com.miluconnect.profeliomp.presentation.components.chipsRow.ChipsRow
 import com.miluconnect.profeliomp.presentation.screens.work.components.IssuesList
@@ -37,20 +38,25 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun WorkScreenRoot(
     viewModel: WorkViewModel = koinViewModel<WorkViewModel>(),
+    navController: NavController,
 ) {
 
     val state by viewModel.state.collectAsState()
 
     WorkScreen(
         state = state,
-        viewModel = viewModel
+        viewModel = viewModel,
+        goToProjectDetails = { projectId ->
+            navController.navigate("projectDetails/$projectId")
+        }
     )
 }
 
 @Composable
 private fun WorkScreen(
     state: WorkState,
-    viewModel: WorkViewModel
+    viewModel: WorkViewModel,
+    goToProjectDetails: (String) -> Unit,
 ) {
     var isDescending by remember { mutableStateOf(false) }
     var selectedFilter by remember { mutableStateOf("") }
@@ -167,7 +173,8 @@ private fun WorkScreen(
                             modifier = Modifier,
                             scrollState = lazyProjectsListState,
                             projectList = filteredAndSortedProjects,
-                            isDescending = isDescending
+                            isDescending = isDescending,
+                            onListClick = { projectId -> goToProjectDetails(projectId)}
                         )
                     },
                     secondTabTitle = "Discussions",

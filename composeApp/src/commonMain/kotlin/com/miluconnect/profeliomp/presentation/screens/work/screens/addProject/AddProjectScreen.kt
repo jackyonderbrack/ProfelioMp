@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.work.addProject
+package com.miluconnect.profeliomp.presentation.screens.work.screens.addProject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

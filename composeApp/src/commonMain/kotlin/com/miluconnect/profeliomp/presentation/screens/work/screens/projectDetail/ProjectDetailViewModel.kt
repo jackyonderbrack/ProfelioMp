@@ -1,8 +1,8 @@
-package com.miluconnect.profeliomp.presentation.screens.work.addIssue
+package com.miluconnect.profeliomp.presentation.screens.work.screens.projectDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miluconnect.profeliomp.data.repository.issue.IssueRepository
+import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
 import com.miluconnect.profeliomp.presentation.core.toUiText
@@ -12,21 +12,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AddIssueViewModel(
-    private val issueRepository: IssueRepository
+class ProjectDetailViewModel(
+    private val projectRepository: ProjectRepository,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(AddIssueState())
-    val state: StateFlow<AddIssueState> get() = _state
+    private val _state = MutableStateFlow(ProjectDetailsState())
+    val state: StateFlow<ProjectDetailsState> get() = _state
 
-    fun onIntent(intent: AddIssueIntent, onNavigateBack: () -> Unit) {
+    fun onIntent(intent: ProjectDetailsIntent, onNavigateBack: () -> Unit) {
         when (intent) {
-            is AddIssueIntent.SubmitForm -> {
+            is ProjectDetailsIntent.SubmitForm -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
-                    issueRepository
-                        .createNewIssue(
-                            intent.newIssue
+                    projectRepository
+                        .createNewProject(
+                            intent.newProjectData
                         )
                         .onSuccess { result ->
                             delay(1000)
@@ -47,7 +47,7 @@ class AddIssueViewModel(
                 }
             }
 
-            AddIssueIntent.DismissForm -> onNavigateBack()
+            ProjectDetailsIntent.DismissForm -> onNavigateBack()
         }
     }
 }

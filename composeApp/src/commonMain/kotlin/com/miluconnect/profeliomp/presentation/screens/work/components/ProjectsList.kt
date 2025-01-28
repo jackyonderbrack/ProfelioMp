@@ -16,7 +16,8 @@ fun ProjectsList(
     projectList: List<Project>,
     scrollState: LazyListState = rememberLazyListState(),
     isDescending: Boolean,
-    modifier: Modifier
+    modifier: Modifier,
+    onListClick: (String) -> Unit, // create callback from list element click
 ) {
 
     val sortedProjectList = remember(projectList, isDescending) {
@@ -36,7 +37,10 @@ fun ProjectsList(
             items = sortedProjectList,
             key = { it.id!! }
         ) { item ->
-            ProjectListItem(projectItem = item)
+            ProjectListItem(
+                projectItem = item,
+                onItemClick = onListClick // pass callback
+            )
         }
     }
 }

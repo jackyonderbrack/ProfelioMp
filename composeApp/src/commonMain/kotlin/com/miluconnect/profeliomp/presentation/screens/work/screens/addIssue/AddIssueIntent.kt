@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.work.addIssue
+package com.miluconnect.profeliomp.presentation.screens.work.screens.addIssue
 
 import com.miluconnect.profeliomp.domain.models.Issue
 
