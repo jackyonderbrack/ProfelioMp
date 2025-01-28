@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.presentation.screens.work.screens.projectDetail
 
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,10 +15,24 @@ fun ProjectDetailScreenRoot(
     projectId: String,
 ) {
     val state by viewModel.state.collectAsState()
-    ProjectDetailScreen(projectId = projectId)
+    ProjectDetailScreen(
+        state = state,
+        viewModel = viewModel,
+        projectId = projectId
+    )
 }
 
 @Composable
-fun ProjectDetailScreen(projectId: String) {
-    Text(text = "Project Details: $projectId")
+fun ProjectDetailScreen(
+    state: ProjectDetailsState,
+    viewModel: ProjectDetailViewModel,
+    projectId: String
+) {
+
+    Button(
+      onClick = { ProjectDetailsIntent.GetProjectDetails(projectId) }
+    ) {
+        Text("Get the data")
+    }
+    Text(text = "Project Details: ${state.projectDetails?.title}")
 }

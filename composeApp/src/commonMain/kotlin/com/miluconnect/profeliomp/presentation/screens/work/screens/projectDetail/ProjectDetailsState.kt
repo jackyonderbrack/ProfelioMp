@@ -7,4 +7,5 @@ data class ProjectDetailsState(
     val isLoading: Boolean = false,
     val successMessage: Project? = null,
     val errorMessage: UiText? = null,
+    val projectDetails: Project? = null,
 )

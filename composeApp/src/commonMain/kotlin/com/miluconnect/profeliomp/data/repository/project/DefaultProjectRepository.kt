@@ -10,6 +10,10 @@ class DefaultProjectRepository : ProjectRepository {
         return Result.Success(createDefaultProjects())
     }
 
+    override suspend fun getProjectDetails(id: String): Result<Project, DataError.Remote> {
+        return Result.Success(createDefaultSingleProject())
+    }
+
     override suspend fun createNewProject(newProject: Project): Result<Project, DataError.Remote> {
         return Result.Success(createDefaultSingleProject())
     }

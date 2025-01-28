@@ -21,18 +21,18 @@ class ProjectDetailViewModel(
 
     fun onIntent(intent: ProjectDetailsIntent, onNavigateBack: () -> Unit) {
         when (intent) {
-            is ProjectDetailsIntent.SubmitForm -> {
+            is ProjectDetailsIntent.GetProjectDetails -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                     projectRepository
-                        .createNewProject(
-                            intent.newProjectData
+                        .getProjectDetails(
+                            intent.id
                         )
                         .onSuccess { result ->
                             delay(1000)
                             _state.update { it.copy(
                                 isLoading = false,
-                                successMessage = result
+                                projectDetails = result
                             ) }
                             onNavigateBack()
                         }
@@ -47,7 +47,7 @@ class ProjectDetailViewModel(
                 }
             }
 
-            ProjectDetailsIntent.DismissForm -> onNavigateBack()
+            ProjectDetailsIntent.GoBack -> onNavigateBack()
         }
     }
 }

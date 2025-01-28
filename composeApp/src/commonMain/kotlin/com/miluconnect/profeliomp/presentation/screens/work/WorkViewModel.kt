@@ -34,7 +34,6 @@ class WorkViewModel(
             is WorkIntent.GetIssuesList -> {
                 _state.update { it.copy(isLoading = true) }
                 getAllIssuesList()
-
             }
         }
     }

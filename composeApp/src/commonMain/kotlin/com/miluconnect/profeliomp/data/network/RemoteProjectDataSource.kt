@@ -12,6 +12,7 @@ import io.ktor.http.HttpMethod
 
 interface RemoteProjectDataSource {
     suspend fun getAllProjects(): Result<List<ProjectDto>, DataError.Remote>
+    suspend fun getProjectDetails(id: String): Result<ProjectDto, DataError.Remote>
     suspend fun createNewProject(newProject: Project): Result<ProjectDto, DataError.Remote>
 }
 
@@ -26,6 +27,16 @@ class RemoteProjectDataSourceImpl (
             httpClient = httpClient,
             preferencesRepository = preferencesRepository,
             url = "$BASE_URL/projects/all"
+        )
+    }
+
+    override suspend fun getProjectDetails(id: String): Result<ProjectDto, DataError.Remote> {
+        return makeRequest(
+            requireAuth = true,
+            method = HttpMethod.Get,
+            httpClient = httpClient,
+            preferencesRepository = preferencesRepository,
+            url = "$BASE_URL/projects/${id}"
         )
     }
 
