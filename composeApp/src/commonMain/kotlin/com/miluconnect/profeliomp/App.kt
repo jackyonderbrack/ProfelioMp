@@ -45,8 +45,7 @@ import com.miluconnect.profeliomp.presentation.screens.login.LoginScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.work.WorkScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.work.screens.addIssue.AddIssueScreenRoot
 import com.miluconnect.profeliomp.presentation.screens.work.screens.addProject.AddProjectScreenRoot
-import com.miluconnect.profeliomp.presentation.screens.work.screens.projectDetail.ProjectDetailScreen
-import com.miluconnect.profeliomp.presentation.screens.work.screens.projectDetail.ProjectDetailScreenRoot
+import com.miluconnect.profeliomp.presentation.screens.work.screens.project.ProjectDetailScreenRoot
 import com.miluconnect.profeliomp.presentation.theme.ProfelioTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel

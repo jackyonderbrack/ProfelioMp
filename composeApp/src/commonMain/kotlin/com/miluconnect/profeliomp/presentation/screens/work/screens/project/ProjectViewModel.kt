@@ -1,4 +1,4 @@
-package com.miluconnect.profeliomp.presentation.screens.work.screens.projectDetail
+package com.miluconnect.profeliomp.presentation.screens.work.screens.project
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ProjectDetailViewModel(
+class ProjectViewModel(
     private val projectRepository: ProjectRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProjectDetailsState())
     val state: StateFlow<ProjectDetailsState> get() = _state
 
-    fun onIntent(intent: ProjectDetailsIntent, onNavigateBack: () -> Unit) {
+    fun onIntent(intent: ProjectIntent) {
         when (intent) {
-            is ProjectDetailsIntent.GetProjectDetails -> {
+            is ProjectIntent.GetProject -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                     projectRepository
@@ -32,9 +32,8 @@ class ProjectDetailViewModel(
                             delay(1000)
                             _state.update { it.copy(
                                 isLoading = false,
-                                projectDetails = result
+                                project = result
                             ) }
-                            onNavigateBack()
                         }
                         .onError { error ->
                             delay(1000)
@@ -46,8 +45,6 @@ class ProjectDetailViewModel(
                         }
                 }
             }
-
-            ProjectDetailsIntent.GoBack -> onNavigateBack()
         }
     }
 }
