@@ -230,7 +230,8 @@ fun App(
                 composable(Route.AddProjectScreen.route) {
                     AddProjectScreenRoot(
                         viewModel = koinViewModel(),
-                        navController = navController
+                        navController = navController,
+                        imagePicker = imagePicker
                     )
                 }
                 composable(Route.AddIssueScreen.route) {

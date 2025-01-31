@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.miluconnect.profeliomp.presentation.components.ImagePicker
 import com.miluconnect.profeliomp.presentation.screens.work.components.AddProjectForm
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -28,6 +29,7 @@ import profeliomp.composeapp.generated.resources.add_new_project_title
 fun AddProjectScreenRoot(
     viewModel: AddProjectViewModel = koinViewModel<AddProjectViewModel>(),
     navController: NavController,
+    imagePicker: ImagePicker,
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -43,14 +45,16 @@ fun AddProjectScreenRoot(
                     navController.popBackStack()
                 }
             }
-        }
+        },
+        imagePicker = imagePicker
     )
 }
 
 @Composable
 fun AddProjectScreen(
     onIntent: (AddProjectIntent) -> Unit,
-    state: AddProjectState
+    state: AddProjectState,
+    imagePicker: ImagePicker,
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -79,7 +83,8 @@ fun AddProjectScreen(
                     },
                     onDismiss = {
                         onIntent(AddProjectIntent.DismissForm)
-                    }
+                    },
+                    imagePicker = imagePicker,
                 )
             }
         }

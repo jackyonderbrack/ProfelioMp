@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -22,9 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.miluconnect.profeliomp.domain.models.Project
-import com.miluconnect.profeliomp.presentation.components.Button
 import com.miluconnect.profeliomp.presentation.components.ButtonType
+import com.miluconnect.profeliomp.presentation.components.ImagePicker
+import com.miluconnect.profeliomp.presentation.components.ProfelioButton
 import org.jetbrains.compose.resources.stringResource
 import profeliomp.composeapp.generated.resources.Res
 import profeliomp.composeapp.generated.resources.new_project_create_button_label
@@ -39,7 +43,8 @@ import profeliomp.composeapp.generated.resources.new_project_place
 @Composable
 fun AddProjectForm(
     onSubmit: (Project) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    imagePicker: ImagePicker,
 ) {
     var projectState by remember {
         mutableStateOf(
@@ -51,10 +56,13 @@ fun AddProjectForm(
                 endDate = "",
                 city = "",
                 status = null,
-                labels = emptyList()
+                labels = emptyList(),
+                media = emptyList()
             )
         )
     }
+
+    var selectedImageUri by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -82,6 +90,23 @@ fun AddProjectForm(
             )
 
             Spacer(modifier = Modifier.height(4.dp))
+
+            // IMAGE PICKER BUTTON
+            Button(onClick = { imagePicker.pickImage { uri -> selectedImageUri = uri } }) {
+                Text(text = "Wybierz zdjęcie projektu")
+            }
+
+            // IMAGE PREVIEW
+            selectedImageUri?.let { uri ->
+                Spacer(modifier = Modifier.height(8.dp))
+                AsyncImage(
+                    model = uri,
+                    contentDescription = "Podgląd zdjęcia",
+                    modifier = Modifier.size(200.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             /* END DATE FIELD */
             Text(
@@ -148,13 +173,13 @@ fun AddProjectForm(
                 modifier = Modifier.align(Alignment.End),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Button(
+                ProfelioButton(
                     modifier = Modifier.weight(1f).height(48.dp),
                     onClick = { onDismiss() },
                     label = stringResource(Res.string.new_project_dismiss_button_label),
                     buttonType = ButtonType.TEXT
                 )
-                Button(
+                ProfelioButton(
                     modifier = Modifier.weight(1f).height(48.dp),
                     onClick = { onSubmit(projectState) },
                     label = stringResource(Res.string.new_project_create_button_label)

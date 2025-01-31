@@ -13,4 +13,5 @@ data class ProjectDto(
     @SerialName("city") val city: String,
     @SerialName("status") val status: String,
     @SerialName("labels") val labels: List<String>,
+    @SerialName("media") val media: List<MediaDto>?
 )

@@ -11,5 +11,6 @@ data class Project(
     val endDate: String,
     val city: String,
     val status: String? = null,
-    val labels: List<String>? = emptyList()
+    val labels: List<String>? = emptyList(),
+    val media: List<Media>? = emptyList(),
 )

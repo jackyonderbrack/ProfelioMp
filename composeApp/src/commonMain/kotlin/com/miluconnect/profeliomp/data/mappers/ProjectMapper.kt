@@ -12,6 +12,7 @@ fun ProjectDto.toProjectModel(): Project {
         endDate = endDate,
         city = city,
         status = status,
-        labels = labels
+        labels = labels,
+        media = media?.map { it.toMediaModel() }
     )
 }

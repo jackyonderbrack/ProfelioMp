@@ -1,11 +1,8 @@
 package com.miluconnect.profeliomp.presentation.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -17,7 +14,7 @@ enum class ButtonType {
 }
 
 @Composable
-fun Button(
+fun ProfelioButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     buttonType: ButtonType = ButtonType.FILLED,

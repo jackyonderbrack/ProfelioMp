@@ -16,8 +16,8 @@ class ProjectViewModel(
     private val projectRepository: ProjectRepository,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(ProjectDetailsState())
-    val state: StateFlow<ProjectDetailsState> get() = _state
+    private val _state = MutableStateFlow(ProjectState())
+    val state: StateFlow<ProjectState> get() = _state
 
     fun onIntent(intent: ProjectIntent) {
         when (intent) {

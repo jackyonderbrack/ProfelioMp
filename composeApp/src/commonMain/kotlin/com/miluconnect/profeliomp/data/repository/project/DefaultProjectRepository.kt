@@ -1,6 +1,5 @@
 package com.miluconnect.profeliomp.data.repository.project
 
-import com.miluconnect.profeliomp.data.dto.ProjectDto
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.Result
 import com.miluconnect.profeliomp.domain.models.Project
@@ -21,13 +20,13 @@ class DefaultProjectRepository : ProjectRepository {
     // Mocks:
     private fun createDefaultSingleProject(): Project {
         return Project(
-            id = "1",
-            title = "New house in Miami",
-            customer = "Mariah",
-            startDate = "20.01.2025",
-            endDate = "30.11.2025",
-            city = "Miami",
-            status = "Ongoing"
+                id = "1",
+                title = "New house in Miami",
+                customer = "Mariah",
+                startDate = "20.01.2025",
+                endDate = "30.11.2025",
+                city = "Miami",
+                status = "Ongoing",
             )
     }
 
