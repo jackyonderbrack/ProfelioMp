@@ -13,6 +13,6 @@ fun ProjectDto.toProjectModel(): Project {
         city = city,
         status = status,
         labels = labels,
-        media = media?.map { it.toMediaModel() }
+        media = media?.map { it.toMediaModel() } ?: emptyList()
     )
 }
