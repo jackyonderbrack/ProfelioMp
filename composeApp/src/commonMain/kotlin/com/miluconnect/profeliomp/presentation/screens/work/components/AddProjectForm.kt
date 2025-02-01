@@ -57,7 +57,7 @@ fun AddProjectForm(
                 city = "",
                 status = null,
                 labels = emptyList(),
-                media = emptyList()
+                media = null
             )
         )
     }
