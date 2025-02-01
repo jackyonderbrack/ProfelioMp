@@ -2,7 +2,7 @@ package com.miluconnect.profeliomp.data.core
 
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.domain.core.DataError
-import com.miluconnect.profeliomp.domain.core.Result
+import com.miluconnect.profeliomp.domain.core.DataResult
 import io.ktor.client.HttpClient
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
@@ -29,9 +29,9 @@ suspend inline fun <reified T> makeRequest(
     body: Any? = null,
     headers: Map<String, String> = emptyMap(),
     requireAuth: Boolean = false
-): Result<T, DataError.Remote> {
+): DataResult<T, DataError.Remote> {
     val token = if (requireAuth) {
-        preferencesRepository.getToken().firstOrNull() ?: return Result.Error(DataError.Remote.UNAUTHORIZED)
+        preferencesRepository.getToken().firstOrNull() ?: return DataResult.Error(DataError.Remote.UNAUTHORIZED)
     } else null
 
     return try {
@@ -50,17 +50,17 @@ suspend inline fun <reified T> makeRequest(
 
     } catch(e: SocketTimeoutException) {
         e.printStackTrace()
-        return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
+        return DataResult.Error(DataError.Remote.REQUEST_TIMEOUT)
     } catch (e: UnresolvedAddressException) {
         e.printStackTrace()
-        return Result.Error(DataError.Remote.NO_INTERNET)
+        return DataResult.Error(DataError.Remote.NO_INTERNET)
     } catch (e: SerializationException) {
         e.printStackTrace()
-        return Result.Error(DataError.Remote.SERIALIZATION)
+        return DataResult.Error(DataError.Remote.SERIALIZATION)
     } catch (e: Exception) {
         e.printStackTrace()
         coroutineContext.ensureActive()
-        return Result.Error(DataError.Remote.UNKNOWN)
+        return DataResult.Error(DataError.Remote.UNKNOWN)
     }
 }
 
@@ -70,31 +70,31 @@ suspend inline fun <reified T> makeRequest(
 suspend inline fun <reified T> handleResponse(
     response: HttpResponse,
     preferencesRepository: PreferencesRepository
-): Result<T, DataError.Remote> {
+): DataResult<T, DataError.Remote> {
     return when (response.status.value) {
         in 200..299 -> {
             try {
-                Result.Success(response.body())
+                DataResult.Success(response.body())
             } catch (e: NoTransformationFoundException) {
-                Result.Error(DataError.Remote.SERIALIZATION)
+                DataResult.Error(DataError.Remote.SERIALIZATION)
             }
         }
-        307 -> Result.Error(DataError.Remote.TEMPORARY_REDIRECT)
-        400 -> Result.Error(DataError.Remote.BAD_REQUEST)
+        307 -> DataResult.Error(DataError.Remote.TEMPORARY_REDIRECT)
+        400 -> DataResult.Error(DataError.Remote.BAD_REQUEST)
         401 -> {
             preferencesRepository.clearPreferences()
-            Result.Error(DataError.Remote.UNAUTHORIZED)
+            DataResult.Error(DataError.Remote.UNAUTHORIZED)
         }
-        404 -> Result.Error(DataError.Remote.NOT_FOUND)
-        408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
-        429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
-        500 -> Result.Error(DataError.Remote.BAD_GATEWAY)
-        501 -> Result.Error(DataError.Remote.NOT_IMPLEMENTED)
-        502 -> Result.Error(DataError.Remote.BAD_GATEWAY)
-        503 -> Result.Error(DataError.Remote.SERVICE_UNAVAILABLE)
-        504 -> Result.Error(DataError.Remote.GATEWAY_TIMEOUT)
-        in 505..599 -> Result.Error(DataError.Remote.SERVER_ERROR)
-        else -> Result.Error(DataError.Remote.UNKNOWN)
+        404 -> DataResult.Error(DataError.Remote.NOT_FOUND)
+        408 -> DataResult.Error(DataError.Remote.REQUEST_TIMEOUT)
+        429 -> DataResult.Error(DataError.Remote.TOO_MANY_REQUESTS)
+        500 -> DataResult.Error(DataError.Remote.BAD_GATEWAY)
+        501 -> DataResult.Error(DataError.Remote.NOT_IMPLEMENTED)
+        502 -> DataResult.Error(DataError.Remote.BAD_GATEWAY)
+        503 -> DataResult.Error(DataError.Remote.SERVICE_UNAVAILABLE)
+        504 -> DataResult.Error(DataError.Remote.GATEWAY_TIMEOUT)
+        in 505..599 -> DataResult.Error(DataError.Remote.SERVER_ERROR)
+        else -> DataResult.Error(DataError.Remote.UNKNOWN)
     }
 }
 

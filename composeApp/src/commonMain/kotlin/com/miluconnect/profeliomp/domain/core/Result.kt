@@ -1,39 +1,39 @@
 package com.miluconnect.profeliomp.domain.core
 
-sealed interface Result<out D, out E: Error> {
-    data class Success<out D>(val data: D): Result<D, Nothing>
+sealed interface DataResult<out D, out E: Error> {
+    data class Success<out D>(val data: D): DataResult<D, Nothing>
     data class Error<out E: com.miluconnect.profeliomp.domain.core.Error>(val error: E):
-        Result<Nothing, E>
+        DataResult<Nothing, E>
 }
 
-inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
+inline fun <T, E: Error, R> DataResult<T, E>.map(map: (T) -> R): DataResult<R, E> {
     return when(this) {
-        is Result.Error -> Result.Error(error)
-        is Result.Success -> Result.Success(map(data))
+        is DataResult.Error -> DataResult.Error(error)
+        is DataResult.Success -> DataResult.Success(map(data))
     }
 }
 
-fun <T, E: Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
+fun <T, E: Error> DataResult<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map {  }
 }
 
-inline fun <T, E: Error> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T, E> {
+inline fun <T, E: Error> DataResult<T, E>.onSuccess(action: (T) -> Unit): DataResult<T, E> {
     return when(this) {
-        is Result.Error -> this
-        is Result.Success -> {
+        is DataResult.Error -> this
+        is DataResult.Success -> {
             action(data)
             this
         }
     }
 }
-inline fun <T, E: Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E> {
+inline fun <T, E: Error> DataResult<T, E>.onError(action: (E) -> Unit): DataResult<T, E> {
     return when(this) {
-        is Result.Error -> {
+        is DataResult.Error -> {
             action(error)
             this
         }
-        is Result.Success -> this
+        is DataResult.Success -> this
     }
 }
 
-typealias EmptyResult<E> = Result<Unit, E>
+typealias EmptyResult<E> = DataResult<Unit, E>

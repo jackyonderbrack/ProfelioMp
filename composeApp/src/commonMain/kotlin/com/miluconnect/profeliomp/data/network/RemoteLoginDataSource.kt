@@ -5,20 +5,20 @@ import com.miluconnect.profeliomp.data.core.makeRequest
 import com.miluconnect.profeliomp.data.dto.LoginResponseDto
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.domain.core.DataError
-import com.miluconnect.profeliomp.domain.core.Result
+import com.miluconnect.profeliomp.domain.core.DataResult
 import com.miluconnect.profeliomp.domain.models.LoginPayload
 import io.ktor.client.HttpClient
 import io.ktor.http.HttpMethod
 
 interface RemoteLoginDataSource {
-    suspend fun login(loginPayload: LoginPayload): Result<LoginResponseDto, DataError.Remote>
+    suspend fun login(loginPayload: LoginPayload): DataResult<LoginResponseDto, DataError.Remote>
 }
 
 class RemoteLoginDataSourceImpl (
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ): RemoteLoginDataSource {
-    override suspend fun login(loginPayload: LoginPayload): Result<LoginResponseDto, DataError.Remote> {
+    override suspend fun login(loginPayload: LoginPayload): DataResult<LoginResponseDto, DataError.Remote> {
         return makeRequest(
             requireAuth = false,
             method = HttpMethod.Post,

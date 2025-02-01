@@ -1,12 +1,12 @@
 package com.miluconnect.profeliomp.data.repository.offer
 
 import com.miluconnect.profeliomp.domain.core.DataError
-import com.miluconnect.profeliomp.domain.core.Result
+import com.miluconnect.profeliomp.domain.core.DataResult
 import com.miluconnect.profeliomp.domain.models.Offer
 
 class DefaultOfferRepository : OfferRepository {
-    override suspend fun getAllOffers(): Result<List<Offer>, DataError.Remote> {
-        return Result.Success(createDefaultOffers())
+    override suspend fun getAllOffers(): DataResult<List<Offer>, DataError.Remote> {
+        return DataResult.Success(createDefaultOffers())
     }
 
     private fun createDefaultOffers(): List<Offer> {

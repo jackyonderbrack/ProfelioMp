@@ -5,20 +5,20 @@ import com.miluconnect.profeliomp.data.core.makeRequest
 import com.miluconnect.profeliomp.data.dto.OfferDto
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.domain.core.DataError
-import com.miluconnect.profeliomp.domain.core.Result
+import com.miluconnect.profeliomp.domain.core.DataResult
 import io.ktor.client.HttpClient
 import io.ktor.http.HttpMethod
 
 
 interface RemoteOfferDataSource {
-    suspend fun getAllOffers(): Result<List<OfferDto>, DataError.Remote>
+    suspend fun getAllOffers(): DataResult<List<OfferDto>, DataError.Remote>
 }
 
 class RemoteOfferDataSourceImpl (
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ): RemoteOfferDataSource {
-    override suspend fun getAllOffers(): Result<List<OfferDto>, DataError.Remote> {
+    override suspend fun getAllOffers(): DataResult<List<OfferDto>, DataError.Remote> {
         return makeRequest(
             requireAuth = true,
             method = HttpMethod.Get,
