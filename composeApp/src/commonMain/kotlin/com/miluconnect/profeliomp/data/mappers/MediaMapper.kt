@@ -12,6 +12,7 @@ fun MediaDto.toMediaModel(): Media {
         fileName = fileName,
         filePath = filePath,
         mimeType = mimeType,
-        createdAt = createdAt
+        createdAt = createdAt,
+        fileBytes = ByteArray(0)
     )
 }
