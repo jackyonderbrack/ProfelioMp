@@ -6,29 +6,45 @@ import com.miluconnect.profeliomp.data.dto.MediaDto
 import com.miluconnect.profeliomp.data.repository.preferences.PreferencesRepository
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.DataResult
-import com.miluconnect.profeliomp.domain.models.Media
 import io.ktor.client.HttpClient
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
+import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
-import io.ktor.http.headersOf
 
 interface RemoteMediaDataSource {
-    suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote>
+    suspend fun uploadMedia(image: ByteArray, relatedId: String? = null): DataResult<MediaDto, DataError.Remote>
 }
 
 class RemoteMediaDataSourceImpl(
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ) : RemoteMediaDataSource {
-    override suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote> {
+    override suspend fun uploadMedia(image: ByteArray, relatedId: String?): DataResult<MediaDto, DataError.Remote> {
+        val multipartData = MultiPartFormDataContent(
+            formData {
+                append("file", image, Headers.build {
+                    append(
+                        name = HttpHeaders.ContentType,
+                        value = "image/jpeg"
+                    )
+                    append(
+                        name = HttpHeaders.ContentDisposition,
+                        value = "form-data; name=\"file\"; filename=\"image.jpg\""
+                    )
+                })
+                relatedId?.let {
+                    append("relatedId", it)
+                }
+            }
+        )
         return makeRequest(
             httpClient = httpClient,
             preferencesRepository = preferencesRepository,
             url = "$BASE_URL/media/create",
             method = HttpMethod.Post,
-//            body = multipartData,
+            body = multipartData,
             requireAuth = true
         )
     }
