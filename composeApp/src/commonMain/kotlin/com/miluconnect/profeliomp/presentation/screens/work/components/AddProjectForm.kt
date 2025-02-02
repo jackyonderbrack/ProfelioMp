@@ -42,7 +42,7 @@ import profeliomp.composeapp.generated.resources.new_project_place
 
 @Composable
 fun AddProjectForm(
-    onSubmit: (Project) -> Unit,
+    onSubmit: (Project, String) -> Unit,
     onDismiss: () -> Unit,
     imagePicker: ImagePicker,
 ) {
@@ -181,7 +181,7 @@ fun AddProjectForm(
                 )
                 ProfelioButton(
                     modifier = Modifier.weight(1f).height(48.dp),
-                    onClick = { onSubmit(projectState) },
+                    onClick = { selectedImageUri?.let { onSubmit(projectState, it) } },
                     label = stringResource(Res.string.new_project_create_button_label)
                 )
             }

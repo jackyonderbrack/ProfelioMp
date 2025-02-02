@@ -78,8 +78,10 @@ fun AddProjectScreen(
                 CircularProgressIndicator(modifier = Modifier.size(128.dp))
             } else {
                 AddProjectForm(
-                    onSubmit = { newProject ->
-                        onIntent(AddProjectIntent.SubmitNewProject(newProject))
+                    onSubmit = { newProject, selectedImageUri ->
+                        onIntent(AddProjectIntent.SubmitNewProject(
+                            newProject, selectedImageUri
+                        ))
                     },
                     onDismiss = {
                         onIntent(AddProjectIntent.DismissForm)

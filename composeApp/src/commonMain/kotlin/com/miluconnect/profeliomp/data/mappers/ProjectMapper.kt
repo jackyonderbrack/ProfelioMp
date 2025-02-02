@@ -13,6 +13,6 @@ fun ProjectDto.toProjectModel(): Project {
         city = city,
         status = status,
         labels = labels,
-        picture = picture?.toMediaModel()
+        picture = picture?.filePath
     )
 }

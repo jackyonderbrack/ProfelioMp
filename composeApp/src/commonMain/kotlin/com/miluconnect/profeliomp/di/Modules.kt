@@ -6,6 +6,8 @@ import com.miluconnect.profeliomp.data.network.RemoteIssueDataSource
 import com.miluconnect.profeliomp.data.network.RemoteIssuesDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSource
 import com.miluconnect.profeliomp.data.network.RemoteLoginDataSourceImpl
+import com.miluconnect.profeliomp.data.network.RemoteMediaDataSource
+import com.miluconnect.profeliomp.data.network.RemoteMediaDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteOfferDataSource
 import com.miluconnect.profeliomp.data.network.RemoteOfferDataSourceImpl
 import com.miluconnect.profeliomp.data.network.RemoteProjectDataSource
@@ -16,6 +18,8 @@ import com.miluconnect.profeliomp.data.repository.issue.IssueRepository
 import com.miluconnect.profeliomp.data.repository.issue.IssueRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.login.LoginRepository
 import com.miluconnect.profeliomp.data.repository.login.LoginRepositoryImpl
+import com.miluconnect.profeliomp.data.repository.media.MediaRepository
+import com.miluconnect.profeliomp.data.repository.media.MediaRepositoryImpl
 import com.miluconnect.profeliomp.data.repository.offer.DefaultOfferRepository
 import com.miluconnect.profeliomp.data.repository.offer.OfferRepository
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
@@ -45,6 +49,7 @@ val sharedModule: Module = module {
     singleOf(::RemoteOfferDataSourceImpl).bind<RemoteOfferDataSource>()
     singleOf(::RemoteProjectDataSourceImpl).bind<RemoteProjectDataSource>()
     singleOf(::RemoteIssuesDataSourceImpl).bind<RemoteIssueDataSource>()
+    singleOf(::RemoteMediaDataSourceImpl).bind<RemoteMediaDataSource>()
 
     // Repositories
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
@@ -52,6 +57,7 @@ val sharedModule: Module = module {
     singleOf(::DefaultOfferRepository).bind<OfferRepository>()
     singleOf(::ProjectRepositoryImpl).bind<ProjectRepository>()
     singleOf(::IssueRepositoryImpl).bind<IssueRepository>()
+    singleOf(::MediaRepositoryImpl).bind<MediaRepository>()
 
     // ViewModels
     viewModelOf(::AppViewModel)
