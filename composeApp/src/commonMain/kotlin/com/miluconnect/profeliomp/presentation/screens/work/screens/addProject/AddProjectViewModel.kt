@@ -21,7 +21,7 @@ class AddProjectViewModel(
 
     fun onIntent(intent: AddProjectIntent, onNavigateBack: () -> Unit) {
         when (intent) {
-            is AddProjectIntent.SubmitForm -> {
+            is AddProjectIntent.SubmitNewProject -> {
                 viewModelScope.launch {
                     _state.update { it.copy(isLoading = true) }
                     projectRepository

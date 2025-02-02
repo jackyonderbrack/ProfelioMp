@@ -38,7 +38,7 @@ fun AddProjectScreenRoot(
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is AddProjectIntent.SubmitForm -> viewModel.onIntent(intent) {
+                is AddProjectIntent.SubmitNewProject -> viewModel.onIntent(intent) {
                     navController.popBackStack()
                 }
                 is AddProjectIntent.DismissForm -> {
@@ -79,7 +79,7 @@ fun AddProjectScreen(
             } else {
                 AddProjectForm(
                     onSubmit = { newProject ->
-                        onIntent(AddProjectIntent.SubmitForm(newProject))
+                        onIntent(AddProjectIntent.SubmitNewProject(newProject))
                     },
                     onDismiss = {
                         onIntent(AddProjectIntent.DismissForm)
