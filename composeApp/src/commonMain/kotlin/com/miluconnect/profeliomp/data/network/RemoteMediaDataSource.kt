@@ -15,49 +15,21 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.headersOf
 
 interface RemoteMediaDataSource {
-    suspend fun uploadMedia(media: Media): DataResult<MediaDto, DataError.Remote>
-    suspend fun getMedia(relatedId: String): DataResult<MediaDto, DataError.Remote>
+    suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote>
 }
 
 class RemoteMediaDataSourceImpl(
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ) : RemoteMediaDataSource {
-    override suspend fun uploadMedia(media: Media): DataResult<MediaDto, DataError.Remote> {
-        val multipartData = MultiPartFormDataContent(
-            formData {
-                append(
-                    key = "file",
-                    value = media.fileBytes,
-                    headers = headersOf(
-                        HttpHeaders.ContentType to listOf(media.mimeType),
-                        HttpHeaders.ContentDisposition to listOf("filename=\"${media.fileName}\"")
-                    )
-                )
-                append("relatedId", media.relatedId)
-                append("fileName", media.fileName)
-                append("mimeType", media.mimeType)
-                append("createdAt", media.createdAt)
-            }
-        )
-
+    override suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote> {
         return makeRequest(
             httpClient = httpClient,
             preferencesRepository = preferencesRepository,
             url = "$BASE_URL/media/create",
             method = HttpMethod.Post,
-            body = multipartData,
+//            body = multipartData,
             requireAuth = true
-        )
-    }
-
-    override suspend fun getMedia(relatedId: String): DataResult<MediaDto, DataError.Remote> {
-        return makeRequest(
-            requireAuth = true,
-            method = HttpMethod.Get,
-            httpClient = httpClient,
-            preferencesRepository = preferencesRepository,
-            url = "$BASE_URL/media/get/$relatedId"
         )
     }
 }
