@@ -8,7 +8,6 @@ import com.miluconnect.profeliomp.domain.models.Project
 fun MediaDto.toMediaModel(): Media {
     return Media(
         id = id,
-        relatedId = relatedId,
         fileName = fileName,
         filePath = filePath,
         mimeType = mimeType,

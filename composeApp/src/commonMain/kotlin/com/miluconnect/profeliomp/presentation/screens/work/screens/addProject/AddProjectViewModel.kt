@@ -30,13 +30,12 @@ class AddProjectViewModel(
                     _state.update { it.copy(isLoading = true) }
                     var projectToSubmit = intent.newProjectData
 
-                    // Jeśli użytkownik wybrał obraz, próbujemy go przetworzyć i wysłać:
                     if (intent.selectedProjectImage != null) {
                         val imageBytes = convertUriToByteArray(intent.selectedProjectImage)
                         if (imageBytes != null) {
                             when (val uploadResult = mediaRepository.uploadImage(imageBytes)) {
                                 is DataResult.Success -> {
-                                    projectToSubmit = projectToSubmit.copy(picture = uploadResult.data.filePath)
+                                    projectToSubmit = projectToSubmit.copy(pictureUrl = uploadResult.data.filePath)
                                 }
                                 is DataResult.Error -> {
                                     _state.update {

@@ -31,7 +31,7 @@ class RemoteMediaDataSourceImpl(
                     )
                     append(
                         name = HttpHeaders.ContentDisposition,
-                        value = "form-data; name=\"file\"; filename=\"image.jpg\""
+                        value = "name=\"file\"; filename=\"image.jpg\""
                     )
                 })
             }
