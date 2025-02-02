@@ -14,14 +14,14 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 
 interface RemoteMediaDataSource {
-    suspend fun uploadMedia(image: ByteArray, relatedId: String? = null): DataResult<MediaDto, DataError.Remote>
+    suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote>
 }
 
 class RemoteMediaDataSourceImpl(
     private val httpClient: HttpClient,
     private val preferencesRepository: PreferencesRepository
 ) : RemoteMediaDataSource {
-    override suspend fun uploadMedia(image: ByteArray, relatedId: String?): DataResult<MediaDto, DataError.Remote> {
+    override suspend fun uploadMedia(image: ByteArray): DataResult<MediaDto, DataError.Remote> {
         val multipartData = MultiPartFormDataContent(
             formData {
                 append("file", image, Headers.build {
@@ -34,9 +34,6 @@ class RemoteMediaDataSourceImpl(
                         value = "form-data; name=\"file\"; filename=\"image.jpg\""
                     )
                 })
-                relatedId?.let {
-                    append("relatedId", it)
-                }
             }
         )
         return makeRequest(
