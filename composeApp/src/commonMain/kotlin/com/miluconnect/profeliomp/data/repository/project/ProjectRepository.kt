@@ -4,12 +4,14 @@ import com.miluconnect.profeliomp.data.mappers.toProjectModel
 import com.miluconnect.profeliomp.data.network.RemoteProjectDataSource
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.DataResult
+import com.miluconnect.profeliomp.domain.core.EmptyResult
 import com.miluconnect.profeliomp.domain.core.map
 import com.miluconnect.profeliomp.domain.models.Project
 
 interface ProjectRepository {
     suspend fun getAllProjects(): DataResult<List<Project>, DataError.Remote>
     suspend fun getProjectDetails(id: String): DataResult<Project, DataError.Remote>
+    suspend fun deleteProject(id: String): EmptyResult<DataError.Remote>
     suspend fun createNewProject(newProject: Project): DataResult<Project, DataError.Remote>
 }
 
@@ -26,6 +28,12 @@ class ProjectRepositoryImpl(
         return remoteDataSource
             .getProjectDetails(id)
             .map { it.toProjectModel() }
+    }
+
+    override suspend fun deleteProject(id: String): EmptyResult<DataError.Remote> {
+        return remoteDataSource
+            .deleteProject(id)
+            .map {  }
     }
 
     override suspend fun createNewProject(newProject: Project): DataResult<Project, DataError.Remote> {

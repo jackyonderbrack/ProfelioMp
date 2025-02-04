@@ -32,17 +32,19 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ProjectDetailScreenRoot(
     viewModel: ProjectViewModel = koinViewModel<ProjectViewModel>(),
-    navController: NavController,
     projectId: String,
+    popStackBack: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     ProjectDetailScreen(
         state = state,
-//        viewModel = viewModel,
         projectId = projectId,
         onIntent = { intent ->
             when (intent) {
                 is ProjectIntent.GetProject -> viewModel.onIntent(intent)
+                is ProjectIntent.DeleteProject -> viewModel.onIntent(intent) {
+                    popStackBack()
+                }
             }
         }
     )
@@ -51,7 +53,6 @@ fun ProjectDetailScreenRoot(
 @Composable
 fun ProjectDetailScreen(
     state: ProjectState,
-//    viewModel: ProjectViewModel,
     projectId: String,
     onIntent: (ProjectIntent) -> Unit,
 ) {
@@ -62,6 +63,11 @@ fun ProjectDetailScreen(
             onClick = { onIntent(ProjectIntent.GetProject(projectId)) }
         ) {
             Text("Get the data")
+        }
+        Button(
+            onClick = { onIntent(ProjectIntent.DeleteProject(projectId)) }
+        ) {
+            Text("Delete")
         }
 
         /* PROJECT META ROW */

@@ -2,6 +2,8 @@ package com.miluconnect.profeliomp.presentation.screens.work.screens.project
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.miluconnect.profeliomp.data.repository.project.ProjectRepository
 import com.miluconnect.profeliomp.domain.core.onError
 import com.miluconnect.profeliomp.domain.core.onSuccess
@@ -19,7 +21,10 @@ class ProjectViewModel(
     private val _state = MutableStateFlow(ProjectState())
     val state: StateFlow<ProjectState> get() = _state
 
-    fun onIntent(intent: ProjectIntent) {
+    fun onIntent(
+        intent: ProjectIntent,
+        onNavigateBack: (() -> Unit)? = null
+    ) {
         when (intent) {
             is ProjectIntent.GetProject -> {
                 viewModelScope.launch {
@@ -34,6 +39,32 @@ class ProjectViewModel(
                                 isLoading = false,
                                 project = result
                             ) }
+
+                        }
+                        .onError { error ->
+                            delay(1000)
+                            _state.update { it.copy(
+                                isLoading = false,
+                                errorMessage = error.toUiText()
+                            ) }
+                            println(error)
+                        }
+                }
+            }
+
+            is ProjectIntent.DeleteProject -> {
+                viewModelScope.launch {
+                    _state.update { it.copy(isLoading = true) }
+                    projectRepository
+                        .deleteProject(
+                            intent.id
+                        )
+                        .onSuccess {
+                            delay(1000)
+                            _state.update { it.copy(
+                                isLoading = false,
+                            ) }
+                            onNavigateBack?.invoke()
                         }
                         .onError { error ->
                             delay(1000)

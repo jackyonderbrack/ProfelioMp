@@ -237,7 +237,6 @@ fun App(
                 composable(Route.AddIssueScreen.route) {
                     AddIssueScreenRoot(
                         viewModel = koinViewModel(),
-                        navController = navController,
                         imagePicker = imagePicker
                     )
                 }
@@ -246,7 +245,7 @@ fun App(
                     ProjectDetailScreenRoot(
                         projectId = projectId,
                         viewModel = koinViewModel(),
-                        navController = navController
+                        popStackBack = { navController.popBackStack() }
                     )
                 }
             }

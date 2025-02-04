@@ -2,6 +2,7 @@ package com.miluconnect.profeliomp.data.repository.project
 
 import com.miluconnect.profeliomp.domain.core.DataError
 import com.miluconnect.profeliomp.domain.core.DataResult
+import com.miluconnect.profeliomp.domain.core.EmptyResult
 import com.miluconnect.profeliomp.domain.models.Project
 
 class DefaultProjectRepository : ProjectRepository {
@@ -11,6 +12,10 @@ class DefaultProjectRepository : ProjectRepository {
 
     override suspend fun getProjectDetails(id: String): DataResult<Project, DataError.Remote> {
         return DataResult.Success(createDefaultSingleProject())
+    }
+
+    override suspend fun deleteProject(id: String): EmptyResult<DataError.Remote> {
+        TODO("Not yet implemented")
     }
 
     override suspend fun createNewProject(newProject: Project): DataResult<Project, DataError.Remote> {

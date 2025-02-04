@@ -23,7 +23,6 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun AddIssueScreenRoot(
     viewModel: AddIssueViewModel = koinViewModel<AddIssueViewModel>(),
-    navController: NavController,
     imagePicker: ImagePicker
 ) {
     val state by viewModel.state.collectAsState()
