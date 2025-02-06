@@ -22,21 +22,6 @@ fun ColumnScope.ScreenSurface(composable: @Composable () -> Unit) {
         Box {
             /* Component inside */
             composable()
-
-            /* Shadow on component inside box */
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(16.dp)
-//                    .background(
-//                        brush = androidx.compose.ui.graphics.Brush.verticalGradient(
-//                            colors = listOf(
-//                                MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.3f),
-//                                MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0f)
-//                            )
-//                        )
-//                    )
-//            )
         }
     }
 }
