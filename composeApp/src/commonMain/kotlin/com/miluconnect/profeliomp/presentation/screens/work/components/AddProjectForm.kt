@@ -91,19 +91,21 @@ fun AddProjectForm(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // IMAGE PICKER BUTTON
-            Button(onClick = { imagePicker.pickImage { uri -> selectedImageUri = uri } }) {
-                Text(text = "Wybierz zdjęcie projektu")
-            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(onClick = { imagePicker.pickImage { uri -> selectedImageUri = uri } }) {
+                    Text(text = "Wybierz zdjęcie projektu")
+                }
+                selectedImageUri?.let { uri ->
+                    AsyncImage(
+                        model = uri,
+                        contentDescription = "Podgląd zdjęcia",
+                        modifier = Modifier.size(56.dp)
+                    )
+                }
 
-            // IMAGE PREVIEW
-            selectedImageUri?.let { uri ->
-                Spacer(modifier = Modifier.height(8.dp))
-                AsyncImage(
-                    model = uri,
-                    contentDescription = "Podgląd zdjęcia",
-                    modifier = Modifier.size(200.dp)
-                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
