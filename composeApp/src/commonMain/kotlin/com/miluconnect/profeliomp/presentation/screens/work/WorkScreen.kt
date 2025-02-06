@@ -65,6 +65,7 @@ private fun WorkScreen(
     val filterOptions =
         when (state.selectedTabIndex) {
             0 -> listOf("Ongoing", "Completed", "Archived", "Urgent", "Draft")
+            1 -> listOf("All", "Other", "Archived")
             2 -> listOf("To do", "In progress", "Done")
             else -> emptyList()
         }
