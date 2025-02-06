@@ -1,6 +1,9 @@
 package com.miluconnect.profeliomp.presentation.screens.work.screens.project
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
@@ -57,7 +62,7 @@ fun ProjectDetailScreen(
     onIntent: (ProjectIntent) -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())
     ) {
         Button(
             onClick = { onIntent(ProjectIntent.GetProject(projectId)) }
@@ -87,6 +92,8 @@ fun ProjectDetailScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(text = "${state.project?.title}", style = MaterialTheme.typography.headlineSmall)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = "Customer e-mail: ${state.project?.customer}", style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(text = "Project id: ${state.project?.id}", style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(8.dp))
