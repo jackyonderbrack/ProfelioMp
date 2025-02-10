@@ -1,6 +1,7 @@
 package com.miluconnect.profeliomp.presentation.screens.work.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,16 +19,26 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil3.compose.rememberAsyncImagePainter
 import com.miluconnect.profeliomp.domain.models.Project
+import org.jetbrains.compose.resources.painterResource
+import profeliomp.composeapp.generated.resources.Res
+import profeliomp.composeapp.generated.resources.image_deal
 
 @Composable
 fun ProjectListItem(
@@ -54,10 +65,34 @@ fun ProjectListItem(
                     .aspectRatio(0.65f),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    Icons.Filled.MoreVert,
-                    contentDescription = ""
+                var imageLoadResult by remember { mutableStateOf<Result<Painter>?>(null) }
+
+                val painter = rememberAsyncImagePainter(
+                    model = projectItem.pictureUrl,
+                    onSuccess = { result ->
+                        imageLoadResult = if (result.painter.intrinsicSize.width > 1) {
+                            Result.success(result.painter)
+                        } else {
+                            Result.failure(Exception("Invalid image size"))
+                        }
+                    },
+                    onError = {
+                        it.result.throwable.printStackTrace()
+                        imageLoadResult = Result.failure(it.result.throwable)
+                    }
                 )
+
+                when(val result = imageLoadResult) {
+                    null -> CircularProgressIndicator()
+                    else -> {
+                        Image(
+                            painter =
+                            if(result.isSuccess) painter
+                            else painterResource(Res.drawable.image_deal),
+                            contentDescription = ""
+                        )
+                    }
+                }
             }
             Column(
                 modifier = Modifier

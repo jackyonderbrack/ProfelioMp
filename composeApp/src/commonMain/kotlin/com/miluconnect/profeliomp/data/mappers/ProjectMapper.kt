@@ -1,9 +1,11 @@
 package com.miluconnect.profeliomp.data.mappers
 
+import com.miluconnect.profeliomp.data.core.BASE_URL
 import com.miluconnect.profeliomp.data.dto.ProjectDto
 import com.miluconnect.profeliomp.domain.models.Project
 
 fun ProjectDto.toProjectModel(): Project {
+
     return Project(
         id = id,
         title = title,
@@ -13,6 +15,6 @@ fun ProjectDto.toProjectModel(): Project {
         city = city,
         status = status,
         labels = labels,
-        pictureUrl = pictureUrl
+        pictureUrl = "${BASE_URL}/$pictureUrl"
     )
 }

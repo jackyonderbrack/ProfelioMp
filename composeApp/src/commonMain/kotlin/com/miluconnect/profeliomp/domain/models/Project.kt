@@ -1,5 +1,6 @@
 package com.miluconnect.profeliomp.domain.models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,5 +13,5 @@ data class Project(
     val city: String,
     val status: String? = null,
     val labels: List<String>? = emptyList(),
-    val pictureUrl: String? = null,
+    @SerialName("picture_url") val pictureUrl: String? = null,
 )
